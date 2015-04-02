@@ -1,0 +1,574 @@
+{
+    "companyName": "Jascosius",
+    "longName": "Pebble-Pokedex",
+    "projectType": "native",
+    "appKeys": {
+        "first_lang": 0,
+        "second_lang": 1
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "sdkVersion": "3",
+    "shortName": "Pokedex",
+    "targetPlatforms": [
+        "aplite"
+    ],
+    "uuid": "de728f6b-9afc-480f-9fac-2536c746f344",
+    "versionCode": 3,
+    "versionLabel": "3.0",
+    "watchapp": {
+        "watchface": false
+    },
+    "resources": {
+        "media": [
+            {
+                "file": "images/001.png",
+                "name": "IMAGE_POKE001",
+                "type": "png"
+            },
+            {
+                "file": "images/008.png",
+                "name": "IMAGE_POKE008",
+                "type": "png"
+            },
+            {
+                "file": "images/015.png",
+                "name": "IMAGE_POKE015",
+                "type": "png"
+            },
+            {
+                "file": "images/022.png",
+                "name": "IMAGE_POKE022",
+                "type": "png"
+            },
+            {
+                "file": "images/029.png",
+                "name": "IMAGE_POKE029",
+                "type": "png"
+            },
+            {
+                "file": "images/036.png",
+                "name": "IMAGE_POKE036",
+                "type": "png"
+            },
+            {
+                "file": "images/043.png",
+                "name": "IMAGE_POKE043",
+                "type": "png"
+            },
+            {
+                "file": "images/050.png",
+                "name": "IMAGE_POKE050",
+                "type": "png"
+            },
+            {
+                "file": "images/057.png",
+                "name": "IMAGE_POKE057",
+                "type": "png"
+            },
+            {
+                "file": "images/064.png",
+                "name": "IMAGE_POKE064",
+                "type": "png"
+            },
+            {
+                "file": "images/071.png",
+                "name": "IMAGE_POKE071",
+                "type": "png"
+            },
+            {
+                "file": "images/078.png",
+                "name": "IMAGE_POKE078",
+                "type": "png"
+            },
+            {
+                "file": "images/085.png",
+                "name": "IMAGE_POKE085",
+                "type": "png"
+            },
+            {
+                "file": "images/092.png",
+                "name": "IMAGE_POKE092",
+                "type": "png"
+            },
+            {
+                "file": "images/099.png",
+                "name": "IMAGE_POKE099",
+                "type": "png"
+            },
+            {
+                "file": "images/106.png",
+                "name": "IMAGE_POKE106",
+                "type": "png"
+            },
+            {
+                "file": "images/113.png",
+                "name": "IMAGE_POKE113",
+                "type": "png"
+            },
+            {
+                "file": "images/120.png",
+                "name": "IMAGE_POKE120",
+                "type": "png"
+            },
+            {
+                "file": "images/127.png",
+                "name": "IMAGE_POKE127",
+                "type": "png"
+            },
+            {
+                "file": "images/134.png",
+                "name": "IMAGE_POKE134",
+                "type": "png"
+            },
+            {
+                "file": "images/141.png",
+                "name": "IMAGE_POKE141",
+                "type": "png"
+            },
+            {
+                "file": "images/148.png",
+                "name": "IMAGE_POKE148",
+                "type": "png"
+            },
+            {
+                "file": "images/155.png",
+                "name": "IMAGE_POKE155",
+                "type": "png"
+            },
+            {
+                "file": "images/162.png",
+                "name": "IMAGE_POKE162",
+                "type": "png"
+            },
+            {
+                "file": "images/169.png",
+                "name": "IMAGE_POKE169",
+                "type": "png"
+            },
+            {
+                "file": "images/176.png",
+                "name": "IMAGE_POKE176",
+                "type": "png"
+            },
+            {
+                "file": "images/183.png",
+                "name": "IMAGE_POKE183",
+                "type": "png"
+            },
+            {
+                "file": "images/190.png",
+                "name": "IMAGE_POKE190",
+                "type": "png"
+            },
+            {
+                "file": "images/197.png",
+                "name": "IMAGE_POKE197",
+                "type": "png"
+            },
+            {
+                "file": "images/204.png",
+                "name": "IMAGE_POKE204",
+                "type": "png"
+            },
+            {
+                "file": "images/211.png",
+                "name": "IMAGE_POKE211",
+                "type": "png"
+            },
+            {
+                "file": "images/218.png",
+                "name": "IMAGE_POKE218",
+                "type": "png"
+            },
+            {
+                "file": "images/225.png",
+                "name": "IMAGE_POKE225",
+                "type": "png"
+            },
+            {
+                "file": "images/232.png",
+                "name": "IMAGE_POKE232",
+                "type": "png"
+            },
+            {
+                "file": "images/239.png",
+                "name": "IMAGE_POKE239",
+                "type": "png"
+            },
+            {
+                "file": "images/246.png",
+                "name": "IMAGE_POKE246",
+                "type": "png"
+            },
+            {
+                "file": "images/253.png",
+                "name": "IMAGE_POKE253",
+                "type": "png"
+            },
+            {
+                "file": "images/260.png",
+                "name": "IMAGE_POKE260",
+                "type": "png"
+            },
+            {
+                "file": "images/267.png",
+                "name": "IMAGE_POKE267",
+                "type": "png"
+            },
+            {
+                "file": "images/274.png",
+                "name": "IMAGE_POKE274",
+                "type": "png"
+            },
+            {
+                "file": "images/281.png",
+                "name": "IMAGE_POKE281",
+                "type": "png"
+            },
+            {
+                "file": "images/288.png",
+                "name": "IMAGE_POKE288",
+                "type": "png"
+            },
+            {
+                "file": "images/295.png",
+                "name": "IMAGE_POKE295",
+                "type": "png"
+            },
+            {
+                "file": "images/302.png",
+                "name": "IMAGE_POKE302",
+                "type": "png"
+            },
+            {
+                "file": "images/309.png",
+                "name": "IMAGE_POKE309",
+                "type": "png"
+            },
+            {
+                "file": "images/316.png",
+                "name": "IMAGE_POKE316",
+                "type": "png"
+            },
+            {
+                "file": "images/323.png",
+                "name": "IMAGE_POKE323",
+                "type": "png"
+            },
+            {
+                "file": "images/330.png",
+                "name": "IMAGE_POKE330",
+                "type": "png"
+            },
+            {
+                "file": "images/337.png",
+                "name": "IMAGE_POKE337",
+                "type": "png"
+            },
+            {
+                "file": "images/344.png",
+                "name": "IMAGE_POKE344",
+                "type": "png"
+            },
+            {
+                "file": "images/351.png",
+                "name": "IMAGE_POKE351",
+                "type": "png"
+            },
+            {
+                "file": "images/358.png",
+                "name": "IMAGE_POKE358",
+                "type": "png"
+            },
+            {
+                "file": "images/365.png",
+                "name": "IMAGE_POKE365",
+                "type": "png"
+            },
+            {
+                "file": "images/372.png",
+                "name": "IMAGE_POKE372",
+                "type": "png"
+            },
+            {
+                "file": "images/379.png",
+                "name": "IMAGE_POKE379",
+                "type": "png"
+            },
+            {
+                "file": "images/386.png",
+                "name": "IMAGE_POKE386",
+                "type": "png"
+            },
+            {
+                "file": "images/393.png",
+                "name": "IMAGE_POKE393",
+                "type": "png"
+            },
+            {
+                "file": "images/400.png",
+                "name": "IMAGE_POKE400",
+                "type": "png"
+            },
+            {
+                "file": "images/407.png",
+                "name": "IMAGE_POKE407",
+                "type": "png"
+            },
+            {
+                "file": "images/414.png",
+                "name": "IMAGE_POKE414",
+                "type": "png"
+            },
+            {
+                "file": "images/421.png",
+                "name": "IMAGE_POKE421",
+                "type": "png"
+            },
+            {
+                "file": "images/428.png",
+                "name": "IMAGE_POKE428",
+                "type": "png"
+            },
+            {
+                "file": "images/435.png",
+                "name": "IMAGE_POKE435",
+                "type": "png"
+            },
+            {
+                "file": "images/442.png",
+                "name": "IMAGE_POKE442",
+                "type": "png"
+            },
+            {
+                "file": "images/449.png",
+                "name": "IMAGE_POKE449",
+                "type": "png"
+            },
+            {
+                "file": "images/456.png",
+                "name": "IMAGE_POKE456",
+                "type": "png"
+            },
+            {
+                "file": "images/463.png",
+                "name": "IMAGE_POKE463",
+                "type": "png"
+            },
+            {
+                "file": "images/470.png",
+                "name": "IMAGE_POKE470",
+                "type": "png"
+            },
+            {
+                "file": "images/477.png",
+                "name": "IMAGE_POKE477",
+                "type": "png"
+            },
+            {
+                "file": "images/484.png",
+                "name": "IMAGE_POKE484",
+                "type": "png"
+            },
+            {
+                "file": "images/491.png",
+                "name": "IMAGE_POKE491",
+                "type": "png"
+            },
+            {
+                "file": "images/498.png",
+                "name": "IMAGE_POKE498",
+                "type": "png"
+            },
+            {
+                "file": "images/505.png",
+                "name": "IMAGE_POKE505",
+                "type": "png"
+            },
+            {
+                "file": "images/512.png",
+                "name": "IMAGE_POKE512",
+                "type": "png"
+            },
+            {
+                "file": "images/519.png",
+                "name": "IMAGE_POKE519",
+                "type": "png"
+            },
+            {
+                "file": "images/526.png",
+                "name": "IMAGE_POKE526",
+                "type": "png"
+            },
+            {
+                "file": "images/533.png",
+                "name": "IMAGE_POKE533",
+                "type": "png"
+            },
+            {
+                "file": "images/540.png",
+                "name": "IMAGE_POKE540",
+                "type": "png"
+            },
+            {
+                "file": "images/547.png",
+                "name": "IMAGE_POKE547",
+                "type": "png"
+            },
+            {
+                "file": "images/554.png",
+                "name": "IMAGE_POKE554",
+                "type": "png"
+            },
+            {
+                "file": "images/561.png",
+                "name": "IMAGE_POKE561",
+                "type": "png"
+            },
+            {
+                "file": "images/568.png",
+                "name": "IMAGE_POKE568",
+                "type": "png"
+            },
+            {
+                "file": "images/575.png",
+                "name": "IMAGE_POKE575",
+                "type": "png"
+            },
+            {
+                "file": "images/582.png",
+                "name": "IMAGE_POKE582",
+                "type": "png"
+            },
+            {
+                "file": "images/589.png",
+                "name": "IMAGE_POKE589",
+                "type": "png"
+            },
+            {
+                "file": "images/596.png",
+                "name": "IMAGE_POKE596",
+                "type": "png"
+            },
+            {
+                "file": "images/603.png",
+                "name": "IMAGE_POKE603",
+                "type": "png"
+            },
+            {
+                "file": "images/610.png",
+                "name": "IMAGE_POKE610",
+                "type": "png"
+            },
+            {
+                "file": "images/617.png",
+                "name": "IMAGE_POKE617",
+                "type": "png"
+            },
+            {
+                "file": "images/624.png",
+                "name": "IMAGE_POKE624",
+                "type": "png"
+            },
+            {
+                "file": "images/631.png",
+                "name": "IMAGE_POKE631",
+                "type": "png"
+            },
+            {
+                "file": "images/638.png",
+                "name": "IMAGE_POKE638",
+                "type": "png"
+            },
+            {
+                "file": "images/645.png",
+                "name": "IMAGE_POKE645",
+                "type": "png"
+            },
+            {
+                "file": "images/652.png",
+                "name": "IMAGE_POKE652",
+                "type": "png"
+            },
+            {
+                "file": "images/659.png",
+                "name": "IMAGE_POKE659",
+                "type": "png"
+            },
+            {
+                "file": "images/666.png",
+                "name": "IMAGE_POKE666",
+                "type": "png"
+            },
+            {
+                "file": "images/673.png",
+                "name": "IMAGE_POKE673",
+                "type": "png"
+            },
+            {
+                "file": "images/680.png",
+                "name": "IMAGE_POKE680",
+                "type": "png"
+            },
+            {
+                "file": "images/687.png",
+                "name": "IMAGE_POKE687",
+                "type": "png"
+            },
+            {
+                "file": "images/694.png",
+                "name": "IMAGE_POKE694",
+                "type": "png"
+            },
+            {
+                "file": "images/701.png",
+                "name": "IMAGE_POKE701",
+                "type": "png"
+            },
+            {
+                "file": "images/708.png",
+                "name": "IMAGE_POKE708",
+                "type": "png"
+            },
+            {
+                "file": "images/715.png",
+                "name": "IMAGE_POKE715",
+                "type": "png"
+            },
+            {
+                "file": "images/legendary.png",
+                "name": "IMAGE_LEGENDARY",
+                "type": "png"
+            },
+            {
+                "file": "images/mega.png",
+                "name": "IMAGE_MEGA",
+                "type": "png"
+            },
+            {
+                "file": "images/menu_icon.png",
+                "menuIcon": true,
+                "name": "IMAGE_MENU_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/ui_top.png",
+                "name": "UI_TOP",
+                "type": "png"
+            },
+            {
+                "file": "images/ui_bottom.png",
+                "name": "UI_BOTTOM",
+                "type": "png"
+            },
+            {
+                "file": "fonts/PokemonGB-Regular.ttf",
+                "name": "FONT_PKMN_14",
+                "trackingAdjust": -1,
+                "type": "font"
+            }
+        ]
+    }
+}
