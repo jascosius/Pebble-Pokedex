@@ -1,4 +1,4 @@
-#CalDAV-Calendar
+#Pebble-Pokédex
 
 A Pokédex for the [Pebble Watch](https://getpebble.com/).
 
