@@ -28,7 +28,8 @@
 *.x86_64
 *.hex
 
-build/*
+build
 *~
 .lock*
 additional/*
+.idea
