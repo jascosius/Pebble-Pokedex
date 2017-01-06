@@ -1,5 +1,12 @@
+#define WIDTH 144
+#define HEIGHT 168
+
 //Pokemon Number
-#define NUM_POKEMON 721
+#define NUM_POKEMON 801
+
+//Size of Pokemon images
+#define IMAGE_WIDTH 30
+#define IMAGE_HEIGHT 27
 
 //Pokemon types
 #define T_NONE     0
@@ -49,16 +56,18 @@
 #define TYPE2 1 //index to get second type
   
 #define LEGENDARY 0 //index to get legendary flag
-#define NO_EGG 1 //index to get no_egg flag
+#define MEGA_TYPE 1 //index to get mega type
 
 #define SHIFT_LEGENDARY 1<<15 //legendary flag shifted by 15 (for flag1_type5_alphabet10 array creation)
-#define SHIFT_NO_EGG 1<<15  //no_egg flag shifted by 15 (for flag1_type5_alphabet10 array creation)
+#define SHIFT_TYPE 1<<15  //no_egg flag shifted by 15 (for flag1_type5_alphabet10 array creation)
 
 #define NUM_MEGA 48 //number of mega evolutions
 #define MEGA_ALL 0<<10 //mega evolution types shifted by 10 (for mega_free4_game2_number10 array creation)
 #define MEGA_X   1<<10
 #define MEGA_Y   2<<10
 #define MEGA_SR  3<<10
+#define NUM_ALOLA 18
+#define ALOLA    4<<10
   
 #define LANG_ENG 0 //English language (for sort and mode)
 #define LANG_GER 1 //German language (for sort and mode)
@@ -70,8 +79,8 @@
 #define NUM_SORT 3 //number of sort possibilitys
 #define NUM_LANG 2 //number of supported languages
   
-#define POKEMON_EACH_ROW 25 //number of Pokemon in each array row
-#define IMAGES_EACH_ROW 7 //number of Pokemon in each image
+//#define POKEMON_EACH_ROW 25 //number of Pokemon in each array row
+#define IMAGES_EACH_ROW 9 //number of Pokemon in each image
 
 #define CONFIG_KEY_FIRST_LANG 0 //keys for settings
 #define CONFIG_KEY_SECOND_LANG 1
@@ -82,78 +91,21 @@ static const char * order_names_selections1[NUM_LANG][NUM_SORT] = {{"English","G
 static const char * order_names_selections2[NUM_LANG][NUM_SORT] = {{"alphabet","alphabet","Pokédex"},{"Alphabet","Alphabet","Pokédex"}};
 
 //English Pokemon names (several in one entry to save space)
-static const char * poke_names_eng[NUM_POKEMON/POKEMON_EACH_ROW+1] = {
-"Bulbasaur\0Ivysaur\0Venusaur\0Charmander\0Charmeleon\0Charizard\0Squirtle\0Wartortle\0Blastoise\0Caterpie\0Metapod\0Butterfree\0Weedle\0Kakuna\0Beedrill\0Pidgey\0Pidgeotto\0Pidgeot\0Rattata\0Raticate\0Spearow\0Fearow\0Ekans\0Arbok\0Pikachu",
-"Raichu\0Sandshrew\0Sandslash\0Nidoran w\0Nidorina\0Nidoqueen\0Nidoran m\0Nidorino\0Nidoking\0Clefairy\0Clefable\0Vulpix\0Ninetales\0Jigglypuff\0Wigglytuff\0Zubat\0Golbat\0Oddish\0Gloom\0Vileplume\0Paras\0Parasect\0Venonat\0Venomoth\0Diglett",
-"Dugtrio\0Meowth\0Persian\0Psyduck\0Golduck\0Mankey\0Primeape\0Growlithe\0Arcanine\0Poliwag\0Poliwhirl\0Poliwrath\0Abra\0Kadabra\0Alakazam\0Machop\0Machoke\0Machamp\0Bellsprout\0Weepinbell\0Victreebel\0Tentacool\0Tentacruel\0Geodude\0Graveler",
-"Golem\0Ponyta\0Rapidash\0Slowpoke\0Slowbro\0Magnemite\0Magneton\0Farfetch'd\0Doduo\0Dodrio\0Seel\0Dewgong\0Grimer\0Muk\0Shellder\0Cloyster\0Gastly\0Haunter\0Gengar\0Onix\0Drowzee\0Hypno\0Krabby\0Kingler\0Voltorb",
-"Electrode\0Exeggcute\0Exeggutor\0Cubone\0Marowak\0Hitmonlee\0Hitmonchan\0Lickitung\0Koffing\0Weezing\0Rhyhorn\0Rhydon\0Chansey\0Tangela\0Kangaskhan\0Horsea\0Seadra\0Goldeen\0Seaking\0Staryu\0Starmie\0Mr. Mime\0Scyther\0Jynx\0Electabuzz",
-"Magmar\0Pinsir\0Tauros\0Magikarp\0Gyarados\0Lapras\0Ditto\0Eevee\0Vaporeon\0Jolteon\0Flareon\0Porygon\0Omanyte\0Omastar\0Kabuto\0Kabutops\0Aerodactyl\0Snorlax\0Articuno\0Zapdos\0Moltres\0Dratini\0Dragonair\0Dragonite\0Mewtwo",
-"Mew\0Chikorita\0Bayleef\0Meganium\0Cyndaquil\0Quilava\0Typhlosion\0Totodile\0Croconaw\0Feraligatr\0Sentret\0Furret\0Hoothoot\0Noctowl\0Ledyba\0Ledian\0Spinarak\0Ariados\0Crobat\0Chinchou\0Lanturn\0Pichu\0Cleffa\0Igglybuff\0Togepi",
-"Togetic\0Natu\0Xatu\0Mareep\0Flaaffy\0Ampharos\0Bellossom\0Marill\0Azumarill\0Sudowoodo\0Politoed\0Hoppip\0Skiploom\0Jumpluff\0Aipom\0Sunkern\0Sunflora\0Yanma\0Wooper\0Quagsire\0Espeon\0Umbreon\0Murkrow\0Slowking\0Misdreavus",
-"Unown\0Wobbuffet\0Girafarig\0Pineco\0Forretress\0Dunsparce\0Gligar\0Steelix\0Snubbull\0Granbull\0Qwilfish\0Scizor\0Shuckle\0Heracross\0Sneasel\0Teddiursa\0Ursaring\0Slugma\0Magcargo\0Swinub\0Piloswine\0Corsola\0Remoraid\0Octillery\0Delibird",
-"Mantine\0Skarmory\0Houndour\0Houndoom\0Kingdra\0Phanpy\0Donphan\0Porygon2\0Stantler\0Smeargle\0Tyrogue\0Hitmontop\0Smoochum\0Elekid\0Magby\0Miltank\0Blissey\0Raikou\0Entei\0Suicune\0Larvitar\0Pupitar\0Tyranitar\0Lugia\0Ho-Oh",
-"Celebi\0Treecko\0Grovyle\0Sceptile\0Torchic\0Combusken\0Blaziken\0Mudkip\0Marshtomp\0Swampert\0Poochyena\0Mightyena\0Zigzagoon\0Linoone\0Wurmple\0Silcoon\0Beautifly\0Cascoon\0Dustox\0Lotad\0Lombre\0Ludicolo\0Seedot\0Nuzleaf\0Shiftry",
-"Taillow\0Swellow\0Wingull\0Pelipper\0Ralts\0Kirlia\0Gardevoir\0Surskit\0Masquerain\0Shroomish\0Breloom\0Slakoth\0Vigoroth\0Slaking\0Nincada\0Ninjask\0Shedinja\0Whismur\0Loudred\0Exploud\0Makuhita\0Hariyama\0Azurill\0Nosepass\0Skitty",
-"Delcatty\0Sableye\0Mawile\0Aron\0Lairon\0Aggron\0Meditite\0Medicham\0Electrike\0Manectric\0Plusle\0Minun\0Volbeat\0Illumise\0Roselia\0Gulpin\0Swalot\0Carvanha\0Sharpedo\0Wailmer\0Wailord\0Numel\0Camerupt\0Torkoal\0Spoink",
-"Grumpig\0Spinda\0Trapinch\0Vibrava\0Flygon\0Cacnea\0Cacturne\0Swablu\0Altaria\0Zangoose\0Seviper\0Lunatone\0Solrock\0Barboach\0Whiscash\0Corphish\0Crawdaunt\0Baltoy\0Claydol\0Lileep\0Cradily\0Anorith\0Armaldo\0Feebas\0Milotic",
-"Castform\0Kecleon\0Shuppet\0Banette\0Duskull\0Dusclops\0Tropius\0Chimecho\0Absol\0Wynaut\0Snorunt\0Glalie\0Spheal\0Sealeo\0Walrein\0Clamperl\0Huntail\0Gorebyss\0Relicanth\0Luvdisc\0Bagon\0Shelgon\0Salamence\0Beldum\0Metang",
-"Metagross\0Regirock\0Regice\0Registeel\0Latias\0Latios\0Kyogre\0Groudon\0Rayquaza\0Jirachi\0Deoxys\0Turtwig\0Grotle\0Torterra\0Chimchar\0Monferno\0Infernape\0Piplup\0Prinplup\0Empoleon\0Starly\0Staravia\0Staraptor\0Bidoof\0Bibarel",
-"Kricketot\0Kricketune\0Shinx\0Luxio\0Luxray\0Budew\0Roserade\0Cranidos\0Rampardos\0Shieldon\0Bastiodon\0Burmy\0Wormadam\0Mothim\0Combee\0Vespiquen\0Pachirisu\0Buizel\0Floatzel\0Cherubi\0Cherrim\0Shellos\0Gastrodon\0Ambipom\0Drifloon",
-"Drifblim\0Buneary\0Lopunny\0Mismagius\0Honchkrow\0Glameow\0Purugly\0Chingling\0Stunky\0Skuntank\0Bronzor\0Bronzong\0Bonsly\0Mime Jr.\0Happiny\0Chatot\0Spiritomb\0Gible\0Gabite\0Garchomp\0Munchlax\0Riolu\0Lucario\0Hippopotas\0Hippowdon",
-"Skorupi\0Drapion\0Croagunk\0Toxicroak\0Carnivine\0Finneon\0Lumineon\0Mantyke\0Snover\0Abomasnow\0Weavile\0Magnezone\0Lickilicky\0Rhyperior\0Tangrowth\0Electivire\0Magmortar\0Togekiss\0Yanmega\0Leafeon\0Glaceon\0Gliscor\0Mamoswine\0Porygon-Z\0Gallade",
-"Probopass\0Dusknoir\0Froslass\0Rotom\0Uxie\0Mesprit\0Azelf\0Dialga\0Palkia\0Heatran\0Regigigas\0Giratina\0Cresselia\0Phione\0Manaphy\0Darkrai\0Shaymin\0Arceus\0Victini\0Snivy\0Servine\0Serperior\0Tepig\0Pignite\0Emboar",
-"Oshawott\0Dewott\0Samurott\0Patrat\0Watchog\0Lillipup\0Herdier\0Stoutland\0Purrloin\0Liepard\0Pansage\0Simisage\0Pansear\0Simisear\0Panpour\0Simipour\0Munna\0Musharna\0Pidove\0Tranquill\0Unfezant\0Blitzle\0Zebstrika\0Roggenrola\0Boldore",
-"Gigalith\0Woobat\0Swoobat\0Drilbur\0Excadrill\0Audino\0Timburr\0Gurdurr\0Conkeldurr\0Tympole\0Palpitoad\0Seismitoad\0Throh\0Sawk\0Sewaddle\0Swadloon\0Leavanny\0Venipede\0Whirlipede\0Scolipede\0Cottonee\0Whimsicott\0Petilil\0Lilligant\0Basculin",
-"Sandile\0Krokorok\0Krookodile\0Darumaka\0Darmanitan\0Maractus\0Dwebble\0Crustle\0Scraggy\0Scrafty\0Sigilyph\0Yamask\0Cofagrigus\0Tirtouga\0Carracosta\0Archen\0Archeops\0Trubbish\0Garbodor\0Zorua\0Zoroark\0Minccino\0Cinccino\0Gothita\0Gothorita",
-"Gothitelle\0Solosis\0Duosion\0Reuniclus\0Ducklett\0Swanna\0Vanillite\0Vanillish\0Vanilluxe\0Deerling\0Sawsbuck\0Emolga\0Karrablast\0Escavalier\0Foongus\0Amoonguss\0Frillish\0Jellicent\0Alomomola\0Joltik\0Galvantula\0Ferroseed\0Ferrothorn\0Klink\0Klang",
-"Klinklang\0Tynamo\0Eelektrik\0Eelektross\0Elgyem\0Beheeyem\0Litwick\0Lampent\0Chandelure\0Axew\0Fraxure\0Haxorus\0Cubchoo\0Beartic\0Cryogonal\0Shelmet\0Accelgor\0Stunfisk\0Mienfoo\0Mienshao\0Druddigon\0Golett\0Golurk\0Pawniard\0Bisharp",
-"Bouffalant\0Rufflet\0Braviary\0Vullaby\0Mandibuzz\0Heatmor\0Durant\0Deino\0Zweilous\0Hydreigon\0Larvesta\0Volcarona\0Cobalion\0Terrakion\0Virizion\0Tornadus\0Thundurus\0Reshiram\0Zekrom\0Landorus\0Kyurem\0Keldeo\0Meloetta\0Genesect\0Chespin",
-"Quilladin\0Chesnaught\0Fennekin\0Braixen\0Delphox\0Froakie\0Frogadier\0Greninja\0Bunnelby\0Diggersby\0Fletchling\0Fletchinder\0Talonflame\0Scatterbug\0Spewpa\0Vivillon\0Litleo\0Pyroar\0Flabébé\0Floette\0Florges\0Skiddo\0Gogoat\0Pancham\0Pangoro",
-"Furfrou\0Espurr\0Meowstic\0Honedge\0Doublade\0Aegislash\0Spritzee\0Aromatisse\0Swirlix\0Slurpuff\0Inkay\0Malamar\0Binacle\0Barbaracle\0Skrelp\0Dragalge\0Clauncher\0Clawitzer\0Helioptile\0Heliolisk\0Tyrunt\0Tyrantrum\0Amaura\0Aurorus\0Sylveon",
-"Hawlucha\0Dedenne\0Carbink\0Goomy\0Sliggoo\0Goodra\0Klefki\0Phantump\0Trevenant\0Pumpkaboo\0Gourgeist\0Bergmite\0Avalugg\0Noibat\0Noivern\0Xerneas\0Yveltal\0Zygarde\0Diancie\0Hoopa\0Volcanion"
-};
+//ruby generate.rb names english
+static const char * poke_names_eng = "Bulbasaur\0Ivysaur\0Venusaur\0Charmander\0Charmeleon\0Charizard\0Squirtle\0Wartortle\0Blastoise\0Caterpie\0Metapod\0Butterfree\0Weedle\0Kakuna\0Beedrill\0Pidgey\0Pidgeotto\0Pidgeot\0Rattata\0Raticate\0Spearow\0Fearow\0Ekans\0Arbok\0Pikachu\0Raichu\0Sandshrew\0Sandslash\0Nidoran f\0Nidorina\0Nidoqueen\0Nidoran m\0Nidorino\0Nidoking\0Clefairy\0Clefable\0Vulpix\0Ninetales\0Jigglypuff\0Wigglytuff\0Zubat\0Golbat\0Oddish\0Gloom\0Vileplume\0Paras\0Parasect\0Venonat\0Venomoth\0Diglett\0Dugtrio\0Meowth\0Persian\0Psyduck\0Golduck\0Mankey\0Primeape\0Growlithe\0Arcanine\0Poliwag\0Poliwhirl\0Poliwrath\0Abra\0Kadabra\0Alakazam\0Machop\0Machoke\0Machamp\0Bellsprout\0Weepinbell\0Victreebel\0Tentacool\0Tentacruel\0Geodude\0Graveler\0Golem\0Ponyta\0Rapidash\0Slowpoke\0Slowbro\0Magnemite\0Magneton\0Farfetch'd\0Doduo\0Dodrio\0Seel\0Dewgong\0Grimer\0Muk\0Shellder\0Cloyster\0Gastly\0Haunter\0Gengar\0Onix\0Drowzee\0Hypno\0Krabby\0Kingler\0Voltorb\0Electrode\0Exeggcute\0Exeggutor\0Cubone\0Marowak\0Hitmonlee\0Hitmonchan\0Lickitung\0Koffing\0Weezing\0Rhyhorn\0Rhydon\0Chansey\0Tangela\0Kangaskhan\0Horsea\0Seadra\0Goldeen\0Seaking\0Staryu\0Starmie\0Mr. Mime\0Scyther\0Jynx\0Electabuzz\0Magmar\0Pinsir\0Tauros\0Magikarp\0Gyarados\0Lapras\0Ditto\0Eevee\0Vaporeon\0Jolteon\0Flareon\0Porygon\0Omanyte\0Omastar\0Kabuto\0Kabutops\0Aerodactyl\0Snorlax\0Articuno\0Zapdos\0Moltres\0Dratini\0Dragonair\0Dragonite\0Mewtwo\0Mew\0Chikorita\0Bayleef\0Meganium\0Cyndaquil\0Quilava\0Typhlosion\0Totodile\0Croconaw\0Feraligatr\0Sentret\0Furret\0Hoothoot\0Noctowl\0Ledyba\0Ledian\0Spinarak\0Ariados\0Crobat\0Chinchou\0Lanturn\0Pichu\0Cleffa\0Igglybuff\0Togepi\0Togetic\0Natu\0Xatu\0Mareep\0Flaaffy\0Ampharos\0Bellossom\0Marill\0Azumarill\0Sudowoodo\0Politoed\0Hoppip\0Skiploom\0Jumpluff\0Aipom\0Sunkern\0Sunflora\0Yanma\0Wooper\0Quagsire\0Espeon\0Umbreon\0Murkrow\0Slowking\0Misdreavus\0Unown\0Wobbuffet\0Girafarig\0Pineco\0Forretress\0Dunsparce\0Gligar\0Steelix\0Snubbull\0Granbull\0Qwilfish\0Scizor\0Shuckle\0Heracross\0Sneasel\0Teddiursa\0Ursaring\0Slugma\0Magcargo\0Swinub\0Piloswine\0Corsola\0Remoraid\0Octillery\0Delibird\0Mantine\0Skarmory\0Houndour\0Houndoom\0Kingdra\0Phanpy\0Donphan\0Porygon2\0Stantler\0Smeargle\0Tyrogue\0Hitmontop\0Smoochum\0Elekid\0Magby\0Miltank\0Blissey\0Raikou\0Entei\0Suicune\0Larvitar\0Pupitar\0Tyranitar\0Lugia\0Ho-Oh\0Celebi\0Treecko\0Grovyle\0Sceptile\0Torchic\0Combusken\0Blaziken\0Mudkip\0Marshtomp\0Swampert\0Poochyena\0Mightyena\0Zigzagoon\0Linoone\0Wurmple\0Silcoon\0Beautifly\0Cascoon\0Dustox\0Lotad\0Lombre\0Ludicolo\0Seedot\0Nuzleaf\0Shiftry\0Taillow\0Swellow\0Wingull\0Pelipper\0Ralts\0Kirlia\0Gardevoir\0Surskit\0Masquerain\0Shroomish\0Breloom\0Slakoth\0Vigoroth\0Slaking\0Nincada\0Ninjask\0Shedinja\0Whismur\0Loudred\0Exploud\0Makuhita\0Hariyama\0Azurill\0Nosepass\0Skitty\0Delcatty\0Sableye\0Mawile\0Aron\0Lairon\0Aggron\0Meditite\0Medicham\0Electrike\0Manectric\0Plusle\0Minun\0Volbeat\0Illumise\0Roselia\0Gulpin\0Swalot\0Carvanha\0Sharpedo\0Wailmer\0Wailord\0Numel\0Camerupt\0Torkoal\0Spoink\0Grumpig\0Spinda\0Trapinch\0Vibrava\0Flygon\0Cacnea\0Cacturne\0Swablu\0Altaria\0Zangoose\0Seviper\0Lunatone\0Solrock\0Barboach\0Whiscash\0Corphish\0Crawdaunt\0Baltoy\0Claydol\0Lileep\0Cradily\0Anorith\0Armaldo\0Feebas\0Milotic\0Castform\0Kecleon\0Shuppet\0Banette\0Duskull\0Dusclops\0Tropius\0Chimecho\0Absol\0Wynaut\0Snorunt\0Glalie\0Spheal\0Sealeo\0Walrein\0Clamperl\0Huntail\0Gorebyss\0Relicanth\0Luvdisc\0Bagon\0Shelgon\0Salamence\0Beldum\0Metang\0Metagross\0Regirock\0Regice\0Registeel\0Latias\0Latios\0Kyogre\0Groudon\0Rayquaza\0Jirachi\0Deoxys\0Turtwig\0Grotle\0Torterra\0Chimchar\0Monferno\0Infernape\0Piplup\0Prinplup\0Empoleon\0Starly\0Staravia\0Staraptor\0Bidoof\0Bibarel\0Kricketot\0Kricketune\0Shinx\0Luxio\0Luxray\0Budew\0Roserade\0Cranidos\0Rampardos\0Shieldon\0Bastiodon\0Burmy\0Wormadam\0Mothim\0Combee\0Vespiquen\0Pachirisu\0Buizel\0Floatzel\0Cherubi\0Cherrim\0Shellos\0Gastrodon\0Ambipom\0Drifloon\0Drifblim\0Buneary\0Lopunny\0Mismagius\0Honchkrow\0Glameow\0Purugly\0Chingling\0Stunky\0Skuntank\0Bronzor\0Bronzong\0Bonsly\0Mime Jr.\0Happiny\0Chatot\0Spiritomb\0Gible\0Gabite\0Garchomp\0Munchlax\0Riolu\0Lucario\0Hippopotas\0Hippowdon\0Skorupi\0Drapion\0Croagunk\0Toxicroak\0Carnivine\0Finneon\0Lumineon\0Mantyke\0Snover\0Abomasnow\0Weavile\0Magnezone\0Lickilicky\0Rhyperior\0Tangrowth\0Electivire\0Magmortar\0Togekiss\0Yanmega\0Leafeon\0Glaceon\0Gliscor\0Mamoswine\0Porygon-Z\0Gallade\0Probopass\0Dusknoir\0Froslass\0Rotom\0Uxie\0Mesprit\0Azelf\0Dialga\0Palkia\0Heatran\0Regigigas\0Giratina\0Cresselia\0Phione\0Manaphy\0Darkrai\0Shaymin\0Arceus\0Victini\0Snivy\0Servine\0Serperior\0Tepig\0Pignite\0Emboar\0Oshawott\0Dewott\0Samurott\0Patrat\0Watchog\0Lillipup\0Herdier\0Stoutland\0Purrloin\0Liepard\0Pansage\0Simisage\0Pansear\0Simisear\0Panpour\0Simipour\0Munna\0Musharna\0Pidove\0Tranquill\0Unfezant\0Blitzle\0Zebstrika\0Roggenrola\0Boldore\0Gigalith\0Woobat\0Swoobat\0Drilbur\0Excadrill\0Audino\0Timburr\0Gurdurr\0Conkeldurr\0Tympole\0Palpitoad\0Seismitoad\0Throh\0Sawk\0Sewaddle\0Swadloon\0Leavanny\0Venipede\0Whirlipede\0Scolipede\0Cottonee\0Whimsicott\0Petilil\0Lilligant\0Basculin\0Sandile\0Krokorok\0Krookodile\0Darumaka\0Darmanitan\0Maractus\0Dwebble\0Crustle\0Scraggy\0Scrafty\0Sigilyph\0Yamask\0Cofagrigus\0Tirtouga\0Carracosta\0Archen\0Archeops\0Trubbish\0Garbodor\0Zorua\0Zoroark\0Minccino\0Cinccino\0Gothita\0Gothorita\0Gothitelle\0Solosis\0Duosion\0Reuniclus\0Ducklett\0Swanna\0Vanillite\0Vanillish\0Vanilluxe\0Deerling\0Sawsbuck\0Emolga\0Karrablast\0Escavalier\0Foongus\0Amoonguss\0Frillish\0Jellicent\0Alomomola\0Joltik\0Galvantula\0Ferroseed\0Ferrothorn\0Klink\0Klang\0Klinklang\0Tynamo\0Eelektrik\0Eelektross\0Elgyem\0Beheeyem\0Litwick\0Lampent\0Chandelure\0Axew\0Fraxure\0Haxorus\0Cubchoo\0Beartic\0Cryogonal\0Shelmet\0Accelgor\0Stunfisk\0Mienfoo\0Mienshao\0Druddigon\0Golett\0Golurk\0Pawniard\0Bisharp\0Bouffalant\0Rufflet\0Braviary\0Vullaby\0Mandibuzz\0Heatmor\0Durant\0Deino\0Zweilous\0Hydreigon\0Larvesta\0Volcarona\0Cobalion\0Terrakion\0Virizion\0Tornadus\0Thundurus\0Reshiram\0Zekrom\0Landorus\0Kyurem\0Keldeo\0Meloetta\0Genesect\0Chespin\0Quilladin\0Chesnaught\0Fennekin\0Braixen\0Delphox\0Froakie\0Frogadier\0Greninja\0Bunnelby\0Diggersby\0Fletchling\0Fletchinder\0Talonflame\0Scatterbug\0Spewpa\0Vivillon\0Litleo\0Pyroar\0Flabébé\0Floette\0Florges\0Skiddo\0Gogoat\0Pancham\0Pangoro\0Furfrou\0Espurr\0Meowstic\0Honedge\0Doublade\0Aegislash\0Spritzee\0Aromatisse\0Swirlix\0Slurpuff\0Inkay\0Malamar\0Binacle\0Barbaracle\0Skrelp\0Dragalge\0Clauncher\0Clawitzer\0Helioptile\0Heliolisk\0Tyrunt\0Tyrantrum\0Amaura\0Aurorus\0Sylveon\0Hawlucha\0Dedenne\0Carbink\0Goomy\0Sliggoo\0Goodra\0Klefki\0Phantump\0Trevenant\0Pumpkaboo\0Gourgeist\0Bergmite\0Avalugg\0Noibat\0Noivern\0Xerneas\0Yveltal\0Zygarde\0Diancie\0Hoopa\0Volcanion\0Rowlet\0Dartrix\0Decidueye\0Litten\0Torracat\0Incineroar\0Popplio\0Brionne\0Primarina\0Pikipek\0Trumbeak\0Toucannon\0Yungoos\0Gumshoos\0Grubbin\0Charjabug\0Vikavolt\0Crabrawler\0Crabominable\0Oricorio\0Cutiefly\0Ribombee\0Rockruff\0Lycanroc\0Wishiwashi\0Mareanie\0Toxapex\0Mudbray\0Mudsdale\0Dewpider\0Araquanid\0Fomantis\0Lurantis\0Morelull\0Shiinotic\0Salandit\0Salazzle\0Stufful\0Bewear\0Bounsweet\0Steenee\0Tsareena\0Comfey\0Oranguru\0Passimian\0Wimpod\0Golisopod\0Sandygast\0Palossand\0Pyukumuku\0Type: Null\0Silvally\0Minior\0Komala\0Turtonator\0Togedemaru\0Mimikyu\0Bruxish\0Drampa\0Dhelmise\0Jangmo-o\0Hakamo-o\0Kommo-o\0Tapu Koko\0Tapu Lele\0Tapu Bulu\0Tapu Fini\0Cosmog\0Cosmoem\0Solgaleo\0Lunala\0Nihilego\0Buzzwole\0Pheromosa\0Xurkitree\0Celesteela\0Kartana\0Guzzlord\0Necrozma\0Magearna";
+
 
 //German Pokemon names (several in one entry and without names equal to the english name to save space)
-static const char * poke_names_ger[NUM_POKEMON/POKEMON_EACH_ROW+1] = {
-"Bisasam\0Bisaknosp\0Bisaflor\0Glumanda\0Glutexo\0Glurak\0Schiggy\0Schillok\0Turtok\0Raupy\0Safcon\0Smettbo\0Hornliu\0Kokuna\0Bibor\0Taubsi\0Tauboga\0Tauboss\0Rattfratz\0Rattikarl\0Habitak\0Ibitak\0Rettan\0\0",
-"\0Sandan\0Sandamer\0\0\0\0\0\0\0Piepi\0Pixi\0\0Vulnona\0Pummeluff\0Knuddeluff\0\0\0Myrapla\0Duflor\0Giflor\0\0Parasek\0Bluzuk\0Omot\0Digda",
-"Digdri\0Mauzi\0Snobilikat\0Enton\0Entoron\0Menki\0Rasaff\0Fukano\0Arkani\0Quapsel\0Quaputzi\0Quappo\0\0\0Simsala\0Machollo\0Maschock\0Machomei\0Knofensa\0Ultrigaria\0Sarzenia\0Tentacha\0Tentoxa\0Kleinstein\0Georok",
-"Geowaz\0Ponita\0Gallopa\0Flegmon\0Lahmus\0Magnetilo\0\0Porenta\0Dodu\0Dodri\0Jurob\0Jugong\0Sleima\0Sleimok\0Muschas\0Austos\0Nebulak\0Alpollo\0\0\0Traumato\0\0\0\0Voltobal",
-"Lektrobal\0Owei\0Kokowei\0Tragosso\0Knogga\0Kicklee\0Nockchan\0Schlurp\0Smogon\0Smogmog\0Rihorn\0Rizeros\0Chaneira\0\0Kangama\0Seeper\0Seemon\0Goldini\0Golking\0Sterndu\0\0Pantimos\0Sichlor\0Rossana\0Elektek",
-"\0\0\0Karpador\0Garados\0\0\0Evoli\0Aquana\0Blitza\0Flamara\0\0Amonitas\0Amoroso\0\0\0\0Relaxo\0Arktos\0\0Lavados\0\0Dragonir\0Dragoran\0Mewtu",
-"\0Endivie\0Lorblatt\0Meganie\0Feurigel\0Igelavar\0Tornupto\0Karnimani\0Tyracroc\0Impergator\0Wiesor\0Wiesenior\0\0Noctuh\0\0\0Webarak\0\0Iksbat\0Lampi\0\0\0Pii\0Fluffeluff\0",
-"\0\0\0Voltilamm\0Waaty\0\0Blubella\0\0\0Mogelbaum\0Quaxo\0Hoppspross\0Hubelupf\0Papungha\0Griffel\0Sonnkern\0Sonnflora\0\0Felino\0Morlord\0Psiana\0Nachtara\0Kramurx\0Laschoking\0Traunfugil",
-"Icognito\0Woingenau\0\0Tannza\0Forstellka\0Dummisel\0Skorgla\0Stahlos\0\0\0Baldorfish\0Scherox\0Pottrott\0Skaraborn\0Sniebel\0\0\0Schneckmag\0\0Quiekel\0Keifel\0Corasonn\0\0\0Botogel",
-"Mantax\0Panzaeron\0Hunduster\0Hundemon\0Seedraking\0\0\0\0Damhirplex\0Farbeagle\0Rabauz\0Kapoera\0Kussilla\0\0\0\0Heiteira\0\0\0\0\0\0Despotar\0\0",
-"\0Geckarbor\0Reptain\0Gewaldro\0Flemmli\0Jungglut\0Lohgock\0Hydropi\0Moorabbel\0Sumpex\0Fiffyen\0Magnayen\0Zigzachs\0Geradaks\0Waumpel\0Schaloko\0Papinella\0Panekon\0Pudox\0Loturzel\0Lombrero\0Kappalores\0Samurzel\0Blanas\0Tengulist",
-"Schwalbini\0Schwalboss\0\0\0Trasla\0\0Guardevoir\0Gehweiher\0Maskeregen\0Knilz\0Kapilz\0Bummelz\0Muntier\0Letarking\0\0\0Ninjatom\0Flurmel\0Krakeelo\0Krawumms\0\0\0\0Nasgnet\0Eneco",
-"Enekoro\0Zobiris\0Flunkifer\0Stollunior\0Stollrak\0Stolloss\0Meditie\0Meditalis\0Frizelbliz\0Voltenso\0\0\0\0\0\0Schluppuck\0Schlukwech\0Kanivanha\0Tohaido\0\0\0Camaub\0\0Qurtel\0",
-"Groink\0Pandir\0Knacklion\0\0Libelldra\0Tuska\0Noktuska\0Wablu\0\0Sengo\0Vipitis\0Lunastein\0Sonnfel\0Schmerbe\0Welsar\0Krebscorps\0Krebutack\0Puppance\0Lepumentas\0Liliep\0Wielie\0\0\0Barschwa\0",
-"Formeo\0\0\0\0Zwirrlicht\0Zwirrklop\0\0Palimpalim\0\0Isso\0Schneppke\0Firnontor\0Seemops\0Seejong\0Walraisa\0Perlu\0Aalabyss\0Saganabyss\0\0Liebiskus\0Kindwurm\0Draschel\0Brutalanda\0Tanhel\0",
-"\0\0\0\0\0\0\0\0\0\0\0Chelast\0Chelcarain\0Chelterrar\0Panflam\0Panpyro\0Panferno\0Plinfa\0Pliprin\0Impoleon\0Staralili\0\0\0Bidiza\0Bidifas",
-"Zirpurze\0Zirpeise\0Sheinux\0\0Luxtra\0Knospi\0\0Koknodon\0Rameidon\0Schilterus\0Bollterus\0\0Burmadame\0Moterpel\0Wadribie\0Honweisel\0\0Bamelin\0Bojelin\0Kikugi\0Kinoso\0Schalellos\0\0Ambidiffel\0Driftlon",
-"Drifzepeli\0Haspiror\0Schlapor\0Traunmagil\0Kramshef\0Charmian\0Shnurgarst\0Klingplim\0Skunkapuh\0\0Bronzel\0\0Mobai\0Pantimimi\0Wonneira\0Plaudagei\0Kryppuk\0Kaumalat\0Knarksel\0Knakrack\0Mampfaxo\0\0\0\0Hippoterus",
-"Pionskora\0Piondragi\0Glibunkel\0Toxiquak\0Venuflibis\0\0\0Mantirps\0Shnebedeck\0Rexblisar\0Snibunna\0\0Schlurplek\0Rihornior\0Tangoloss\0Elevoltek\0Magbrant\0\0\0Folipurba\0Glaziola\0Skorgro\0Mamutel\0\0Galagladi",
-"Voluminas\0Zwirrfinst\0Frosdedje\0\0Selfe\0Vesprit\0Tobutz\0\0\0\0\0\0\0\0\0\0\0\0\0Serpifeu\0Efoserp\0Serpiroyal\0Floink\0Ferkokel\0Flambirex",
-"Ottaro\0Zwottronin\0Admurai\0Nagelotz\0Kukmarda\0Yorkleff\0Terribark\0Bissbark\0Felilou\0Kleoparda\0Vegimak\0Vegichita\0Grillmak\0Grillchita\0Sodamak\0Sodachita\0Somniam\0Somnivora\0Dusselgurr\0Navitaub\0Fasasnob\0Elezeba\0Zebritz\0Kiesling\0Sedimantur",
-"Brockoloss\0Fleknoil\0Fletiamo\0Rotomurf\0Stalobor\0Ohrdoch\0Praktibalk\0Strepoli\0Meistagrif\0Schallquap\0Mebrana\0Branawarz\0Jiutesto\0Karadonis\0Strawickl\0Folikon\0Matrifol\0Toxiped\0Rollum\0Cerapendra\0Waumboll\0Elfun\0Lilminip\0Dressella\0Barschuft",
-"Ganovil\0Rokkaiman\0Rabigator\0Flampion\0Flampivian\0Maracamba\0Lithomith\0Castellith\0Zurrokex\0Irokex\0Symvolara\0Makabaja\0Echnatoll\0Galapaflos\0Karippas\0Flapteryx\0Aeropteryx\0Unratütox\0Deponitox\0\0\0Picochilla\0Chillabell\0Mollimorba\0Hypnomorba",
-"Morbitesse\0Monozyto\0Mitodos\0Zytomega\0Piccolente\0Swaroness\0Gelatini\0Gelatroppo\0Gelatwino\0Sesokitz\0Kronjuwild\0\0Laukaps\0Cavalanzas\0Tarnpignon\0Hutsassa\0Quabbel\0Apoquallyp\0Mamolida\0Wattzapf\0Voltula\0Kastadur\0Tentantel\0Klikk\0Kliklak",
-"Klikdiklak\0Zapplardin\0Zapplalek\0Zapplarang\0Pygraulon\0Megalon\0Lichtel\0Laternecto\0Skelabra\0Milza\0Sharfax\0Maxax\0Petznief\0Siberio\0Frigometri\0Schnuthelm\0Hydragil\0Flunschlik\0Lin-Fu\0Wie-Shu\0Shardrago\0Golbit\0Golgantes\0Gladiantri\0Caesurio",
-"Bisofank\0Geronimatz\0Washakwil\0Skallyk\0Grypheldis\0Furnifraß\0Fermicula\0Kapuno\0Duodino\0Trikephalo\0Ignivor\0Ramoth\0Kobalium\0Terrakium\0Viridium\0Boreos\0Voltolos\0\0\0Demeteros\0\0\0\0\0Igamaro",
-"Igastarnish\0Brigaron\0Fynx\0Rutena\0Fennexis\0Froxy\0Amphizel\0Quajutsu\0Scoppel\0Grebbit\0Dartiri\0Dartignis\0Fiaro\0Purmel\0Puponcho\0\0Leufeo\0Pyroleo\0\0\0\0Mähikel\0Chevrumm\0Pam-Pam\0Pandagro",
-"Coiffwaff\0Psiau\0Psiaugon\0Gramokles\0Duokles\0Durengard\0Parfi\0Parfinesse\0Flauschling\0Sabbaione\0Iscalar\0Calamanero\0Bithora\0Thanathora\0Algitt\0Tandrak\0Scampisto\0Wummer\0Eguana\0Elezard\0Balgoras\0Monargoras\0Amarino\0Amagarga\0Feelinara",
-"Resladero\0\0Rocara\0Viscora\0Viscargot\0Viscogon\0Clavion\0Paragoni\0Trombork\0Irrbis\0Pumpdjinn\0Arktip\0Arktilas\0eF-eM\0UHaFnir\0\0\0\0\0\0"
-};
+//ruby generate.rb names german
+static const char * poke_names_ger = "Bisasam\0Bisaknosp\0Bisaflor\0Glumanda\0Glutexo\0Glurak\0Schiggy\0Schillok\0Turtok\0Raupy\0Safcon\0Smettbo\0Hornliu\0Kokuna\0Bibor\0Taubsi\0Tauboga\0Tauboss\0Rattfratz\0Rattikarl\0Habitak\0Ibitak\0Rettan\0\0\0\0Sandan\0Sandamer\0Nidoran w\0\0\0\0\0\0Piepi\0Pixi\0\0Vulnona\0Pummeluff\0Knuddeluff\0\0\0Myrapla\0Duflor\0Giflor\0\0Parasek\0Bluzuk\0Omot\0Digda\0Digdri\0Mauzi\0Snobilikat\0Enton\0Entoron\0Menki\0Rasaff\0Fukano\0Arkani\0Quapsel\0Quaputzi\0Quappo\0\0\0Simsala\0Machollo\0Maschock\0Machomei\0Knofensa\0Ultrigaria\0Sarzenia\0Tentacha\0Tentoxa\0Kleinstein\0Georok\0Geowaz\0Ponita\0Gallopa\0Flegmon\0Lahmus\0Magnetilo\0\0Porenta\0Dodu\0Dodri\0Jurob\0Jugong\0Sleima\0Sleimok\0Muschas\0Austos\0Nebulak\0Alpollo\0\0\0Traumato\0\0\0\0Voltobal\0Lektrobal\0Owei\0Kokowei\0Tragosso\0Knogga\0Kicklee\0Nockchan\0Schlurp\0Smogon\0Smogmog\0Rihorn\0Rizeros\0Chaneira\0\0Kangama\0Seeper\0Seemon\0Goldini\0Golking\0Sterndu\0\0Pantimos\0Sichlor\0Rossana\0Elektek\0\0\0\0Karpador\0Garados\0\0\0Evoli\0Aquana\0Blitza\0Flamara\0\0Amonitas\0Amoroso\0\0\0\0Relaxo\0Arktos\0\0Lavados\0\0Dragonir\0Dragoran\0Mewtu\0\0Endivie\0Lorblatt\0Meganie\0Feurigel\0Igelavar\0Tornupto\0Karnimani\0Tyracroc\0Impergator\0Wiesor\0Wiesenior\0\0Noctuh\0\0\0Webarak\0\0Iksbat\0Lampi\0\0\0Pii\0Fluffeluff\0\0\0\0\0Voltilamm\0Waaty\0\0Blubella\0\0\0Mogelbaum\0Quaxo\0Hoppspross\0Hubelupf\0Papungha\0Griffel\0Sonnkern\0Sonnflora\0\0Felino\0Morlord\0Psiana\0Nachtara\0Kramurx\0Laschoking\0Traunfugil\0Icognito\0Woingenau\0\0Tannza\0Forstellka\0Dummisel\0Skorgla\0Stahlos\0\0\0Baldorfish\0Scherox\0Pottrott\0Skaraborn\0Sniebel\0\0\0Schneckmag\0\0Quiekel\0Keifel\0Corasonn\0\0\0Botogel\0Mantax\0Panzaeron\0Hunduster\0Hundemon\0Seedraking\0\0\0\0Damhirplex\0Farbeagle\0Rabauz\0Kapoera\0Kussilla\0\0\0\0Heiteira\0\0\0\0\0\0Despotar\0\0\0\0Geckarbor\0Reptain\0Gewaldro\0Flemmli\0Jungglut\0Lohgock\0Hydropi\0Moorabbel\0Sumpex\0Fiffyen\0Magnayen\0Zigzachs\0Geradaks\0Waumpel\0Schaloko\0Papinella\0Panekon\0Pudox\0Loturzel\0Lombrero\0Kappalores\0Samurzel\0Blanas\0Tengulist\0Schwalbini\0Schwalboss\0\0\0Trasla\0\0Guardevoir\0Gehweiher\0Maskeregen\0Knilz\0Kapilz\0Bummelz\0Muntier\0Letarking\0\0\0Ninjatom\0Flurmel\0Krakeelo\0Krawumms\0\0\0\0Nasgnet\0Eneco\0Enekoro\0Zobiris\0Flunkifer\0Stollunior\0Stollrak\0Stolloss\0Meditie\0Meditalis\0Frizelbliz\0Voltenso\0\0\0\0\0\0Schluppuck\0Schlukwech\0Kanivanha\0Tohaido\0\0\0Camaub\0\0Qurtel\0\0Groink\0Pandir\0Knacklion\0\0Libelldra\0Tuska\0Noktuska\0Wablu\0\0Sengo\0Vipitis\0Lunastein\0Sonnfel\0Schmerbe\0Welsar\0Krebscorps\0Krebutack\0Puppance\0Lepumentas\0Liliep\0Wielie\0\0\0Barschwa\0\0Formeo\0\0\0\0Zwirrlicht\0Zwirrklop\0\0Palimpalim\0\0Isso\0Schneppke\0Firnontor\0Seemops\0Seejong\0Walraisa\0Perlu\0Aalabyss\0Saganabyss\0\0Liebiskus\0Kindwurm\0Draschel\0Brutalanda\0Tanhel\0\0\0\0\0\0\0\0\0\0\0\0\0Chelast\0Chelcarain\0Chelterrar\0Panflam\0Panpyro\0Panferno\0Plinfa\0Pliprin\0Impoleon\0Staralili\0\0\0Bidiza\0Bidifas\0Zirpurze\0Zirpeise\0Sheinux\0\0Luxtra\0Knospi\0\0Koknodon\0Rameidon\0Schilterus\0Bollterus\0\0Burmadame\0Moterpel\0Wadribie\0Honweisel\0\0Bamelin\0Bojelin\0Kikugi\0Kinoso\0Schalellos\0\0Ambidiffel\0Driftlon\0Drifzepeli\0Haspiror\0Schlapor\0Traunmagil\0Kramshef\0Charmian\0Shnurgarst\0Klingplim\0Skunkapuh\0\0Bronzel\0\0Mobai\0Pantimimi\0Wonneira\0Plaudagei\0Kryppuk\0Kaumalat\0Knarksel\0Knakrack\0Mampfaxo\0\0\0\0Hippoterus\0Pionskora\0Piondragi\0Glibunkel\0Toxiquak\0Venuflibis\0\0\0Mantirps\0Shnebedeck\0Rexblisar\0Snibunna\0\0Schlurplek\0Rihornior\0Tangoloss\0Elevoltek\0Magbrant\0\0\0Folipurba\0Glaziola\0Skorgro\0Mamutel\0\0Galagladi\0Voluminas\0Zwirrfinst\0Frosdedje\0\0Selfe\0Vesprit\0Tobutz\0\0\0\0\0\0\0\0\0\0\0\0\0Serpifeu\0Efoserp\0Serpiroyal\0Floink\0Ferkokel\0Flambirex\0Ottaro\0Zwottronin\0Admurai\0Nagelotz\0Kukmarda\0Yorkleff\0Terribark\0Bissbark\0Felilou\0Kleoparda\0Vegimak\0Vegichita\0Grillmak\0Grillchita\0Sodamak\0Sodachita\0Somniam\0Somnivora\0Dusselgurr\0Navitaub\0Fasasnob\0Elezeba\0Zebritz\0Kiesling\0Sedimantur\0Brockoloss\0Fleknoil\0Fletiamo\0Rotomurf\0Stalobor\0Ohrdoch\0Praktibalk\0Strepoli\0Meistagrif\0Schallquap\0Mebrana\0Branawarz\0Jiutesto\0Karadonis\0Strawickl\0Folikon\0Matrifol\0Toxiped\0Rollum\0Cerapendra\0Waumboll\0Elfun\0Lilminip\0Dressella\0Barschuft\0Ganovil\0Rokkaiman\0Rabigator\0Flampion\0Flampivian\0Maracamba\0Lithomith\0Castellith\0Zurrokex\0Irokex\0Symvolara\0Makabaja\0Echnatoll\0Galapaflos\0Karippas\0Flapteryx\0Aeropteryx\0Unratütox\0Deponitox\0\0\0Picochilla\0Chillabell\0Mollimorba\0Hypnomorba\0Morbitesse\0Monozyto\0Mitodos\0Zytomega\0Piccolente\0Swaroness\0Gelatini\0Gelatroppo\0Gelatwino\0Sesokitz\0Kronjuwild\0\0Laukaps\0Cavalanzas\0Tarnpignon\0Hutsassa\0Quabbel\0Apoquallyp\0Mamolida\0Wattzapf\0Voltula\0Kastadur\0Tentantel\0Klikk\0Kliklak\0Klikdiklak\0Zapplardin\0Zapplalek\0Zapplarang\0Pygraulon\0Megalon\0Lichtel\0Laternecto\0Skelabra\0Milza\0Sharfax\0Maxax\0Petznief\0Siberio\0Frigometri\0Schnuthelm\0Hydragil\0Flunschlik\0Lin-Fu\0Wie-Shu\0Shardrago\0Golbit\0Golgantes\0Gladiantri\0Caesurio\0Bisofank\0Geronimatz\0Washakwil\0Skallyk\0Grypheldis\0Furnifraß\0Fermicula\0Kapuno\0Duodino\0Trikephalo\0Ignivor\0Ramoth\0Kobalium\0Terrakium\0Viridium\0Boreos\0Voltolos\0\0\0Demeteros\0\0\0\0\0Igamaro\0Igastarnish\0Brigaron\0Fynx\0Rutena\0Fennexis\0Froxy\0Amphizel\0Quajutsu\0Scoppel\0Grebbit\0Dartiri\0Dartignis\0Fiaro\0Purmel\0Puponcho\0\0Leufeo\0Pyroleo\0\0\0\0Mähikel\0Chevrumm\0Pam-Pam\0Pandagro\0Coiffwaff\0Psiau\0Psiaugon\0Gramokles\0Duokles\0Durengard\0Parfi\0Parfinesse\0Flauschling\0Sabbaione\0Iscalar\0Calamanero\0Bithora\0Thanathora\0Algitt\0Tandrak\0Scampisto\0Wummer\0Eguana\0Elezard\0Balgoras\0Monargoras\0Amarino\0Amagarga\0Feelinara\0Resladero\0\0Rocara\0Viscora\0Viscargot\0Viscogon\0Clavion\0Paragoni\0Trombork\0Irrbis\0Pumpdjinn\0Arktip\0Arktilas\0eF-eM\0UHaFnir\0\0\0\0\0\0\0Bauz\0Arboretoss\0Silvarro\0Flamiau\0Miezunder\0Fuegro\0Robball\0Marikeck\0Primarene\0Peppeck\0Trompeck\0Tukanon\0Mangunior\0Manguspektor\0Mabula\0Akkup\0Donarion\0Krabbox\0Krawell\0Choreogel\0Wommel\0Bandelby\0Wuffels\0Wolwerock\0Lusardin\0Garstella\0Aggrostella\0Pampuli\0Pampross\0Araqua\0Aranestro\0Imantis\0Mantidea\0Bubungus\0Lamellux\0Molunk\0Amfira\0Velursi\0Kosturso\0Frubberl\0Frubaila\0Fruyal\0Curelei\0Kommandutan\0Quartermak\0Reißlaus\0Tectass\0Sankabuh\0Colossand\0Gufa\0Typ:Null\0Amigento\0Meteno\0Koalelu\0Tortunator\0\0Mimigma\0Knirfish\0Sen-Long\0Moruda\0Miniras\0Mediras\0Grandiras\0Kapu-Riki\0Kapu-Fala\0Kapu-Toro\0Kapu-Kime\0\0Cosmovum\0\0\0Anego\0Masskito\0Schabelle\0Voltriant\0Kaguron\0Katagami\0Schlingking\0\0";
 
 //strings for types
-static const char * type_names[NUM_LANG][NUM_TYPES] = {
-{"","Bug","Dark","Dragon","Electric","Fairy","Fighting","Fire","Flying","Ghost","Grass","Ground","Ice","Normal","Poison","Psychic","Rock","Steel","Water"},
-{"","Käfer","Unlicht","Drache","Elektro","Fee","Kampf","Feuer","Flug","Geist","Pflanze","Boden","Eis","Normal","Gift","Psycho","Gestein","Stahl","Wasser"}
+static const char * type_names[NUM_LANG]= {
+"\0Bug\0Dark\0Dragon\0Electric\0Fairy\0Fighting\0Fire\0Flying\0Ghost\0Grass\0Ground\0Ice\0Normal\0Poison\0Psychic\0Rock\0Steel\0Water",
+"\0Käfer\0Unlicht\0Drache\0Elektro\0Fee\0Kampf\0Feuer\0Flug\0Geist\0Pflanze\0Boden\0Eis\0Normal\0Gift\0Psycho\0Gestein\0Stahl\0Wasser"
 };
 
-/* Array for the legendary flag, the first and second type of all Pokemon and the order in the english and german alphabet (all in one array to save space)
+/* Array for the legendary flag, the first and second type of all Pokemon and the order in the english and german alphabet (all in one array to save space) and the types of mega evolutions and alola forms
 *
 * ------------------------------------------------
 * flag1_type5_alphabet10[0][...]
@@ -168,370 +120,128 @@ static const char * type_names[NUM_LANG][NUM_TYPES] = {
 * flag1_type5_alphabet10[0][...]
 * the second type of all Pokemon and the order in the german alphabet
 *
-* 16      | 15-11 | 10-1
-*         | Type2 | German alphabet
+* 16        | 15-11 | 10-1
+* Mega Type | Type2 | German alphabet
+*
+* The first type of the first pokemon in free3_alola1_game2_number10 is stored in flag1_type5_alphabet10[1][0] to flag1_type5_alphabet10[1][4]
+* The second type is stored in the next 5 array entries
 */
 static const uint16_t flag1_type5_alphabet10[NUM_LANG][NUM_POKEMON+2] = {
-{0, T_SHIFT_GRASS|460, T_SHIFT_GRASS|63, T_SHIFT_GRASS|359, T_SHIFT_FIRE|617, T_SHIFT_FIRE|681, T_SHIFT_FIRE|142, T_SHIFT_WATER|306, T_SHIFT_WATER|190, T_SHIFT_WATER|65, 
-T_SHIFT_BUG|594, T_SHIFT_BUG|334, T_SHIFT_BUG|698, T_SHIFT_BUG|424, T_SHIFT_BUG|591, T_SHIFT_BUG|181, T_SHIFT_NORMAL|347, T_SHIFT_NORMAL|24, T_SHIFT_NORMAL|59, T_SHIFT_NORMAL|493, 
-T_SHIFT_NORMAL|566, T_SHIFT_NORMAL|567, T_SHIFT_NORMAL|168, T_SHIFT_POISON|348, T_SHIFT_POISON|683, T_SHIFT_ELECTRIC|304, T_SHIFT_ELECTRIC|144, T_SHIFT_GROUND|531, T_SHIFT_GROUND|699, T_SHIFT_POISON|713, 
-T_SHIFT_POISON|610, T_SHIFT_POISON|482, T_SHIFT_POISON|184, T_SHIFT_POISON|298, T_SHIFT_POISON|371, T_SHIFT_FAIRY|343, T_SHIFT_FAIRY|354, T_SHIFT_FIRE|689, T_SHIFT_FIRE|339, T_SHIFT_NORMAL|550, 
-T_SHIFT_NORMAL|411, T_SHIFT_POISON|153, T_SHIFT_POISON|614, T_SHIFT_GRASS|267, T_SHIFT_GRASS|15, T_SHIFT_GRASS|606, T_SHIFT_BUG|374, T_SHIFT_BUG|182, T_SHIFT_BUG|69, T_SHIFT_BUG|712, 
-T_SHIFT_GROUND|400, T_SHIFT_GROUND|399, T_SHIFT_NORMAL|688, T_SHIFT_NORMAL|625, T_SHIFT_WATER|9, T_SHIFT_WATER|257, T_SHIFT_FIGHTING|242, T_SHIFT_FIGHTING|522, T_SHIFT_FIRE|525, T_SHIFT_FIRE|438, 
-T_SHIFT_WATER|626, T_SHIFT_WATER|654, T_SHIFT_WATER|628, T_SHIFT_PSYCHIC|286, T_SHIFT_PSYCHIC|437, T_SHIFT_PSYCHIC|436, T_SHIFT_FIGHTING|406, T_SHIFT_FIGHTING|418, T_SHIFT_FIGHTING|1, T_SHIFT_GRASS|427, 
-T_SHIFT_GRASS|659, T_SHIFT_GRASS|412, T_SHIFT_WATER|12, T_SHIFT_WATER|331, T_SHIFT_ROCK|332, T_SHIFT_ROCK|323, T_SHIFT_ROCK|703, T_SHIFT_FIRE|455, T_SHIFT_FIRE|565, T_SHIFT_WATER|318, 
-T_SHIFT_WATER|268, T_SHIFT_ELECTRIC|351, T_SHIFT_ELECTRIC|10, T_SHIFT_NORMAL|251, T_SHIFT_NORMAL|609, T_SHIFT_NORMAL|113, T_SHIFT_WATER|6, T_SHIFT_WATER|4, T_SHIFT_POISON|5, T_SHIFT_POISON|441, 
-T_SHIFT_WATER|421, T_SHIFT_WATER|420, T_SHIFT_GHOST|652, T_SHIFT_GHOST|650, T_SHIFT_GHOST|152, T_SHIFT_ROCK|390, T_SHIFT_PSYCHIC|358, T_SHIFT_PSYCHIC|170, T_SHIFT_WATER|433, T_SHIFT_WATER|573, 
-T_SHIFT_ELECTRIC|366, T_SHIFT_ELECTRIC|692, T_SHIFT_GRASS|693, T_SHIFT_GRASS|344, T_SHIFT_GROUND|36, T_SHIFT_GROUND|35, T_SHIFT_FIGHTING|173, T_SHIFT_FIGHTING|91, T_SHIFT_NORMAL|638, T_SHIFT_POISON|563, 
-T_SHIFT_POISON|415, T_SHIFT_GROUND|256, T_SHIFT_GROUND|534, T_SHIFT_NORMAL|341, T_SHIFT_GRASS|222, T_SHIFT_NORMAL|546, T_SHIFT_WATER|346, T_SHIFT_WATER|408, T_SHIFT_WATER|342, T_SHIFT_WATER|488, 
-T_SHIFT_WATER|453, T_SHIFT_WATER|169, T_SHIFT_PSYCHIC|159, T_SHIFT_BUG|558, T_SHIFT_ICE|615, T_SHIFT_ELECTRIC|613, T_SHIFT_FIRE|104, T_SHIFT_BUG|155, T_SHIFT_NORMAL|491, T_SHIFT_WATER|555, 
-T_SHIFT_WATER|554, T_SHIFT_WATER|702, T_SHIFT_NORMAL|585, T_SHIFT_NORMAL|633, T_SHIFT_WATER|301, T_SHIFT_ELECTRIC|225, T_SHIFT_FIRE|655, T_SHIFT_NORMAL|386, T_SHIFT_ROCK|87, T_SHIFT_ROCK|502, 
-T_SHIFT_ROCK|483, T_SHIFT_ROCK|719, T_SHIFT_ROCK|660, T_SHIFT_NORMAL|50, SHIFT_LEGENDARY|T_SHIFT_ICE|132, SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|85, SHIFT_LEGENDARY|T_SHIFT_FIRE|84, T_SHIFT_DRAGON|232, T_SHIFT_DRAGON|680, T_SHIFT_DRAGON|691, 
-SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|148, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|149, T_SHIFT_GRASS|452, T_SHIFT_GRASS|147, T_SHIFT_GRASS|426, T_SHIFT_FIRE|425, T_SHIFT_FIRE|529, T_SHIFT_FIRE|96, T_SHIFT_WATER|621, T_SHIFT_WATER|580, 
-T_SHIFT_WATER|51, T_SHIFT_NORMAL|206, T_SHIFT_NORMAL|578, T_SHIFT_NORMAL|632, T_SHIFT_NORMAL|356, T_SHIFT_BUG|477, T_SHIFT_BUG|355, T_SHIFT_BUG|269, T_SHIFT_BUG|557, T_SHIFT_POISON|603, 
-T_SHIFT_WATER|604, T_SHIFT_WATER|133, T_SHIFT_ELECTRIC|23, T_SHIFT_FAIRY|125, T_SHIFT_NORMAL|466, T_SHIFT_FAIRY|309, T_SHIFT_FAIRY|101, T_SHIFT_PSYCHIC|239, T_SHIFT_PSYCHIC|605, T_SHIFT_ELECTRIC|500, 
-T_SHIFT_ELECTRIC|587, T_SHIFT_ELECTRIC|395, T_SHIFT_GRASS|244, T_SHIFT_WATER|589, T_SHIFT_WATER|196, T_SHIFT_ROCK|677, T_SHIFT_WATER|530, T_SHIFT_GRASS|102, T_SHIFT_GRASS|103, T_SHIFT_GRASS|295, 
-T_SHIFT_NORMAL|83, T_SHIFT_GRASS|22, T_SHIFT_GRASS|349, T_SHIFT_BUG|653, T_SHIFT_WATER|160, T_SHIFT_WATER|597, T_SHIFT_PSYCHIC|598, T_SHIFT_DARK|456, T_SHIFT_DARK|180, T_SHIFT_WATER|669, 
-T_SHIFT_GHOST|136, T_SHIFT_PSYCHIC|662, T_SHIFT_PSYCHIC|661, T_SHIFT_NORMAL|419, T_SHIFT_BUG|670, T_SHIFT_BUG|671, T_SHIFT_NORMAL|330, T_SHIFT_GROUND|590, T_SHIFT_STEEL|205, T_SHIFT_FAIRY|611, 
-T_SHIFT_FAIRY|592, T_SHIFT_WATER|656, T_SHIFT_BUG|657, T_SHIFT_BUG|478, T_SHIFT_BUG|676, T_SHIFT_DARK|162, T_SHIFT_NORMAL|444, T_SHIFT_NORMAL|475, T_SHIFT_FIRE|596, T_SHIFT_FIRE|569, 
-T_SHIFT_ICE|445, T_SHIFT_ICE|282, T_SHIFT_WATER|92, T_SHIFT_WATER|423, T_SHIFT_WATER|649, T_SHIFT_ICE|94, T_SHIFT_WATER|74, T_SHIFT_STEEL|443, T_SHIFT_DARK|526, T_SHIFT_DARK|203, 
-T_SHIFT_WATER|487, T_SHIFT_GROUND|471, T_SHIFT_GROUND|362, T_SHIFT_NORMAL|431, T_SHIFT_NORMAL|207, T_SHIFT_NORMAL|472, T_SHIFT_FIGHTING|44, T_SHIFT_FIGHTING|673, T_SHIFT_ICE|42, T_SHIFT_ELECTRIC|118, 
-T_SHIFT_FIRE|55, T_SHIFT_NORMAL|76, T_SHIFT_NORMAL|622, SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|623, SHIFT_LEGENDARY|T_SHIFT_FIRE|706, SHIFT_LEGENDARY|T_SHIFT_WATER|704, T_SHIFT_ROCK|368, T_SHIFT_ROCK|574, T_SHIFT_ROCK|576, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|575, 
-SHIFT_LEGENDARY|T_SHIFT_FIRE|711, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|210, T_SHIFT_GRASS|75, T_SHIFT_GRASS|658, T_SHIFT_GRASS|88, T_SHIFT_FIRE|388, T_SHIFT_FIRE|383, T_SHIFT_FIRE|253, T_SHIFT_WATER|58, T_SHIFT_WATER|326, 
-T_SHIFT_WATER|316, T_SHIFT_DARK|533, T_SHIFT_DARK|130, T_SHIFT_NORMAL|440, T_SHIFT_NORMAL|297, T_SHIFT_BUG|93, T_SHIFT_BUG|701, T_SHIFT_BUG|612, T_SHIFT_BUG|631, T_SHIFT_BUG|485, 
-T_SHIFT_WATER|695, T_SHIFT_WATER|694, T_SHIFT_WATER|214, T_SHIFT_GRASS|507, T_SHIFT_GRASS|449, T_SHIFT_GRASS|450, T_SHIFT_NORMAL|107, T_SHIFT_NORMAL|106, T_SHIFT_WATER|237, T_SHIFT_WATER|250, 
-T_SHIFT_PSYCHIC|430, T_SHIFT_PSYCHIC|679, T_SHIFT_PSYCHIC|720, T_SHIFT_BUG|163, T_SHIFT_BUG|187, T_SHIFT_GRASS|116, T_SHIFT_GRASS|229, T_SHIFT_NORMAL|228, T_SHIFT_NORMAL|367, T_SHIFT_NORMAL|635, 
-T_SHIFT_BUG|97, T_SHIFT_BUG|174, T_SHIFT_BUG|314, T_SHIFT_NORMAL|392, T_SHIFT_NORMAL|686, T_SHIFT_NORMAL|2, T_SHIFT_FIGHTING|593, T_SHIFT_FIGHTING|39, T_SHIFT_NORMAL|385, T_SHIFT_ROCK|135, 
-T_SHIFT_NORMAL|595, T_SHIFT_NORMAL|189, T_SHIFT_DARK|124, T_SHIFT_STEEL|140, T_SHIFT_STEEL|141, T_SHIFT_STEEL|64, T_SHIFT_STEEL|14, T_SHIFT_FIGHTING|115, T_SHIFT_FIGHTING|588, T_SHIFT_ELECTRIC|352, 
-T_SHIFT_ELECTRIC|647, T_SHIFT_ELECTRIC|230, T_SHIFT_ELECTRIC|99, T_SHIFT_BUG|281, T_SHIFT_BUG|600, T_SHIFT_GRASS|707, T_SHIFT_POISON|599, T_SHIFT_POISON|601, T_SHIFT_WATER|109, T_SHIFT_WATER|98, 
-T_SHIFT_WATER|401, T_SHIFT_WATER|402, T_SHIFT_FIRE|552, T_SHIFT_FIRE|553, T_SHIFT_FIRE|382, T_SHIFT_PSYCHIC|646, T_SHIFT_PSYCHIC|305, T_SHIFT_NORMAL|608, T_SHIFT_GROUND|645, T_SHIFT_GROUND|171, 
-T_SHIFT_GROUND|131, T_SHIFT_GRASS|636, T_SHIFT_GRASS|246, T_SHIFT_NORMAL|380, T_SHIFT_DRAGON|381, T_SHIFT_NORMAL|470, T_SHIFT_POISON|542, T_SHIFT_ROCK|166, T_SHIFT_ROCK|165, T_SHIFT_WATER|463, 
-T_SHIFT_WATER|108, T_SHIFT_WATER|510, T_SHIFT_WATER|345, T_SHIFT_GROUND|549, T_SHIFT_GROUND|506, T_SHIFT_ROCK|264, T_SHIFT_ROCK|667, T_SHIFT_ROCK|607, T_SHIFT_ROCK|271, T_SHIFT_WATER|428, 
-T_SHIFT_WATER|270, T_SHIFT_NORMAL|294, T_SHIFT_NORMAL|448, T_SHIFT_GHOST|272, T_SHIFT_GHOST|249, T_SHIFT_GHOST|457, T_SHIFT_GHOST|337, T_SHIFT_GRASS|370, T_SHIFT_PSYCHIC|404, T_SHIFT_DARK|405, 
-T_SHIFT_PSYCHIC|68, T_SHIFT_ICE|67, T_SHIFT_ICE|66, T_SHIFT_ICE|240, T_SHIFT_ICE|219, T_SHIFT_ICE|129, T_SHIFT_WATER|126, T_SHIFT_WATER|467, T_SHIFT_WATER|81, T_SHIFT_WATER|82, 
-T_SHIFT_WATER|462, T_SHIFT_DRAGON|296, T_SHIFT_DRAGON|687, T_SHIFT_DRAGON|473, T_SHIFT_STEEL|490, T_SHIFT_STEEL|630, T_SHIFT_STEEL|310, SHIFT_LEGENDARY|T_SHIFT_ROCK|56, SHIFT_LEGENDARY|T_SHIFT_ICE|226, SHIFT_LEGENDARY|T_SHIFT_STEEL|458, 
-SHIFT_LEGENDARY|T_SHIFT_DRAGON|556, SHIFT_LEGENDARY|T_SHIFT_DRAGON|179, SHIFT_LEGENDARY|T_SHIFT_WATER|183, SHIFT_LEGENDARY|T_SHIFT_GROUND|105, SHIFT_LEGENDARY|T_SHIFT_DRAGON|259, SHIFT_LEGENDARY|T_SHIFT_STEEL|284, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|303, T_SHIFT_GRASS|308, T_SHIFT_GRASS|307, T_SHIFT_GRASS|154, 
-T_SHIFT_FIRE|648, T_SHIFT_FIRE|678, T_SHIFT_FIRE|52, T_SHIFT_WATER|481, T_SHIFT_WATER|376, T_SHIFT_WATER|375, T_SHIFT_NORMAL|11, T_SHIFT_NORMAL|151, T_SHIFT_NORMAL|150, T_SHIFT_NORMAL|619, 
-T_SHIFT_NORMAL|620, T_SHIFT_BUG|262, T_SHIFT_BUG|350, T_SHIFT_ELECTRIC|241, T_SHIFT_ELECTRIC|439, T_SHIFT_ELECTRIC|572, T_SHIFT_GRASS|312, T_SHIFT_GRASS|200, T_SHIFT_ROCK|429, T_SHIFT_ROCK|146, 
-T_SHIFT_ROCK|391, T_SHIFT_ROCK|414, T_SHIFT_BUG|122, T_SHIFT_BUG|258, T_SHIFT_BUG|89, T_SHIFT_BUG|446, T_SHIFT_BUG|517, T_SHIFT_ELECTRIC|198, T_SHIFT_WATER|518, T_SHIFT_WATER|177, 
-T_SHIFT_GRASS|34, T_SHIFT_GRASS|31, T_SHIFT_WATER|32, T_SHIFT_WATER|29, T_SHIFT_NORMAL|30, T_SHIFT_GHOST|33, T_SHIFT_GHOST|290, T_SHIFT_NORMAL|38, T_SHIFT_NORMAL|291, T_SHIFT_GHOST|164, 
-T_SHIFT_DARK|714, T_SHIFT_NORMAL|715, T_SHIFT_NORMAL|299, T_SHIFT_PSYCHIC|322, T_SHIFT_POISON|274, T_SHIFT_POISON|224, T_SHIFT_STEEL|43, T_SHIFT_STEEL|138, T_SHIFT_ROCK|139, T_SHIFT_PSYCHIC|95, 
-T_SHIFT_NORMAL|501, T_SHIFT_NORMAL|417, T_SHIFT_GHOST|484, T_SHIFT_DRAGON|536, T_SHIFT_DRAGON|674, T_SHIFT_DRAGON|675, T_SHIFT_NORMAL|515, T_SHIFT_FIGHTING|511, T_SHIFT_FIGHTING|513, T_SHIFT_GROUND|46, 
-T_SHIFT_GROUND|47, T_SHIFT_POISON|504, T_SHIFT_POISON|624, T_SHIFT_POISON|279, T_SHIFT_POISON|53, T_SHIFT_GRASS|548, T_SHIFT_WATER|231, T_SHIFT_WATER|708, T_SHIFT_WATER|489, T_SHIFT_GRASS|172, 
-T_SHIFT_GRASS|18, T_SHIFT_DARK|17, T_SHIFT_ELECTRIC|16, T_SHIFT_NORMAL|519, T_SHIFT_GROUND|499, T_SHIFT_GRASS|25, T_SHIFT_ELECTRIC|221, T_SHIFT_FIRE|204, T_SHIFT_FAIRY|127, T_SHIFT_BUG|393, 
-T_SHIFT_GRASS|311, T_SHIFT_ICE|186, T_SHIFT_GROUND|60, T_SHIFT_ICE|61, T_SHIFT_NORMAL|62, T_SHIFT_PSYCHIC|77, T_SHIFT_ROCK|261, T_SHIFT_GHOST|137, T_SHIFT_ICE|474, T_SHIFT_ELECTRIC|233, 
-SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|57, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|394, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|476, SHIFT_LEGENDARY|T_SHIFT_STEEL|54, SHIFT_LEGENDARY|T_SHIFT_WATER|710, SHIFT_LEGENDARY|T_SHIFT_FIRE|247, SHIFT_LEGENDARY|T_SHIFT_NORMAL|509, SHIFT_LEGENDARY|T_SHIFT_GHOST|432, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|668, SHIFT_LEGENDARY|T_SHIFT_WATER|195, 
-SHIFT_LEGENDARY|T_SHIFT_WATER|156, SHIFT_LEGENDARY|T_SHIFT_DARK|651, SHIFT_LEGENDARY|T_SHIFT_GRASS|211, SHIFT_LEGENDARY|T_SHIFT_NORMAL|26, SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|243, T_SHIFT_GRASS|280, T_SHIFT_GRASS|409, T_SHIFT_GRASS|78, T_SHIFT_FIRE|20, T_SHIFT_FIRE|19, 
-T_SHIFT_FIRE|384, T_SHIFT_WATER|378, T_SHIFT_WATER|486, T_SHIFT_WATER|377, T_SHIFT_NORMAL|379, T_SHIFT_NORMAL|369, T_SHIFT_NORMAL|223, T_SHIFT_NORMAL|643, T_SHIFT_NORMAL|579, T_SHIFT_DARK|112, 
-T_SHIFT_DARK|111, T_SHIFT_GRASS|464, T_SHIFT_GRASS|447, T_SHIFT_FIRE|524, T_SHIFT_FIRE|315, T_SHIFT_WATER|407, T_SHIFT_WATER|479, T_SHIFT_PSYCHIC|627, T_SHIFT_PSYCHIC|302, T_SHIFT_NORMAL|373, 
-T_SHIFT_NORMAL|503, T_SHIFT_NORMAL|551, T_SHIFT_ELECTRIC|27, T_SHIFT_ELECTRIC|28, T_SHIFT_ROCK|539, T_SHIFT_ROCK|586, T_SHIFT_ROCK|664, T_SHIFT_PSYCHIC|254, T_SHIFT_PSYCHIC|212, T_SHIFT_GROUND|545, 
-T_SHIFT_GROUND|560, T_SHIFT_NORMAL|559, T_SHIFT_FIGHTING|123, T_SHIFT_FIGHTING|117, T_SHIFT_FIGHTING|119, T_SHIFT_WATER|364, T_SHIFT_WATER|273, T_SHIFT_WATER|86, T_SHIFT_FIGHTING|537, T_SHIFT_FIGHTING|161, 
-T_SHIFT_BUG|497, T_SHIFT_BUG|496, T_SHIFT_BUG|336, T_SHIFT_BUG|540, T_SHIFT_BUG|319, T_SHIFT_BUG|492, T_SHIFT_GRASS|292, T_SHIFT_GRASS|372, T_SHIFT_GRASS|90, T_SHIFT_GRASS|422, 
-T_SHIFT_WATER|616, T_SHIFT_GROUND|410, T_SHIFT_GROUND|275, T_SHIFT_GROUND|403, T_SHIFT_FIRE|285, T_SHIFT_FIRE|213, T_SHIFT_GRASS|353, T_SHIFT_BUG|561, T_SHIFT_BUG|266, T_SHIFT_DARK|516, 
-T_SHIFT_DARK|512, T_SHIFT_PSYCHIC|514, T_SHIFT_GHOST|227, T_SHIFT_GHOST|672, T_SHIFT_WATER|188, T_SHIFT_WATER|300, T_SHIFT_ROCK|451, T_SHIFT_ROCK|690, T_SHIFT_POISON|435, T_SHIFT_POISON|289, 
-T_SHIFT_DARK|287, T_SHIFT_DARK|705, T_SHIFT_NORMAL|80, T_SHIFT_NORMAL|199, T_SHIFT_PSYCHIC|79, T_SHIFT_PSYCHIC|218, T_SHIFT_PSYCHIC|685, T_SHIFT_PSYCHIC|235, T_SHIFT_PSYCHIC|238, T_SHIFT_PSYCHIC|215, 
-T_SHIFT_WATER|495, T_SHIFT_WATER|143, T_SHIFT_ICE|361, T_SHIFT_ICE|459, T_SHIFT_ICE|209, T_SHIFT_NORMAL|577, T_SHIFT_NORMAL|338, T_SHIFT_ELECTRIC|21, T_SHIFT_BUG|665, T_SHIFT_BUG|363, 
-T_SHIFT_GRASS|167, T_SHIFT_GRASS|327, T_SHIFT_WATER|442, T_SHIFT_WATER|325, T_SHIFT_WATER|682, T_SHIFT_BUG|7, T_SHIFT_BUG|234, T_SHIFT_GRASS|398, T_SHIFT_GRASS|397, T_SHIFT_STEEL|396, 
-T_SHIFT_STEEL|121, T_SHIFT_STEEL|120, T_SHIFT_ELECTRIC|208, T_SHIFT_ELECTRIC|508, T_SHIFT_ELECTRIC|618, T_SHIFT_PSYCHIC|434, T_SHIFT_PSYCHIC|185, T_SHIFT_GHOST|245, T_SHIFT_GHOST|192, T_SHIFT_GHOST|191, 
-T_SHIFT_DRAGON|283, T_SHIFT_DRAGON|333, T_SHIFT_DRAGON|541, T_SHIFT_ICE|317, T_SHIFT_ICE|260, T_SHIFT_ICE|581, T_SHIFT_BUG|277, T_SHIFT_BUG|220, T_SHIFT_GROUND|684, T_SHIFT_FIGHTING|528, 
-T_SHIFT_FIGHTING|700, T_SHIFT_DRAGON|276, T_SHIFT_GROUND|663, T_SHIFT_GROUND|114, T_SHIFT_DARK|465, T_SHIFT_DARK|128, T_SHIFT_NORMAL|216, T_SHIFT_NORMAL|72, T_SHIFT_NORMAL|73, T_SHIFT_DARK|498, 
-T_SHIFT_DARK|639, T_SHIFT_FIRE|538, T_SHIFT_BUG|642, T_SHIFT_DARK|532, T_SHIFT_DARK|564, T_SHIFT_DARK|468, T_SHIFT_BUG|175, T_SHIFT_BUG|176, SHIFT_LEGENDARY|T_SHIFT_STEEL|255, SHIFT_LEGENDARY|T_SHIFT_ROCK|324, 
-SHIFT_LEGENDARY|T_SHIFT_GRASS|641, SHIFT_LEGENDARY|T_SHIFT_FLYING|389, SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|158, SHIFT_LEGENDARY|T_SHIFT_DRAGON|454, SHIFT_LEGENDARY|T_SHIFT_DRAGON|520, SHIFT_LEGENDARY|T_SHIFT_GROUND|328, SHIFT_LEGENDARY|T_SHIFT_DRAGON|252, SHIFT_LEGENDARY|T_SHIFT_WATER|709, SHIFT_LEGENDARY|T_SHIFT_NORMAL|357, SHIFT_LEGENDARY|T_SHIFT_BUG|568, 
-T_SHIFT_GRASS|387, T_SHIFT_GRASS|535, T_SHIFT_GRASS|602, T_SHIFT_FIRE|157, T_SHIFT_FIRE|248, T_SHIFT_FIRE|697, T_SHIFT_WATER|236, T_SHIFT_WATER|696, T_SHIFT_WATER|197, T_SHIFT_NORMAL|521, 
-T_SHIFT_NORMAL|201, T_SHIFT_NORMAL|217, T_SHIFT_FIRE|480, T_SHIFT_FIRE|583, T_SHIFT_BUG|582, T_SHIFT_BUG|584, T_SHIFT_BUG|134, T_SHIFT_FIRE|543, T_SHIFT_FIRE|49, T_SHIFT_FAIRY|48, 
-T_SHIFT_FAIRY|3, T_SHIFT_FAIRY|416, T_SHIFT_GRASS|329, T_SHIFT_GRASS|494, T_SHIFT_FIGHTING|71, T_SHIFT_FIGHTING|288, T_SHIFT_NORMAL|45, T_SHIFT_PSYCHIC|640, T_SHIFT_PSYCHIC|666, T_SHIFT_STEEL|313, 
-T_SHIFT_STEEL|721, T_SHIFT_STEEL|637, T_SHIFT_FAIRY|100, T_SHIFT_FAIRY|629, T_SHIFT_FAIRY|37, T_SHIFT_FAIRY|320, T_SHIFT_DARK|321, T_SHIFT_DARK|365, T_SHIFT_ROCK|8, T_SHIFT_ROCK|505, 
-T_SHIFT_POISON|461, T_SHIFT_POISON|13, T_SHIFT_WATER|70, T_SHIFT_WATER|110, T_SHIFT_ELECTRIC|547, T_SHIFT_ELECTRIC|544, T_SHIFT_ROCK|340, T_SHIFT_ROCK|293, T_SHIFT_ROCK|40, T_SHIFT_ROCK|278, 
-T_SHIFT_FAIRY|202, T_SHIFT_FIGHTING|527, T_SHIFT_ELECTRIC|194, T_SHIFT_ROCK|413, T_SHIFT_DRAGON|265, T_SHIFT_DRAGON|360, T_SHIFT_DRAGON|178, T_SHIFT_STEEL|716, T_SHIFT_GHOST|562, T_SHIFT_GHOST|193, 
-T_SHIFT_GHOST|469, T_SHIFT_GHOST|717, T_SHIFT_ICE|335, T_SHIFT_ICE|145, T_SHIFT_FLYING|523, T_SHIFT_FLYING|644, SHIFT_LEGENDARY|T_SHIFT_FAIRY|263, SHIFT_LEGENDARY|T_SHIFT_DARK|571, SHIFT_LEGENDARY|T_SHIFT_DRAGON|570, SHIFT_LEGENDARY|T_SHIFT_ROCK|41, 
-SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|634, SHIFT_LEGENDARY|T_SHIFT_FIRE|718, 0},
+//ruby generate.rb order english 1 legendary
+{0,T_SHIFT_GRASS|460,T_SHIFT_GRASS|63,T_SHIFT_GRASS|359,T_SHIFT_FIRE|617,T_SHIFT_FIRE|681,T_SHIFT_FIRE|142,T_SHIFT_WATER|306,T_SHIFT_WATER|190,T_SHIFT_WATER|65,T_SHIFT_BUG|594,T_SHIFT_BUG|334,T_SHIFT_BUG|698,T_SHIFT_BUG|424,T_SHIFT_BUG|591,T_SHIFT_BUG|181,T_SHIFT_NORMAL|347,T_SHIFT_NORMAL|752,T_SHIFT_NORMAL|24,T_SHIFT_NORMAL|59,T_SHIFT_NORMAL|493,T_SHIFT_NORMAL|566,T_SHIFT_NORMAL|567,T_SHIFT_POISON|168,T_SHIFT_POISON|348,T_SHIFT_ELECTRIC|683,T_SHIFT_ELECTRIC|304,T_SHIFT_GROUND|144,T_SHIFT_GROUND|531,T_SHIFT_POISON|699,T_SHIFT_POISON|713,T_SHIFT_POISON|610,T_SHIFT_POISON|482,T_SHIFT_POISON|184,T_SHIFT_POISON|298,T_SHIFT_FAIRY|371,T_SHIFT_FAIRY|343,T_SHIFT_FIRE|354,T_SHIFT_FIRE|689,T_SHIFT_NORMAL|339,T_SHIFT_NORMAL|550,T_SHIFT_POISON|411,T_SHIFT_POISON|153,T_SHIFT_GRASS|614,T_SHIFT_GRASS|267,T_SHIFT_GRASS|15,T_SHIFT_BUG|606,T_SHIFT_BUG|374,T_SHIFT_BUG|182,T_SHIFT_BUG|69,T_SHIFT_GROUND|712,T_SHIFT_GROUND|760,T_SHIFT_NORMAL|400,T_SHIFT_NORMAL|399,T_SHIFT_WATER|688,T_SHIFT_WATER|625,T_SHIFT_FIGHTING|9,T_SHIFT_FIGHTING|257,T_SHIFT_FIRE|242,T_SHIFT_FIRE|522,T_SHIFT_WATER|525,T_SHIFT_WATER|438,T_SHIFT_WATER|626,T_SHIFT_PSYCHIC|761,T_SHIFT_PSYCHIC|654,T_SHIFT_PSYCHIC|628,T_SHIFT_FIGHTING|286,T_SHIFT_FIGHTING|729,T_SHIFT_FIGHTING|437,T_SHIFT_GRASS|436,T_SHIFT_GRASS|779,T_SHIFT_GRASS|406,T_SHIFT_WATER|418,T_SHIFT_WATER|1,T_SHIFT_ROCK|427,T_SHIFT_ROCK|659,T_SHIFT_ROCK|412,T_SHIFT_FIRE|12,T_SHIFT_FIRE|794,T_SHIFT_WATER|331,T_SHIFT_WATER|332,T_SHIFT_ELECTRIC|323,T_SHIFT_ELECTRIC|703,T_SHIFT_NORMAL|455,T_SHIFT_NORMAL|565,T_SHIFT_NORMAL|318,T_SHIFT_WATER|268,T_SHIFT_WATER|351,T_SHIFT_POISON|10,T_SHIFT_POISON|251,T_SHIFT_WATER|797,T_SHIFT_WATER|609,T_SHIFT_GHOST|113,T_SHIFT_GHOST|6,T_SHIFT_GHOST|737,T_SHIFT_ROCK|4,T_SHIFT_PSYCHIC|5,T_SHIFT_PSYCHIC|441,T_SHIFT_WATER|421,T_SHIFT_WATER|420,T_SHIFT_ELECTRIC|652,T_SHIFT_ELECTRIC|650,T_SHIFT_GRASS|152,T_SHIFT_GRASS|390,T_SHIFT_GROUND|358,T_SHIFT_GROUND|170,T_SHIFT_FIGHTING|433,T_SHIFT_FIGHTING|573,T_SHIFT_NORMAL|366,T_SHIFT_POISON|692,T_SHIFT_POISON|693,T_SHIFT_GROUND|344,T_SHIFT_GROUND|36,T_SHIFT_NORMAL|35,T_SHIFT_GRASS|173,T_SHIFT_NORMAL|91,T_SHIFT_WATER|638,T_SHIFT_WATER|563,T_SHIFT_WATER|415,T_SHIFT_WATER|256,T_SHIFT_WATER|764,T_SHIFT_WATER|534,T_SHIFT_PSYCHIC|341,T_SHIFT_BUG|222,T_SHIFT_ICE|790,T_SHIFT_ELECTRIC|789,T_SHIFT_FIRE|546,T_SHIFT_BUG|740,T_SHIFT_NORMAL|739,T_SHIFT_WATER|346,T_SHIFT_WATER|408,T_SHIFT_WATER|342,T_SHIFT_NORMAL|488,T_SHIFT_NORMAL|453,T_SHIFT_WATER|169,T_SHIFT_ELECTRIC|159,T_SHIFT_FIRE|558,T_SHIFT_NORMAL|615,T_SHIFT_ROCK|613,T_SHIFT_ROCK|104,T_SHIFT_ROCK|742,T_SHIFT_ROCK|155,T_SHIFT_ROCK|491,T_SHIFT_NORMAL|555,SHIFT_LEGENDARY|T_SHIFT_ICE|723,SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|554,SHIFT_LEGENDARY|T_SHIFT_FIRE|724,T_SHIFT_DRAGON|702,T_SHIFT_DRAGON|585,T_SHIFT_DRAGON|633,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|301,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|225,T_SHIFT_GRASS|655,T_SHIFT_GRASS|386,T_SHIFT_GRASS|87,T_SHIFT_FIRE|502,T_SHIFT_FIRE|751,T_SHIFT_FIRE|781,T_SHIFT_WATER|483,T_SHIFT_WATER|719,T_SHIFT_WATER|660,T_SHIFT_NORMAL|50,T_SHIFT_NORMAL|132,T_SHIFT_NORMAL|85,T_SHIFT_NORMAL|84,T_SHIFT_BUG|232,T_SHIFT_BUG|680,T_SHIFT_BUG|691,T_SHIFT_BUG|148,T_SHIFT_POISON|149,T_SHIFT_WATER|780,T_SHIFT_WATER|452,T_SHIFT_ELECTRIC|147,T_SHIFT_FAIRY|426,T_SHIFT_NORMAL|425,T_SHIFT_FAIRY|529,T_SHIFT_FAIRY|96,T_SHIFT_PSYCHIC|621,T_SHIFT_PSYCHIC|580,T_SHIFT_ELECTRIC|51,T_SHIFT_ELECTRIC|206,T_SHIFT_ELECTRIC|578,T_SHIFT_GRASS|632,T_SHIFT_WATER|356,T_SHIFT_WATER|477,T_SHIFT_ROCK|355,T_SHIFT_WATER|269,T_SHIFT_GRASS|557,T_SHIFT_GRASS|603,T_SHIFT_GRASS|604,T_SHIFT_NORMAL|133,T_SHIFT_GRASS|23,T_SHIFT_GRASS|125,T_SHIFT_BUG|466,T_SHIFT_WATER|309,T_SHIFT_WATER|101,T_SHIFT_PSYCHIC|239,T_SHIFT_DARK|605,T_SHIFT_DARK|500,T_SHIFT_WATER|587,T_SHIFT_GHOST|395,T_SHIFT_PSYCHIC|244,T_SHIFT_PSYCHIC|589,T_SHIFT_NORMAL|196,T_SHIFT_BUG|677,T_SHIFT_BUG|530,T_SHIFT_NORMAL|102,T_SHIFT_GROUND|103,T_SHIFT_STEEL|295,T_SHIFT_FAIRY|83,T_SHIFT_FAIRY|22,T_SHIFT_WATER|349,T_SHIFT_BUG|653,T_SHIFT_BUG|160,T_SHIFT_BUG|597,T_SHIFT_DARK|598,T_SHIFT_NORMAL|456,T_SHIFT_NORMAL|180,T_SHIFT_FIRE|669,T_SHIFT_FIRE|136,T_SHIFT_ICE|662,T_SHIFT_ICE|661,T_SHIFT_WATER|419,T_SHIFT_WATER|670,T_SHIFT_WATER|671,T_SHIFT_ICE|330,T_SHIFT_WATER|753,T_SHIFT_STEEL|590,T_SHIFT_DARK|205,T_SHIFT_DARK|611,T_SHIFT_WATER|592,T_SHIFT_GROUND|656,T_SHIFT_GROUND|657,T_SHIFT_NORMAL|478,T_SHIFT_NORMAL|676,T_SHIFT_NORMAL|162,T_SHIFT_FIGHTING|444,T_SHIFT_FIGHTING|475,T_SHIFT_ICE|596,T_SHIFT_ELECTRIC|569,T_SHIFT_FIRE|445,T_SHIFT_NORMAL|282,T_SHIFT_NORMAL|92,SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|423,SHIFT_LEGENDARY|T_SHIFT_FIRE|649,SHIFT_LEGENDARY|T_SHIFT_WATER|94,T_SHIFT_ROCK|74,T_SHIFT_ROCK|443,T_SHIFT_ROCK|526,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|203,SHIFT_LEGENDARY|T_SHIFT_FIRE|487,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|471,T_SHIFT_GRASS|362,T_SHIFT_GRASS|431,T_SHIFT_GRASS|207,T_SHIFT_FIRE|472,T_SHIFT_FIRE|44,T_SHIFT_FIRE|673,T_SHIFT_WATER|42,T_SHIFT_WATER|118,T_SHIFT_WATER|55,T_SHIFT_DARK|76,T_SHIFT_DARK|622,T_SHIFT_NORMAL|768,T_SHIFT_NORMAL|623,T_SHIFT_BUG|706,T_SHIFT_BUG|704,T_SHIFT_BUG|368,T_SHIFT_BUG|574,T_SHIFT_BUG|576,T_SHIFT_WATER|575,T_SHIFT_WATER|711,T_SHIFT_WATER|210,T_SHIFT_GRASS|75,T_SHIFT_GRASS|658,T_SHIFT_GRASS|88,T_SHIFT_NORMAL|388,T_SHIFT_NORMAL|383,T_SHIFT_WATER|253,T_SHIFT_WATER|58,T_SHIFT_PSYCHIC|736,T_SHIFT_PSYCHIC|326,T_SHIFT_PSYCHIC|316,T_SHIFT_BUG|735,T_SHIFT_BUG|533,T_SHIFT_GRASS|799,T_SHIFT_GRASS|130,T_SHIFT_NORMAL|783,T_SHIFT_NORMAL|440,T_SHIFT_NORMAL|297,T_SHIFT_BUG|93,T_SHIFT_BUG|701,T_SHIFT_BUG|612,T_SHIFT_NORMAL|631,T_SHIFT_NORMAL|485,T_SHIFT_NORMAL|695,T_SHIFT_FIGHTING|694,T_SHIFT_FIGHTING|214,T_SHIFT_NORMAL|507,T_SHIFT_ROCK|449,T_SHIFT_NORMAL|450,T_SHIFT_NORMAL|107,T_SHIFT_DARK|106,T_SHIFT_STEEL|237,T_SHIFT_STEEL|250,T_SHIFT_STEEL|430,T_SHIFT_STEEL|679,T_SHIFT_FIGHTING|720,T_SHIFT_FIGHTING|163,T_SHIFT_ELECTRIC|187,T_SHIFT_ELECTRIC|116,T_SHIFT_ELECTRIC|229,T_SHIFT_ELECTRIC|228,T_SHIFT_BUG|367,T_SHIFT_BUG|635,T_SHIFT_GRASS|97,T_SHIFT_POISON|174,T_SHIFT_POISON|314,T_SHIFT_WATER|727,T_SHIFT_WATER|392,T_SHIFT_WATER|686,T_SHIFT_WATER|2,T_SHIFT_FIRE|782,T_SHIFT_FIRE|593,T_SHIFT_FIRE|39,T_SHIFT_PSYCHIC|385,T_SHIFT_PSYCHIC|135,T_SHIFT_NORMAL|595,T_SHIFT_GROUND|189,T_SHIFT_GROUND|124,T_SHIFT_GROUND|140,T_SHIFT_GRASS|141,T_SHIFT_GRASS|64,T_SHIFT_NORMAL|14,T_SHIFT_DRAGON|115,T_SHIFT_NORMAL|588,T_SHIFT_POISON|798,T_SHIFT_ROCK|352,T_SHIFT_ROCK|647,T_SHIFT_WATER|230,T_SHIFT_WATER|99,T_SHIFT_WATER|281,T_SHIFT_WATER|600,T_SHIFT_GROUND|707,T_SHIFT_GROUND|599,T_SHIFT_ROCK|601,T_SHIFT_ROCK|109,T_SHIFT_ROCK|775,T_SHIFT_ROCK|784,T_SHIFT_WATER|98,T_SHIFT_WATER|401,T_SHIFT_NORMAL|402,T_SHIFT_NORMAL|552,T_SHIFT_GHOST|553,T_SHIFT_GHOST|382,T_SHIFT_GHOST|646,T_SHIFT_GHOST|305,T_SHIFT_GRASS|608,T_SHIFT_PSYCHIC|645,T_SHIFT_DARK|171,T_SHIFT_PSYCHIC|131,T_SHIFT_ICE|636,T_SHIFT_ICE|246,T_SHIFT_ICE|380,T_SHIFT_ICE|381,T_SHIFT_ICE|470,T_SHIFT_WATER|542,T_SHIFT_WATER|166,T_SHIFT_WATER|165,T_SHIFT_WATER|463,T_SHIFT_WATER|108,T_SHIFT_DRAGON|510,T_SHIFT_DRAGON|345,T_SHIFT_DRAGON|549,T_SHIFT_STEEL|506,T_SHIFT_STEEL|264,T_SHIFT_STEEL|667,SHIFT_LEGENDARY|T_SHIFT_ROCK|725,SHIFT_LEGENDARY|T_SHIFT_ICE|607,SHIFT_LEGENDARY|T_SHIFT_STEEL|271,SHIFT_LEGENDARY|T_SHIFT_DRAGON|428,SHIFT_LEGENDARY|T_SHIFT_DRAGON|270,SHIFT_LEGENDARY|T_SHIFT_WATER|294,SHIFT_LEGENDARY|T_SHIFT_GROUND|448,SHIFT_LEGENDARY|T_SHIFT_DRAGON|272,SHIFT_LEGENDARY|T_SHIFT_STEEL|249,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|457,T_SHIFT_GRASS|792,T_SHIFT_GRASS|337,T_SHIFT_GRASS|754,T_SHIFT_FIRE|370,T_SHIFT_FIRE|404,T_SHIFT_FIRE|405,T_SHIFT_WATER|745,T_SHIFT_WATER|68,T_SHIFT_WATER|67,T_SHIFT_NORMAL|66,T_SHIFT_NORMAL|240,T_SHIFT_NORMAL|219,T_SHIFT_NORMAL|801,T_SHIFT_NORMAL|129,T_SHIFT_BUG|126,T_SHIFT_BUG|467,T_SHIFT_ELECTRIC|81,T_SHIFT_ELECTRIC|82,T_SHIFT_ELECTRIC|462,T_SHIFT_GRASS|296,T_SHIFT_GRASS|687,T_SHIFT_ROCK|473,T_SHIFT_ROCK|490,T_SHIFT_ROCK|630,T_SHIFT_ROCK|310,T_SHIFT_BUG|56,T_SHIFT_BUG|226,T_SHIFT_BUG|458,T_SHIFT_BUG|556,T_SHIFT_BUG|747,T_SHIFT_ELECTRIC|179,T_SHIFT_WATER|183,T_SHIFT_WATER|105,T_SHIFT_GRASS|259,T_SHIFT_GRASS|284,T_SHIFT_WATER|303,T_SHIFT_WATER|308,T_SHIFT_NORMAL|307,T_SHIFT_GHOST|154,T_SHIFT_GHOST|648,T_SHIFT_NORMAL|678,T_SHIFT_NORMAL|52,T_SHIFT_GHOST|481,T_SHIFT_DARK|376,T_SHIFT_NORMAL|375,T_SHIFT_NORMAL|11,T_SHIFT_PSYCHIC|151,T_SHIFT_POISON|150,T_SHIFT_POISON|619,T_SHIFT_STEEL|620,T_SHIFT_STEEL|262,T_SHIFT_ROCK|350,T_SHIFT_PSYCHIC|241,T_SHIFT_NORMAL|439,T_SHIFT_NORMAL|778,T_SHIFT_GHOST|572,T_SHIFT_DRAGON|774,T_SHIFT_DRAGON|312,T_SHIFT_DRAGON|200,T_SHIFT_NORMAL|429,T_SHIFT_FIGHTING|146,T_SHIFT_FIGHTING|391,T_SHIFT_GROUND|755,T_SHIFT_GROUND|414,T_SHIFT_POISON|122,T_SHIFT_POISON|749,T_SHIFT_POISON|258,T_SHIFT_POISON|750,T_SHIFT_GRASS|89,T_SHIFT_WATER|446,T_SHIFT_WATER|517,T_SHIFT_WATER|198,T_SHIFT_GRASS|518,T_SHIFT_GRASS|177,T_SHIFT_DARK|800,T_SHIFT_ELECTRIC|34,T_SHIFT_NORMAL|31,T_SHIFT_GROUND|29,T_SHIFT_GRASS|32,T_SHIFT_ELECTRIC|30,T_SHIFT_FIRE|33,T_SHIFT_FAIRY|793,T_SHIFT_BUG|290,T_SHIFT_GRASS|38,T_SHIFT_ICE|291,T_SHIFT_GROUND|164,T_SHIFT_ICE|714,T_SHIFT_NORMAL|715,T_SHIFT_PSYCHIC|299,T_SHIFT_ROCK|322,T_SHIFT_GHOST|274,T_SHIFT_ICE|224,T_SHIFT_ELECTRIC|43,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|138,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|139,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|95,SHIFT_LEGENDARY|T_SHIFT_STEEL|765,SHIFT_LEGENDARY|T_SHIFT_WATER|741,SHIFT_LEGENDARY|T_SHIFT_FIRE|501,SHIFT_LEGENDARY|T_SHIFT_NORMAL|417,SHIFT_LEGENDARY|T_SHIFT_GHOST|484,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|770,SHIFT_LEGENDARY|T_SHIFT_WATER|536,SHIFT_LEGENDARY|T_SHIFT_WATER|674,SHIFT_LEGENDARY|T_SHIFT_DARK|675,SHIFT_LEGENDARY|T_SHIFT_GRASS|515,SHIFT_LEGENDARY|T_SHIFT_NORMAL|511,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|513,T_SHIFT_GRASS|46,T_SHIFT_GRASS|47,T_SHIFT_GRASS|766,T_SHIFT_FIRE|504,T_SHIFT_FIRE|624,T_SHIFT_FIRE|279,T_SHIFT_WATER|53,T_SHIFT_WATER|548,T_SHIFT_WATER|231,T_SHIFT_NORMAL|708,T_SHIFT_NORMAL|795,T_SHIFT_NORMAL|489,T_SHIFT_NORMAL|172,T_SHIFT_NORMAL|18,T_SHIFT_DARK|17,T_SHIFT_DARK|16,T_SHIFT_GRASS|519,T_SHIFT_GRASS|499,T_SHIFT_FIRE|25,T_SHIFT_FIRE|731,T_SHIFT_WATER|221,T_SHIFT_WATER|204,T_SHIFT_PSYCHIC|127,T_SHIFT_PSYCHIC|393,T_SHIFT_NORMAL|311,T_SHIFT_NORMAL|186,T_SHIFT_NORMAL|60,T_SHIFT_ELECTRIC|61,T_SHIFT_ELECTRIC|62,T_SHIFT_ROCK|77,T_SHIFT_ROCK|261,T_SHIFT_ROCK|728,T_SHIFT_PSYCHIC|137,T_SHIFT_PSYCHIC|474,T_SHIFT_GROUND|233,T_SHIFT_GROUND|730,T_SHIFT_NORMAL|57,T_SHIFT_FIGHTING|394,T_SHIFT_FIGHTING|476,T_SHIFT_FIGHTING|54,T_SHIFT_WATER|710,T_SHIFT_WATER|247,T_SHIFT_WATER|509,T_SHIFT_FIGHTING|432,T_SHIFT_FIGHTING|668,T_SHIFT_BUG|771,T_SHIFT_BUG|195,T_SHIFT_BUG|156,T_SHIFT_BUG|651,T_SHIFT_BUG|211,T_SHIFT_BUG|26,T_SHIFT_GRASS|243,T_SHIFT_GRASS|280,T_SHIFT_GRASS|409,T_SHIFT_GRASS|78,T_SHIFT_WATER|20,T_SHIFT_GROUND|19,T_SHIFT_GROUND|384,T_SHIFT_GROUND|378,T_SHIFT_FIRE|486,T_SHIFT_FIRE|377,T_SHIFT_GRASS|379,T_SHIFT_BUG|369,T_SHIFT_BUG|223,T_SHIFT_DARK|643,T_SHIFT_DARK|579,T_SHIFT_PSYCHIC|112,T_SHIFT_GHOST|111,T_SHIFT_GHOST|464,T_SHIFT_WATER|743,T_SHIFT_WATER|447,T_SHIFT_ROCK|744,T_SHIFT_ROCK|524,T_SHIFT_POISON|315,T_SHIFT_POISON|407,T_SHIFT_DARK|479,T_SHIFT_DARK|722,T_SHIFT_NORMAL|627,T_SHIFT_NORMAL|302,T_SHIFT_PSYCHIC|373,T_SHIFT_PSYCHIC|757,T_SHIFT_PSYCHIC|758,T_SHIFT_PSYCHIC|503,T_SHIFT_PSYCHIC|551,T_SHIFT_PSYCHIC|27,T_SHIFT_WATER|28,T_SHIFT_WATER|769,T_SHIFT_ICE|539,T_SHIFT_ICE|586,T_SHIFT_ICE|664,T_SHIFT_NORMAL|254,T_SHIFT_NORMAL|212,T_SHIFT_ELECTRIC|545,T_SHIFT_BUG|560,T_SHIFT_BUG|559,T_SHIFT_GRASS|123,T_SHIFT_GRASS|117,T_SHIFT_WATER|119,T_SHIFT_WATER|364,T_SHIFT_WATER|273,T_SHIFT_BUG|86,T_SHIFT_BUG|537,T_SHIFT_GRASS|161,T_SHIFT_GRASS|497,T_SHIFT_STEEL|496,T_SHIFT_STEEL|336,T_SHIFT_STEEL|540,T_SHIFT_ELECTRIC|319,T_SHIFT_ELECTRIC|492,T_SHIFT_ELECTRIC|292,T_SHIFT_PSYCHIC|372,T_SHIFT_PSYCHIC|90,T_SHIFT_GHOST|422,T_SHIFT_GHOST|616,T_SHIFT_GHOST|410,T_SHIFT_DRAGON|275,T_SHIFT_DRAGON|756,T_SHIFT_DRAGON|403,T_SHIFT_ICE|285,T_SHIFT_ICE|213,T_SHIFT_ICE|353,T_SHIFT_BUG|561,T_SHIFT_BUG|266,T_SHIFT_GROUND|773,T_SHIFT_FIGHTING|516,T_SHIFT_FIGHTING|512,T_SHIFT_DRAGON|514,T_SHIFT_GROUND|227,T_SHIFT_GROUND|672,T_SHIFT_DARK|188,T_SHIFT_DARK|300,T_SHIFT_NORMAL|451,T_SHIFT_NORMAL|690,T_SHIFT_NORMAL|435,T_SHIFT_DARK|289,T_SHIFT_DARK|287,T_SHIFT_FIRE|705,T_SHIFT_BUG|80,T_SHIFT_DARK|199,T_SHIFT_DARK|79,T_SHIFT_DARK|218,T_SHIFT_BUG|685,T_SHIFT_BUG|235,SHIFT_LEGENDARY|T_SHIFT_STEEL|238,SHIFT_LEGENDARY|T_SHIFT_ROCK|215,SHIFT_LEGENDARY|T_SHIFT_GRASS|495,SHIFT_LEGENDARY|T_SHIFT_FLYING|143,SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|361,SHIFT_LEGENDARY|T_SHIFT_DRAGON|459,SHIFT_LEGENDARY|T_SHIFT_DRAGON|209,SHIFT_LEGENDARY|T_SHIFT_GROUND|791,SHIFT_LEGENDARY|T_SHIFT_DRAGON|577,SHIFT_LEGENDARY|T_SHIFT_WATER|338,SHIFT_LEGENDARY|T_SHIFT_NORMAL|21,SHIFT_LEGENDARY|T_SHIFT_BUG|665,T_SHIFT_GRASS|363,T_SHIFT_GRASS|167,T_SHIFT_GRASS|327,T_SHIFT_FIRE|442,T_SHIFT_FIRE|325,T_SHIFT_FIRE|682,T_SHIFT_WATER|7,T_SHIFT_WATER|234,T_SHIFT_WATER|398,T_SHIFT_NORMAL|397,T_SHIFT_NORMAL|396,T_SHIFT_NORMAL|121,T_SHIFT_FIRE|120,T_SHIFT_FIRE|208,T_SHIFT_BUG|762,T_SHIFT_BUG|508,T_SHIFT_BUG|759,T_SHIFT_FIRE|618,T_SHIFT_FIRE|434,T_SHIFT_FAIRY|185,T_SHIFT_FAIRY|245,T_SHIFT_FAIRY|192,T_SHIFT_GRASS|191,T_SHIFT_GRASS|283,T_SHIFT_FIGHTING|333,T_SHIFT_FIGHTING|541,T_SHIFT_NORMAL|317,T_SHIFT_PSYCHIC|260,T_SHIFT_PSYCHIC|581,T_SHIFT_STEEL|277,T_SHIFT_STEEL|220,T_SHIFT_STEEL|684,T_SHIFT_FAIRY|528,T_SHIFT_FAIRY|700,T_SHIFT_FAIRY|276,T_SHIFT_FAIRY|663,T_SHIFT_DARK|114,T_SHIFT_DARK|465,T_SHIFT_ROCK|787,T_SHIFT_ROCK|788,T_SHIFT_POISON|785,T_SHIFT_POISON|786,T_SHIFT_WATER|128,T_SHIFT_WATER|216,T_SHIFT_ELECTRIC|72,T_SHIFT_ELECTRIC|73,T_SHIFT_ROCK|498,T_SHIFT_ROCK|639,T_SHIFT_ROCK|538,T_SHIFT_ROCK|642,T_SHIFT_FAIRY|532,T_SHIFT_FIGHTING|564,T_SHIFT_ELECTRIC|777,T_SHIFT_ROCK|468,T_SHIFT_DRAGON|175,T_SHIFT_DRAGON|176,T_SHIFT_DRAGON|255,T_SHIFT_STEEL|324,T_SHIFT_GHOST|641,T_SHIFT_GHOST|726,T_SHIFT_GHOST|389,T_SHIFT_GHOST|158,T_SHIFT_ICE|733,T_SHIFT_ICE|748,T_SHIFT_FLYING|454,T_SHIFT_FLYING|520,SHIFT_LEGENDARY|T_SHIFT_FAIRY|328,SHIFT_LEGENDARY|T_SHIFT_DARK|252,SHIFT_LEGENDARY|T_SHIFT_DRAGON|709,SHIFT_LEGENDARY|T_SHIFT_ROCK|357,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|568,SHIFT_LEGENDARY|T_SHIFT_FIRE|732,T_SHIFT_GRASS|763,T_SHIFT_GRASS|776,T_SHIFT_GRASS|387,T_SHIFT_FIRE|535,T_SHIFT_FIRE|602,T_SHIFT_FIRE|772,T_SHIFT_WATER|157,T_SHIFT_WATER|248,T_SHIFT_WATER|697,T_SHIFT_NORMAL|236,T_SHIFT_NORMAL|696,T_SHIFT_NORMAL|197,T_SHIFT_NORMAL|521,T_SHIFT_NORMAL|201,T_SHIFT_BUG|217,T_SHIFT_BUG|480,T_SHIFT_BUG|583,T_SHIFT_FIGHTING|582,T_SHIFT_FIGHTING|584,T_SHIFT_FIRE|134,T_SHIFT_BUG|543,T_SHIFT_BUG|49,T_SHIFT_ROCK|48,T_SHIFT_ROCK|3,T_SHIFT_WATER|416,T_SHIFT_POISON|329,T_SHIFT_POISON|494,T_SHIFT_GROUND|71,T_SHIFT_GROUND|288,T_SHIFT_WATER|738,T_SHIFT_WATER|45,T_SHIFT_GRASS|640,T_SHIFT_GRASS|666,T_SHIFT_GRASS|313,T_SHIFT_GRASS|721,T_SHIFT_POISON|637,T_SHIFT_POISON|100,T_SHIFT_NORMAL|629,T_SHIFT_NORMAL|37,T_SHIFT_GRASS|320,T_SHIFT_GRASS|321,T_SHIFT_GRASS|365,T_SHIFT_FAIRY|8,T_SHIFT_NORMAL|505,T_SHIFT_FIGHTING|461,T_SHIFT_BUG|13,T_SHIFT_BUG|70,T_SHIFT_GHOST|110,T_SHIFT_GHOST|547,T_SHIFT_WATER|544,T_SHIFT_NORMAL|340,T_SHIFT_NORMAL|293,T_SHIFT_ROCK|40,T_SHIFT_NORMAL|767,T_SHIFT_FIRE|278,T_SHIFT_ELECTRIC|746,T_SHIFT_GHOST|202,T_SHIFT_WATER|527,T_SHIFT_NORMAL|194,T_SHIFT_GHOST|413,T_SHIFT_DRAGON|265,T_SHIFT_DRAGON|360,T_SHIFT_DRAGON|178,SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|716,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|796,SHIFT_LEGENDARY|T_SHIFT_GRASS|562,SHIFT_LEGENDARY|T_SHIFT_WATER|193,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|469,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|734,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|717,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|335,SHIFT_LEGENDARY|T_SHIFT_ROCK|145,SHIFT_LEGENDARY|T_SHIFT_BUG|523,SHIFT_LEGENDARY|T_SHIFT_BUG|644,SHIFT_LEGENDARY|T_SHIFT_ELECTRIC|263,SHIFT_LEGENDARY|T_SHIFT_STEEL|571,SHIFT_LEGENDARY|T_SHIFT_GRASS|570,SHIFT_LEGENDARY|T_SHIFT_DARK|41,SHIFT_LEGENDARY|T_SHIFT_PSYCHIC|634,SHIFT_LEGENDARY|T_SHIFT_STEEL|718,0},
 
-{0, T_SHIFT_POISON|367, T_SHIFT_POISON|63, T_SHIFT_POISON|359, T_SHIFT_NONE|503, T_SHIFT_NONE|142, T_SHIFT_FLYING|567, T_SHIFT_NONE|690, T_SHIFT_NONE|93, T_SHIFT_NONE|334, 
-T_SHIFT_NONE|699, T_SHIFT_NONE|698, T_SHIFT_FLYING|424, T_SHIFT_POISON|138, T_SHIFT_POISON|139, T_SHIFT_POISON|181, T_SHIFT_FLYING|657, T_SHIFT_FLYING|347, T_SHIFT_FLYING|593, T_SHIFT_NONE|134, 
-T_SHIFT_NONE|24, T_SHIFT_FLYING|493, T_SHIFT_FLYING|168, T_SHIFT_NONE|59, T_SHIFT_NONE|713, T_SHIFT_NONE|712, T_SHIFT_NONE|144, T_SHIFT_NONE|348, T_SHIFT_NONE|91, T_SHIFT_NONE|184, 
-T_SHIFT_NONE|298, T_SHIFT_GROUND|211, T_SHIFT_NONE|696, T_SHIFT_NONE|418, T_SHIFT_GROUND|354, T_SHIFT_NONE|550, T_SHIFT_NONE|349, T_SHIFT_NONE|15, T_SHIFT_NONE|400, T_SHIFT_FAIRY|399, 
-T_SHIFT_FAIRY|3, T_SHIFT_FLYING|2, T_SHIFT_FLYING|1, T_SHIFT_POISON|626, T_SHIFT_POISON|508, T_SHIFT_POISON|688, T_SHIFT_GRASS|274, T_SHIFT_GRASS|135, T_SHIFT_POISON|182, T_SHIFT_POISON|48, 
-T_SHIFT_NONE|419, T_SHIFT_NONE|411, T_SHIFT_NONE|641, T_SHIFT_NONE|225, T_SHIFT_NONE|537, T_SHIFT_NONE|652, T_SHIFT_NONE|526, T_SHIFT_NONE|436, T_SHIFT_NONE|437, T_SHIFT_NONE|373, 
-T_SHIFT_NONE|287, T_SHIFT_NONE|413, T_SHIFT_FIGHTING|412, T_SHIFT_NONE|625, T_SHIFT_NONE|687, T_SHIFT_NONE|322, T_SHIFT_NONE|323, T_SHIFT_NONE|558, T_SHIFT_NONE|589, T_SHIFT_POISON|251, 
-T_SHIFT_POISON|545, T_SHIFT_POISON|113, T_SHIFT_POISON|431, T_SHIFT_POISON|387, T_SHIFT_GROUND|388, T_SHIFT_GROUND|389, T_SHIFT_GROUND|673, T_SHIFT_NONE|573, T_SHIFT_NONE|707, T_SHIFT_PSYCHIC|676, 
-T_SHIFT_PSYCHIC|222, T_SHIFT_STEEL|488, T_SHIFT_STEEL|234, T_SHIFT_FLYING|491, T_SHIFT_FLYING|662, T_SHIFT_FLYING|661, T_SHIFT_NONE|702, T_SHIFT_ICE|645, T_SHIFT_NONE|386, T_SHIFT_NONE|569, 
-T_SHIFT_NONE|248, T_SHIFT_ICE|483, T_SHIFT_POISON|719, T_SHIFT_POISON|50, T_SHIFT_POISON|51, T_SHIFT_GROUND|132, T_SHIFT_NONE|85, T_SHIFT_NONE|84, T_SHIFT_NONE|232, T_SHIFT_NONE|148, 
-T_SHIFT_NONE|149, T_SHIFT_NONE|372, T_SHIFT_PSYCHIC|147, T_SHIFT_PSYCHIC|549, T_SHIFT_NONE|425, T_SHIFT_NONE|426, T_SHIFT_NONE|44, T_SHIFT_NONE|206, T_SHIFT_NONE|634, T_SHIFT_NONE|680, 
-T_SHIFT_NONE|681, T_SHIFT_ROCK|519, T_SHIFT_ROCK|563, T_SHIFT_NONE|714, T_SHIFT_NONE|496, T_SHIFT_NONE|694, T_SHIFT_NONE|239, T_SHIFT_NONE|125, T_SHIFT_NONE|466, T_SHIFT_NONE|695, 
-T_SHIFT_NONE|522, T_SHIFT_PSYCHIC|547, T_SHIFT_FAIRY|587, T_SHIFT_FLYING|152, T_SHIFT_PSYCHIC|300, T_SHIFT_NONE|301, T_SHIFT_NONE|244, T_SHIFT_NONE|54, T_SHIFT_NONE|55, T_SHIFT_NONE|133, 
-T_SHIFT_FLYING|235, T_SHIFT_ICE|521, T_SHIFT_NONE|700, T_SHIFT_NONE|509, T_SHIFT_NONE|194, T_SHIFT_NONE|655, T_SHIFT_NONE|499, T_SHIFT_NONE|632, T_SHIFT_WATER|155, T_SHIFT_WATER|663, 
-T_SHIFT_WATER|261, T_SHIFT_WATER|456, T_SHIFT_FLYING|362, T_SHIFT_NONE|669, T_SHIFT_FLYING|136, T_SHIFT_FLYING|500, T_SHIFT_FLYING|554, T_SHIFT_NONE|555, T_SHIFT_NONE|566, T_SHIFT_FLYING|684, 
-T_SHIFT_NONE|79, T_SHIFT_NONE|527, T_SHIFT_NONE|255, T_SHIFT_NONE|528, T_SHIFT_NONE|670, T_SHIFT_NONE|498, T_SHIFT_NONE|671, T_SHIFT_NONE|174, T_SHIFT_NONE|303, T_SHIFT_NONE|618, 
-T_SHIFT_NONE|293, T_SHIFT_NONE|541, T_SHIFT_NONE|470, T_SHIFT_FLYING|351, T_SHIFT_FLYING|205, T_SHIFT_FLYING|615, T_SHIFT_FLYING|309, T_SHIFT_POISON|478, T_SHIFT_POISON|656, T_SHIFT_FLYING|58, 
-T_SHIFT_ELECTRIC|631, T_SHIFT_ELECTRIC|653, T_SHIFT_NONE|475, T_SHIFT_NONE|564, T_SHIFT_FAIRY|78, T_SHIFT_NONE|551, T_SHIFT_FLYING|130, T_SHIFT_FLYING|423, T_SHIFT_FLYING|252, T_SHIFT_NONE|283, 
-T_SHIFT_NONE|582, T_SHIFT_NONE|583, T_SHIFT_NONE|584, T_SHIFT_FAIRY|649, T_SHIFT_FAIRY|94, T_SHIFT_NONE|75, T_SHIFT_NONE|76, T_SHIFT_FLYING|264, T_SHIFT_FLYING|627, T_SHIFT_FLYING|254, 
-T_SHIFT_NONE|45, T_SHIFT_NONE|203, T_SHIFT_NONE|487, T_SHIFT_FLYING|624, T_SHIFT_GROUND|471, T_SHIFT_GROUND|453, T_SHIFT_NONE|4, T_SHIFT_NONE|6, T_SHIFT_FLYING|5, T_SHIFT_PSYCHIC|42, 
-T_SHIFT_NONE|622, T_SHIFT_NONE|118, T_SHIFT_NONE|623, T_SHIFT_PSYCHIC|119, T_SHIFT_NONE|679, T_SHIFT_STEEL|210, T_SHIFT_NONE|660, T_SHIFT_FLYING|190, T_SHIFT_GROUND|514, T_SHIFT_NONE|513, 
-T_SHIFT_NONE|326, T_SHIFT_POISON|383, T_SHIFT_STEEL|630, T_SHIFT_ROCK|282, T_SHIFT_FIGHTING|21, T_SHIFT_ICE|297, T_SHIFT_NONE|427, T_SHIFT_NONE|485, T_SHIFT_NONE|242, T_SHIFT_ROCK|449, 
-T_SHIFT_GROUND|450, T_SHIFT_GROUND|250, T_SHIFT_ROCK|416, T_SHIFT_NONE|720, T_SHIFT_NONE|163, T_SHIFT_FLYING|187, T_SHIFT_FLYING|13, T_SHIFT_FLYING|188, T_SHIFT_FIRE|229, T_SHIFT_FIRE|228, 
-T_SHIFT_DRAGON|591, T_SHIFT_NONE|617, T_SHIFT_NONE|258, T_SHIFT_NONE|97, T_SHIFT_NONE|575, T_SHIFT_NONE|22, T_SHIFT_NONE|201, T_SHIFT_NONE|650, T_SHIFT_PSYCHIC|651, T_SHIFT_NONE|156, 
-T_SHIFT_NONE|636, T_SHIFT_NONE|169, T_SHIFT_NONE|314, T_SHIFT_NONE|160, T_SHIFT_NONE|395, T_SHIFT_NONE|560, T_SHIFT_GROUND|710, T_SHIFT_GROUND|686, T_SHIFT_DARK|360, T_SHIFT_FLYING|385, 
-T_SHIFT_FLYING|538, T_SHIFT_GRASS|87, T_SHIFT_NONE|256, T_SHIFT_NONE|86, T_SHIFT_NONE|140, T_SHIFT_NONE|141, T_SHIFT_FIGHTING|64, T_SHIFT_FIGHTING|115, T_SHIFT_NONE|318, T_SHIFT_GROUND|286, 
-T_SHIFT_GROUND|237, T_SHIFT_NONE|272, T_SHIFT_NONE|633, T_SHIFT_NONE|539, T_SHIFT_NONE|565, T_SHIFT_NONE|158, T_SHIFT_NONE|129, T_SHIFT_FLYING|597, T_SHIFT_NONE|443, T_SHIFT_POISON|352, 
-T_SHIFT_GRASS|221, T_SHIFT_GRASS|647, T_SHIFT_GRASS|106, T_SHIFT_NONE|524, T_SHIFT_DARK|420, T_SHIFT_DARK|371, T_SHIFT_FLYING|99, T_SHIFT_FLYING|421, T_SHIFT_FLYING|281, T_SHIFT_FLYING|74, 
-T_SHIFT_FAIRY|510, T_SHIFT_FAIRY|601, T_SHIFT_FAIRY|599, T_SHIFT_WATER|600, T_SHIFT_FLYING|433, T_SHIFT_NONE|328, T_SHIFT_FIGHTING|445, T_SHIFT_NONE|444, T_SHIFT_NONE|285, T_SHIFT_NONE|69, 
-T_SHIFT_GROUND|105, T_SHIFT_FLYING|406, T_SHIFT_GHOST|40, T_SHIFT_NONE|638, T_SHIFT_NONE|408, T_SHIFT_NONE|103, T_SHIFT_NONE|14, T_SHIFT_NONE|98, T_SHIFT_FAIRY|294, T_SHIFT_NONE|430, 
-T_SHIFT_NONE|198, T_SHIFT_NONE|295, T_SHIFT_GHOST|341, T_SHIFT_FAIRY|342, T_SHIFT_ROCK|586, T_SHIFT_ROCK|442, T_SHIFT_ROCK|505, T_SHIFT_PSYCHIC|238, T_SHIFT_PSYCHIC|382, T_SHIFT_NONE|646, 
-T_SHIFT_NONE|80, T_SHIFT_NONE|170, T_SHIFT_NONE|171, T_SHIFT_NONE|131, T_SHIFT_NONE|246, T_SHIFT_POISON|199, T_SHIFT_NONE|608, T_SHIFT_NONE|380, T_SHIFT_DARK|381, T_SHIFT_DARK|588, 
-T_SHIFT_NONE|146, T_SHIFT_NONE|166, T_SHIFT_GROUND|165, T_SHIFT_GROUND|101, T_SHIFT_NONE|344, T_SHIFT_NONE|289, T_SHIFT_NONE|667, T_SHIFT_NONE|330, T_SHIFT_NONE|607, T_SHIFT_DRAGON|370, 
-T_SHIFT_DRAGON|345, T_SHIFT_NONE|548, T_SHIFT_DARK|619, T_SHIFT_FLYING|557, T_SHIFT_FLYING|257, T_SHIFT_NONE|271, T_SHIFT_NONE|153, T_SHIFT_PSYCHIC|270, T_SHIFT_PSYCHIC|448, T_SHIFT_GROUND|249, 
-T_SHIFT_GROUND|457, T_SHIFT_NONE|337, T_SHIFT_DARK|404, T_SHIFT_PSYCHIC|405, T_SHIFT_PSYCHIC|66, T_SHIFT_GRASS|68, T_SHIFT_GRASS|467, T_SHIFT_BUG|240, T_SHIFT_BUG|219, T_SHIFT_NONE|126, 
-T_SHIFT_NONE|262, T_SHIFT_NONE|81, T_SHIFT_NONE|82, T_SHIFT_NONE|462, T_SHIFT_NONE|562, T_SHIFT_NONE|296, T_SHIFT_NONE|594, T_SHIFT_FLYING|446, T_SHIFT_NONE|473, T_SHIFT_NONE|490, 
-T_SHIFT_NONE|226, T_SHIFT_NONE|458, T_SHIFT_NONE|556, T_SHIFT_WATER|183, T_SHIFT_WATER|67, T_SHIFT_WATER|284, T_SHIFT_NONE|542, T_SHIFT_NONE|52, T_SHIFT_NONE|612, T_SHIFT_ROCK|536, 
-T_SHIFT_NONE|308, T_SHIFT_NONE|307, T_SHIFT_NONE|606, T_SHIFT_FLYING|154, T_SHIFT_PSYCHIC|534, T_SHIFT_PSYCHIC|648, T_SHIFT_PSYCHIC|56, T_SHIFT_NONE|376, T_SHIFT_NONE|375, T_SHIFT_NONE|151, 
-T_SHIFT_PSYCHIC|150, T_SHIFT_PSYCHIC|350, T_SHIFT_NONE|241, T_SHIFT_NONE|610, T_SHIFT_FLYING|312, T_SHIFT_PSYCHIC|578, T_SHIFT_NONE|438, T_SHIFT_NONE|185, T_SHIFT_NONE|574, T_SHIFT_GROUND|697, 
-T_SHIFT_NONE|577, T_SHIFT_FIGHTING|259, T_SHIFT_FIGHTING|576, T_SHIFT_NONE|195, T_SHIFT_NONE|414, T_SHIFT_STEEL|288, T_SHIFT_FLYING|90, T_SHIFT_FLYING|43, T_SHIFT_FLYING|672, T_SHIFT_NONE|197, 
-T_SHIFT_WATER|504, T_SHIFT_NONE|299, T_SHIFT_NONE|177, T_SHIFT_NONE|520, T_SHIFT_NONE|92, T_SHIFT_NONE|34, T_SHIFT_POISON|31, T_SHIFT_POISON|32, T_SHIFT_NONE|29, T_SHIFT_NONE|30, 
-T_SHIFT_STEEL|33, T_SHIFT_STEEL|290, T_SHIFT_NONE|291, T_SHIFT_GRASS|292, T_SHIFT_FLYING|107, T_SHIFT_FLYING|164, T_SHIFT_FLYING|332, T_SHIFT_NONE|224, T_SHIFT_NONE|531, T_SHIFT_NONE|49, 
-T_SHIFT_NONE|95, T_SHIFT_NONE|501, T_SHIFT_NONE|102, T_SHIFT_GROUND|417, T_SHIFT_NONE|358, T_SHIFT_FLYING|484, T_SHIFT_FLYING|674, T_SHIFT_NONE|675, T_SHIFT_NONE|327, T_SHIFT_NONE|268, 
-T_SHIFT_FLYING|392, T_SHIFT_NONE|390, T_SHIFT_NONE|391, T_SHIFT_NONE|439, T_SHIFT_DARK|122, T_SHIFT_DARK|227, T_SHIFT_PSYCHIC|267, T_SHIFT_PSYCHIC|189, T_SHIFT_NONE|708, T_SHIFT_FAIRY|46, 
-T_SHIFT_NONE|47, T_SHIFT_FLYING|682, T_SHIFT_DARK|683, T_SHIFT_GROUND|279, T_SHIFT_GROUND|366, T_SHIFT_GROUND|613, T_SHIFT_NONE|231, T_SHIFT_NONE|489, T_SHIFT_STEEL|580, T_SHIFT_NONE|172, 
-T_SHIFT_NONE|572, T_SHIFT_BUG|35, T_SHIFT_DARK|173, T_SHIFT_FIGHTING|25, T_SHIFT_FIGHTING|127, T_SHIFT_NONE|452, T_SHIFT_NONE|451, T_SHIFT_NONE|36, T_SHIFT_FLYING|441, T_SHIFT_ICE|393, 
-T_SHIFT_ICE|394, T_SHIFT_ICE|311, T_SHIFT_STEEL|77, T_SHIFT_NONE|83, T_SHIFT_ROCK|137, T_SHIFT_NONE|474, T_SHIFT_NONE|233, T_SHIFT_NONE|213, T_SHIFT_FLYING|532, T_SHIFT_FLYING|196, 
-T_SHIFT_NONE|677, T_SHIFT_NONE|678, T_SHIFT_FLYING|269, T_SHIFT_GROUND|39, T_SHIFT_NONE|711, T_SHIFT_FIGHTING|247, T_SHIFT_STEEL|665, T_SHIFT_NONE|343, T_SHIFT_GHOST|664, T_SHIFT_GHOST|605, 
-T_SHIFT_NONE|668, T_SHIFT_NONE|592, T_SHIFT_NONE|658, T_SHIFT_DRAGON|62, T_SHIFT_DRAGON|60, T_SHIFT_STEEL|61, T_SHIFT_NONE|186, T_SHIFT_DRAGON|220, T_SHIFT_NONE|324, T_SHIFT_NONE|236, 
-T_SHIFT_NONE|553, T_SHIFT_NONE|26, T_SHIFT_NONE|243, T_SHIFT_NONE|409, T_SHIFT_FIRE|637, T_SHIFT_NONE|57, T_SHIFT_NONE|19, T_SHIFT_NONE|20, T_SHIFT_NONE|10, T_SHIFT_FIGHTING|384, 
-T_SHIFT_FIGHTING|378, T_SHIFT_NONE|486, T_SHIFT_NONE|377, T_SHIFT_NONE|379, T_SHIFT_NONE|143, T_SHIFT_NONE|369, T_SHIFT_NONE|223, T_SHIFT_NONE|253, T_SHIFT_NONE|643, T_SHIFT_NONE|701, 
-T_SHIFT_NONE|23, T_SHIFT_NONE|460, T_SHIFT_NONE|111, T_SHIFT_NONE|464, T_SHIFT_NONE|447, T_SHIFT_NONE|112, T_SHIFT_NONE|703, T_SHIFT_NONE|552, T_SHIFT_NONE|544, T_SHIFT_FLYING|315, 
-T_SHIFT_FLYING|407, T_SHIFT_FLYING|124, T_SHIFT_NONE|479, T_SHIFT_NONE|529, T_SHIFT_NONE|654, T_SHIFT_NONE|685, T_SHIFT_NONE|11, T_SHIFT_FLYING|368, T_SHIFT_FLYING|273, T_SHIFT_NONE|28, 
-T_SHIFT_STEEL|27, T_SHIFT_NONE|71, T_SHIFT_NONE|692, T_SHIFT_NONE|422, T_SHIFT_NONE|535, T_SHIFT_NONE|266, T_SHIFT_GROUND|212, T_SHIFT_GROUND|7, T_SHIFT_NONE|8, T_SHIFT_NONE|410, 
-T_SHIFT_GRASS|428, T_SHIFT_GRASS|317, T_SHIFT_GRASS|316, T_SHIFT_POISON|108, T_SHIFT_POISON|463, T_SHIFT_POISON|339, T_SHIFT_FAIRY|218, T_SHIFT_FAIRY|361, T_SHIFT_NONE|616, T_SHIFT_NONE|276, 
-T_SHIFT_NONE|277, T_SHIFT_DARK|659, T_SHIFT_DARK|525, T_SHIFT_DARK|230, T_SHIFT_NONE|364, T_SHIFT_NONE|117, T_SHIFT_NONE|363, T_SHIFT_ROCK|116, T_SHIFT_ROCK|480, T_SHIFT_FIGHTING|335, 
-T_SHIFT_FIGHTING|495, T_SHIFT_FLYING|497, T_SHIFT_NONE|585, T_SHIFT_NONE|621, T_SHIFT_ROCK|611, T_SHIFT_ROCK|492, T_SHIFT_FLYING|403, T_SHIFT_FLYING|459, T_SHIFT_NONE|432, T_SHIFT_NONE|353, 
-T_SHIFT_NONE|614, T_SHIFT_NONE|123, T_SHIFT_NONE|65, T_SHIFT_NONE|629, T_SHIFT_NONE|214, T_SHIFT_NONE|609, T_SHIFT_NONE|207, T_SHIFT_NONE|472, T_SHIFT_NONE|434, T_SHIFT_NONE|435, 
-T_SHIFT_FLYING|88, T_SHIFT_FLYING|89, T_SHIFT_NONE|12, T_SHIFT_NONE|110, T_SHIFT_NONE|109, T_SHIFT_GRASS|461, T_SHIFT_GRASS|215, T_SHIFT_FLYING|53, T_SHIFT_NONE|209, T_SHIFT_STEEL|516, 
-T_SHIFT_POISON|515, T_SHIFT_POISON|517, T_SHIFT_GHOST|518, T_SHIFT_GHOST|338, T_SHIFT_NONE|192, T_SHIFT_ELECTRIC|191, T_SHIFT_ELECTRIC|325, T_SHIFT_STEEL|208, T_SHIFT_STEEL|530, T_SHIFT_NONE|396, 
-T_SHIFT_NONE|398, T_SHIFT_NONE|397, T_SHIFT_NONE|121, T_SHIFT_NONE|120, T_SHIFT_NONE|306, T_SHIFT_NONE|305, T_SHIFT_NONE|304, T_SHIFT_FIRE|540, T_SHIFT_FIRE|533, T_SHIFT_FIRE|245, 
-T_SHIFT_NONE|260, T_SHIFT_NONE|581, T_SHIFT_NONE|561, T_SHIFT_NONE|691, T_SHIFT_NONE|114, T_SHIFT_NONE|465, T_SHIFT_NONE|374, T_SHIFT_NONE|204, T_SHIFT_ELECTRIC|590, T_SHIFT_NONE|17, 
-T_SHIFT_NONE|18, T_SHIFT_NONE|16, T_SHIFT_GHOST|128, T_SHIFT_GHOST|216, T_SHIFT_STEEL|275, T_SHIFT_STEEL|72, T_SHIFT_NONE|598, T_SHIFT_FLYING|73, T_SHIFT_FLYING|639, T_SHIFT_FLYING|507, 
-T_SHIFT_FLYING|689, T_SHIFT_NONE|482, T_SHIFT_STEEL|468, T_SHIFT_DRAGON|175, T_SHIFT_DRAGON|176, T_SHIFT_DRAGON|319, T_SHIFT_FIRE|157, T_SHIFT_FIRE|543, T_SHIFT_FIGHTING|454, T_SHIFT_FIGHTING|104, 
-T_SHIFT_FIGHTING|280, T_SHIFT_NONE|96, T_SHIFT_FLYING|200, T_SHIFT_FIRE|429, T_SHIFT_ELECTRIC|635, T_SHIFT_FLYING|709, T_SHIFT_ICE|357, T_SHIFT_FIGHTING|9, T_SHIFT_PSYCHIC|331, T_SHIFT_STEEL|159, 
-T_SHIFT_NONE|715, T_SHIFT_NONE|70, T_SHIFT_FIGHTING|568, T_SHIFT_NONE|217, T_SHIFT_NONE|512, T_SHIFT_PSYCHIC|511, T_SHIFT_NONE|455, T_SHIFT_NONE|481, T_SHIFT_DARK|329, T_SHIFT_NONE|494, 
-T_SHIFT_GROUND|336, T_SHIFT_FLYING|640, T_SHIFT_FLYING|705, T_SHIFT_FLYING|706, T_SHIFT_NONE|704, T_SHIFT_NONE|666, T_SHIFT_FLYING|313, T_SHIFT_NORMAL|721, T_SHIFT_NORMAL|310, T_SHIFT_NONE|179, 
-T_SHIFT_NONE|100, T_SHIFT_NONE|642, T_SHIFT_NONE|596, T_SHIFT_NONE|476, T_SHIFT_NONE|38, T_SHIFT_DARK|37, T_SHIFT_NONE|180, T_SHIFT_NONE|333, T_SHIFT_NONE|415, T_SHIFT_GHOST|320, 
-T_SHIFT_GHOST|321, T_SHIFT_GHOST|365, T_SHIFT_NONE|628, T_SHIFT_NONE|595, T_SHIFT_NONE|546, T_SHIFT_NONE|265, T_SHIFT_PSYCHIC|167, T_SHIFT_PSYCHIC|340, T_SHIFT_WATER|620, T_SHIFT_WATER|346, 
-T_SHIFT_WATER|162, T_SHIFT_DRAGON|161, T_SHIFT_NONE|278, T_SHIFT_NONE|202, T_SHIFT_NORMAL|440, T_SHIFT_NORMAL|693, T_SHIFT_DRAGON|178, T_SHIFT_DRAGON|716, T_SHIFT_ICE|193, T_SHIFT_ICE|469, 
-T_SHIFT_NONE|506, T_SHIFT_FLYING|717, T_SHIFT_FAIRY|145, T_SHIFT_FAIRY|603, T_SHIFT_NONE|604, T_SHIFT_NONE|602, T_SHIFT_NONE|523, T_SHIFT_FAIRY|644, T_SHIFT_GRASS|263, T_SHIFT_GRASS|402, 
-T_SHIFT_GRASS|401, T_SHIFT_GRASS|302, T_SHIFT_NONE|571, T_SHIFT_NONE|570, T_SHIFT_DRAGON|41, T_SHIFT_DRAGON|559, T_SHIFT_NONE|477, T_SHIFT_FLYING|356, T_SHIFT_GROUND|355, T_SHIFT_FAIRY|502, 
-T_SHIFT_GHOST|718, T_SHIFT_WATER|579, 0}
+//ruby generate.rb order german 2 megaTypes
+{0,SHIFT_TYPE|T_SHIFT_POISON|367,T_SHIFT_POISON|63,SHIFT_TYPE|T_SHIFT_POISON|359,T_SHIFT_NONE|503,T_SHIFT_NONE|142,SHIFT_TYPE|T_SHIFT_FLYING|567,SHIFT_TYPE|T_SHIFT_NONE|748,SHIFT_TYPE|T_SHIFT_NONE|737,T_SHIFT_NONE|690,T_SHIFT_NONE|93,T_SHIFT_NONE|334,SHIFT_TYPE|T_SHIFT_FLYING|699,SHIFT_TYPE|T_SHIFT_POISON|698,SHIFT_TYPE|T_SHIFT_POISON|424,T_SHIFT_POISON|758,T_SHIFT_FLYING|773,T_SHIFT_FLYING|138,SHIFT_TYPE|T_SHIFT_FLYING|139,SHIFT_TYPE|T_SHIFT_NONE|181,T_SHIFT_NONE|657,T_SHIFT_FLYING|793,SHIFT_TYPE|T_SHIFT_FLYING|347,SHIFT_TYPE|T_SHIFT_NONE|593,SHIFT_TYPE|T_SHIFT_NONE|134,T_SHIFT_NONE|752,SHIFT_TYPE|T_SHIFT_NONE|751,T_SHIFT_NONE|24,T_SHIFT_NONE|723,T_SHIFT_NONE|493,SHIFT_TYPE|T_SHIFT_NONE|168,T_SHIFT_GROUND|59,T_SHIFT_NONE|713,SHIFT_TYPE|T_SHIFT_NONE|712,T_SHIFT_GROUND|144,T_SHIFT_NONE|348,T_SHIFT_NONE|91,T_SHIFT_NONE|184,T_SHIFT_NONE|298,T_SHIFT_FAIRY|211,T_SHIFT_FAIRY|696,T_SHIFT_FLYING|418,T_SHIFT_FLYING|743,T_SHIFT_POISON|354,SHIFT_TYPE|T_SHIFT_POISON|550,T_SHIFT_POISON|349,SHIFT_TYPE|T_SHIFT_GRASS|722,SHIFT_TYPE|T_SHIFT_GRASS|15,SHIFT_TYPE|T_SHIFT_POISON|400,T_SHIFT_POISON|399,T_SHIFT_NONE|3,SHIFT_TYPE|T_SHIFT_NONE|2,SHIFT_TYPE|T_SHIFT_NONE|1,T_SHIFT_NONE|626,SHIFT_TYPE|T_SHIFT_NONE|508,T_SHIFT_NONE|688,SHIFT_TYPE|T_SHIFT_NONE|274,T_SHIFT_NONE|135,T_SHIFT_NONE|182,T_SHIFT_NONE|48,T_SHIFT_NONE|419,SHIFT_TYPE|T_SHIFT_NONE|411,SHIFT_TYPE|T_SHIFT_FIGHTING|641,SHIFT_TYPE|T_SHIFT_NONE|225,SHIFT_TYPE|T_SHIFT_NONE|537,T_SHIFT_NONE|652,T_SHIFT_NONE|526,T_SHIFT_NONE|436,T_SHIFT_NONE|437,T_SHIFT_POISON|373,SHIFT_TYPE|T_SHIFT_POISON|755,T_SHIFT_POISON|287,T_SHIFT_POISON|413,SHIFT_TYPE|T_SHIFT_POISON|412,T_SHIFT_GROUND|625,T_SHIFT_GROUND|687,SHIFT_TYPE|T_SHIFT_GROUND|322,SHIFT_TYPE|T_SHIFT_NONE|323,SHIFT_TYPE|T_SHIFT_NONE|558,SHIFT_TYPE|T_SHIFT_PSYCHIC|589,T_SHIFT_PSYCHIC|251,SHIFT_TYPE|T_SHIFT_STEEL|545,T_SHIFT_STEEL|113,T_SHIFT_FLYING|431,SHIFT_TYPE|T_SHIFT_FLYING|387,T_SHIFT_FLYING|388,SHIFT_TYPE|T_SHIFT_NONE|389,SHIFT_TYPE|T_SHIFT_ICE|673,SHIFT_TYPE|T_SHIFT_NONE|573,T_SHIFT_NONE|741,T_SHIFT_NONE|707,SHIFT_TYPE|T_SHIFT_ICE|676,SHIFT_TYPE|T_SHIFT_POISON|770,T_SHIFT_POISON|222,SHIFT_TYPE|T_SHIFT_POISON|789,T_SHIFT_GROUND|790,T_SHIFT_NONE|488,T_SHIFT_NONE|764,T_SHIFT_NONE|234,T_SHIFT_NONE|491,T_SHIFT_NONE|662,T_SHIFT_NONE|661,T_SHIFT_PSYCHIC|702,T_SHIFT_PSYCHIC|645,SHIFT_TYPE|T_SHIFT_NONE|386,T_SHIFT_NONE|569,SHIFT_TYPE|T_SHIFT_NONE|248,T_SHIFT_NONE|483,T_SHIFT_NONE|719,T_SHIFT_NONE|50,SHIFT_TYPE|T_SHIFT_NONE|51,T_SHIFT_ROCK|132,T_SHIFT_ROCK|85,SHIFT_TYPE|T_SHIFT_NONE|84,T_SHIFT_NONE|738,T_SHIFT_NONE|232,T_SHIFT_NONE|148,T_SHIFT_NONE|149,SHIFT_TYPE|T_SHIFT_NONE|372,T_SHIFT_NONE|147,SHIFT_TYPE|T_SHIFT_NONE|549,T_SHIFT_PSYCHIC|425,T_SHIFT_FAIRY|426,T_SHIFT_FLYING|44,T_SHIFT_PSYCHIC|206,T_SHIFT_NONE|634,SHIFT_TYPE|T_SHIFT_NONE|680,T_SHIFT_NONE|681,T_SHIFT_NONE|519,T_SHIFT_NONE|563,T_SHIFT_FLYING|714,SHIFT_TYPE|T_SHIFT_ICE|496,SHIFT_TYPE|T_SHIFT_NONE|694,SHIFT_TYPE|T_SHIFT_NONE|239,SHIFT_TYPE|T_SHIFT_NONE|125,T_SHIFT_NONE|466,T_SHIFT_NONE|695,SHIFT_TYPE|T_SHIFT_NONE|522,SHIFT_TYPE|T_SHIFT_WATER|547,T_SHIFT_WATER|587,T_SHIFT_WATER|152,SHIFT_TYPE|T_SHIFT_WATER|300,SHIFT_TYPE|T_SHIFT_FLYING|301,SHIFT_TYPE|T_SHIFT_NONE|244,SHIFT_TYPE|T_SHIFT_FLYING|54,T_SHIFT_FLYING|55,T_SHIFT_FLYING|133,T_SHIFT_NONE|235,T_SHIFT_NONE|521,T_SHIFT_FLYING|700,T_SHIFT_NONE|509,T_SHIFT_NONE|194,SHIFT_TYPE|T_SHIFT_NONE|655,T_SHIFT_NONE|499,T_SHIFT_NONE|632,T_SHIFT_NONE|155,T_SHIFT_NONE|663,T_SHIFT_NONE|261,SHIFT_TYPE|T_SHIFT_NONE|456,SHIFT_TYPE|T_SHIFT_NONE|362,SHIFT_TYPE|T_SHIFT_NONE|669,T_SHIFT_NONE|136,T_SHIFT_NONE|500,T_SHIFT_FLYING|725,SHIFT_TYPE|T_SHIFT_FLYING|554,T_SHIFT_FLYING|555,SHIFT_TYPE|T_SHIFT_FLYING|566,T_SHIFT_POISON|684,SHIFT_TYPE|T_SHIFT_POISON|79,SHIFT_TYPE|T_SHIFT_FLYING|527,T_SHIFT_ELECTRIC|255,T_SHIFT_ELECTRIC|528,T_SHIFT_NONE|670,T_SHIFT_NONE|498,SHIFT_TYPE|T_SHIFT_FAIRY|671,SHIFT_TYPE|T_SHIFT_NONE|174,T_SHIFT_FLYING|303,T_SHIFT_FLYING|618,T_SHIFT_FLYING|293,SHIFT_TYPE|T_SHIFT_NONE|541,T_SHIFT_NONE|470,T_SHIFT_NONE|351,T_SHIFT_NONE|205,T_SHIFT_FAIRY|615,SHIFT_TYPE|T_SHIFT_FAIRY|309,T_SHIFT_NONE|478,T_SHIFT_NONE|656,SHIFT_TYPE|T_SHIFT_FLYING|762,SHIFT_TYPE|T_SHIFT_FLYING|761,T_SHIFT_FLYING|763,T_SHIFT_NONE|727,T_SHIFT_NONE|58,T_SHIFT_NONE|631,SHIFT_TYPE|T_SHIFT_FLYING|653,T_SHIFT_GROUND|475,T_SHIFT_GROUND|564,T_SHIFT_NONE|78,SHIFT_TYPE|T_SHIFT_NONE|551,SHIFT_TYPE|T_SHIFT_FLYING|130,SHIFT_TYPE|T_SHIFT_PSYCHIC|747,SHIFT_TYPE|T_SHIFT_NONE|423,T_SHIFT_NONE|252,T_SHIFT_NONE|283,T_SHIFT_PSYCHIC|582,T_SHIFT_NONE|583,T_SHIFT_STEEL|584,T_SHIFT_NONE|649,T_SHIFT_FLYING|94,SHIFT_TYPE|T_SHIFT_GROUND|75,T_SHIFT_NONE|76,T_SHIFT_NONE|264,SHIFT_TYPE|T_SHIFT_POISON|627,T_SHIFT_STEEL|254,SHIFT_TYPE|T_SHIFT_ROCK|45,T_SHIFT_FIGHTING|203,T_SHIFT_ICE|487,T_SHIFT_NONE|624,T_SHIFT_NONE|471,SHIFT_TYPE|T_SHIFT_NONE|453,SHIFT_TYPE|T_SHIFT_ROCK|4,T_SHIFT_GROUND|6,T_SHIFT_GROUND|5,SHIFT_TYPE|T_SHIFT_ROCK|42,SHIFT_TYPE|T_SHIFT_NONE|622,SHIFT_TYPE|T_SHIFT_NONE|118,T_SHIFT_FLYING|623,T_SHIFT_FLYING|119,SHIFT_TYPE|T_SHIFT_FLYING|679,SHIFT_TYPE|T_SHIFT_FIRE|210,T_SHIFT_FIRE|784,SHIFT_TYPE|T_SHIFT_DRAGON|660,T_SHIFT_NONE|190,T_SHIFT_NONE|514,SHIFT_TYPE|T_SHIFT_NONE|513,T_SHIFT_NONE|326,T_SHIFT_NONE|383,SHIFT_TYPE|T_SHIFT_NONE|630,T_SHIFT_NONE|282,SHIFT_TYPE|T_SHIFT_PSYCHIC|771,SHIFT_TYPE|T_SHIFT_NONE|21,T_SHIFT_NONE|297,SHIFT_TYPE|T_SHIFT_NONE|427,SHIFT_TYPE|T_SHIFT_NONE|485,SHIFT_TYPE|T_SHIFT_NONE|242,SHIFT_TYPE|T_SHIFT_NONE|449,T_SHIFT_NONE|450,T_SHIFT_GROUND|250,SHIFT_TYPE|T_SHIFT_GROUND|416,T_SHIFT_DARK|720,SHIFT_TYPE|T_SHIFT_FLYING|163,T_SHIFT_FLYING|187,T_SHIFT_GRASS|13,T_SHIFT_NONE|188,SHIFT_TYPE|T_SHIFT_NONE|229,T_SHIFT_NONE|228,T_SHIFT_NONE|591,SHIFT_TYPE|T_SHIFT_FIGHTING|617,T_SHIFT_FIGHTING|258,T_SHIFT_NONE|97,SHIFT_TYPE|T_SHIFT_GROUND|575,SHIFT_TYPE|T_SHIFT_GROUND|22,T_SHIFT_NONE|201,T_SHIFT_NONE|650,T_SHIFT_NONE|651,SHIFT_TYPE|T_SHIFT_NONE|156,T_SHIFT_NONE|636,T_SHIFT_NONE|169,SHIFT_TYPE|T_SHIFT_FLYING|314,T_SHIFT_NONE|753,SHIFT_TYPE|T_SHIFT_POISON|160,SHIFT_TYPE|T_SHIFT_GRASS|395,T_SHIFT_GRASS|560,T_SHIFT_GRASS|710,T_SHIFT_NONE|686,SHIFT_TYPE|T_SHIFT_DARK|360,T_SHIFT_DARK|385,T_SHIFT_FLYING|538,T_SHIFT_FLYING|87,T_SHIFT_FLYING|256,T_SHIFT_FLYING|86,T_SHIFT_FAIRY|140,T_SHIFT_FAIRY|141,SHIFT_TYPE|T_SHIFT_FAIRY|64,SHIFT_TYPE|T_SHIFT_WATER|797,T_SHIFT_FLYING|115,T_SHIFT_NONE|318,SHIFT_TYPE|T_SHIFT_FIGHTING|286,SHIFT_TYPE|T_SHIFT_NONE|237,SHIFT_TYPE|T_SHIFT_NONE|272,SHIFT_TYPE|T_SHIFT_NONE|786,T_SHIFT_GROUND|788,T_SHIFT_FLYING|785,SHIFT_TYPE|T_SHIFT_GHOST|787,T_SHIFT_NONE|633,T_SHIFT_NONE|539,T_SHIFT_NONE|565,T_SHIFT_NONE|158,T_SHIFT_NONE|129,T_SHIFT_FAIRY|597,T_SHIFT_NONE|798,SHIFT_TYPE|T_SHIFT_NONE|443,T_SHIFT_NONE|352,T_SHIFT_GHOST|221,SHIFT_TYPE|T_SHIFT_FAIRY|647,T_SHIFT_ROCK|106,T_SHIFT_ROCK|524,T_SHIFT_ROCK|420,T_SHIFT_PSYCHIC|371,SHIFT_TYPE|T_SHIFT_PSYCHIC|99,T_SHIFT_NONE|421,T_SHIFT_NONE|281,T_SHIFT_NONE|74,SHIFT_TYPE|T_SHIFT_NONE|510,SHIFT_TYPE|T_SHIFT_NONE|601,SHIFT_TYPE|T_SHIFT_NONE|599,T_SHIFT_POISON|600,SHIFT_TYPE|T_SHIFT_NONE|433,T_SHIFT_NONE|328,SHIFT_TYPE|T_SHIFT_DARK|445,SHIFT_TYPE|T_SHIFT_DARK|444,T_SHIFT_NONE|285,T_SHIFT_NONE|779,T_SHIFT_GROUND|69,SHIFT_TYPE|T_SHIFT_GROUND|105,SHIFT_TYPE|T_SHIFT_NONE|406,T_SHIFT_NONE|40,T_SHIFT_NONE|775,SHIFT_TYPE|T_SHIFT_NONE|638,T_SHIFT_NONE|408,SHIFT_TYPE|T_SHIFT_DRAGON|103,T_SHIFT_DRAGON|14,SHIFT_TYPE|T_SHIFT_NONE|765,T_SHIFT_DARK|760,T_SHIFT_FLYING|739,SHIFT_TYPE|T_SHIFT_FLYING|98,T_SHIFT_NONE|294,T_SHIFT_NONE|430,T_SHIFT_PSYCHIC|198,T_SHIFT_PSYCHIC|740,T_SHIFT_GROUND|295,T_SHIFT_GROUND|341,T_SHIFT_NONE|342,T_SHIFT_DARK|586,SHIFT_TYPE|T_SHIFT_PSYCHIC|442,T_SHIFT_PSYCHIC|505,T_SHIFT_GRASS|238,T_SHIFT_GRASS|382,T_SHIFT_BUG|646,T_SHIFT_BUG|80,T_SHIFT_NONE|756,T_SHIFT_NONE|170,SHIFT_TYPE|T_SHIFT_NONE|171,SHIFT_TYPE|T_SHIFT_NONE|131,T_SHIFT_NONE|246,T_SHIFT_NONE|199,T_SHIFT_NONE|608,T_SHIFT_NONE|380,T_SHIFT_FLYING|381,T_SHIFT_NONE|588,T_SHIFT_NONE|146,T_SHIFT_NONE|166,T_SHIFT_NONE|165,T_SHIFT_NONE|101,SHIFT_TYPE|T_SHIFT_WATER|344,SHIFT_TYPE|T_SHIFT_WATER|289,T_SHIFT_WATER|667,SHIFT_TYPE|T_SHIFT_NONE|330,T_SHIFT_NONE|607,T_SHIFT_NONE|370,T_SHIFT_ROCK|345,SHIFT_TYPE|T_SHIFT_NONE|548,T_SHIFT_NONE|619,T_SHIFT_NONE|557,T_SHIFT_FLYING|257,SHIFT_TYPE|T_SHIFT_PSYCHIC|271,T_SHIFT_PSYCHIC|153,SHIFT_TYPE|T_SHIFT_PSYCHIC|270,SHIFT_TYPE|T_SHIFT_NONE|448,SHIFT_TYPE|T_SHIFT_NONE|249,SHIFT_TYPE|T_SHIFT_NONE|457,T_SHIFT_PSYCHIC|792,T_SHIFT_PSYCHIC|337,T_SHIFT_NONE|746,SHIFT_TYPE|T_SHIFT_NONE|404,SHIFT_TYPE|T_SHIFT_FLYING|405,T_SHIFT_PSYCHIC|736,SHIFT_TYPE|T_SHIFT_NONE|66,SHIFT_TYPE|T_SHIFT_NONE|68,SHIFT_TYPE|T_SHIFT_NONE|467,SHIFT_TYPE|T_SHIFT_GROUND|240,T_SHIFT_NONE|219,T_SHIFT_FIGHTING|801,T_SHIFT_FIGHTING|126,SHIFT_TYPE|T_SHIFT_NONE|262,SHIFT_TYPE|T_SHIFT_NONE|81,T_SHIFT_STEEL|82,SHIFT_TYPE|T_SHIFT_FLYING|462,SHIFT_TYPE|T_SHIFT_FLYING|562,SHIFT_TYPE|T_SHIFT_FLYING|296,SHIFT_TYPE|T_SHIFT_NONE|594,T_SHIFT_WATER|446,T_SHIFT_NONE|473,T_SHIFT_NONE|490,SHIFT_TYPE|T_SHIFT_NONE|734,SHIFT_TYPE|T_SHIFT_NONE|735,T_SHIFT_NONE|226,SHIFT_TYPE|T_SHIFT_POISON|754,T_SHIFT_POISON|458,T_SHIFT_NONE|556,T_SHIFT_NONE|729,T_SHIFT_STEEL|183,SHIFT_TYPE|T_SHIFT_STEEL|67,SHIFT_TYPE|T_SHIFT_NONE|284,T_SHIFT_GRASS|794,SHIFT_TYPE|T_SHIFT_FLYING|542,T_SHIFT_FLYING|52,T_SHIFT_FLYING|612,SHIFT_TYPE|T_SHIFT_NONE|536,SHIFT_TYPE|T_SHIFT_NONE|783,T_SHIFT_NONE|308,T_SHIFT_NONE|307,T_SHIFT_NONE|606,T_SHIFT_NONE|154,SHIFT_TYPE|T_SHIFT_GROUND|534,SHIFT_TYPE|T_SHIFT_NONE|648,T_SHIFT_FLYING|56,SHIFT_TYPE|T_SHIFT_FLYING|376,T_SHIFT_NONE|375,SHIFT_TYPE|T_SHIFT_NONE|774,SHIFT_TYPE|T_SHIFT_NONE|151,T_SHIFT_FLYING|150,T_SHIFT_NONE|726,SHIFT_TYPE|T_SHIFT_NONE|350,SHIFT_TYPE|T_SHIFT_NONE|241,T_SHIFT_DARK|610,SHIFT_TYPE|T_SHIFT_DARK|778,T_SHIFT_PSYCHIC|782,T_SHIFT_PSYCHIC|312,T_SHIFT_NONE|578,SHIFT_TYPE|T_SHIFT_FAIRY|438,T_SHIFT_NONE|185,SHIFT_TYPE|T_SHIFT_FLYING|574,T_SHIFT_DARK|757,SHIFT_TYPE|T_SHIFT_GROUND|697,T_SHIFT_GROUND|577,T_SHIFT_GROUND|259,SHIFT_TYPE|T_SHIFT_NONE|576,SHIFT_TYPE|T_SHIFT_NONE|195,T_SHIFT_STEEL|781,T_SHIFT_NONE|414,T_SHIFT_NONE|288,SHIFT_TYPE|T_SHIFT_BUG|90,SHIFT_TYPE|T_SHIFT_DARK|43,SHIFT_TYPE|T_SHIFT_FIGHTING|672,SHIFT_TYPE|T_SHIFT_FIGHTING|197,T_SHIFT_NONE|504,T_SHIFT_NONE|299,SHIFT_TYPE|T_SHIFT_NONE|177,SHIFT_TYPE|T_SHIFT_FLYING|520,T_SHIFT_ICE|92,T_SHIFT_ICE|800,SHIFT_TYPE|T_SHIFT_ICE|34,SHIFT_TYPE|T_SHIFT_STEEL|31,T_SHIFT_NONE|32,SHIFT_TYPE|T_SHIFT_ROCK|29,T_SHIFT_NONE|30,T_SHIFT_NONE|33,SHIFT_TYPE|T_SHIFT_NONE|290,T_SHIFT_FLYING|291,SHIFT_TYPE|T_SHIFT_FLYING|292,SHIFT_TYPE|T_SHIFT_NONE|107,T_SHIFT_NONE|164,T_SHIFT_FLYING|332,T_SHIFT_GROUND|224,T_SHIFT_NONE|531,T_SHIFT_FIGHTING|49,T_SHIFT_STEEL|95,SHIFT_TYPE|T_SHIFT_NONE|501,T_SHIFT_GHOST|102,SHIFT_TYPE|T_SHIFT_GHOST|417,T_SHIFT_NONE|358,T_SHIFT_NONE|484,T_SHIFT_NONE|674,SHIFT_TYPE|T_SHIFT_DRAGON|750,T_SHIFT_DRAGON|749,T_SHIFT_STEEL|675,SHIFT_TYPE|T_SHIFT_NONE|327,SHIFT_TYPE|T_SHIFT_DRAGON|268,T_SHIFT_NONE|392,SHIFT_TYPE|T_SHIFT_NONE|390,T_SHIFT_NONE|391,T_SHIFT_NONE|439,T_SHIFT_NONE|122,SHIFT_TYPE|T_SHIFT_NONE|227,T_SHIFT_FIRE|267,T_SHIFT_NONE|189,SHIFT_TYPE|T_SHIFT_NONE|708,SHIFT_TYPE|T_SHIFT_NONE|46,T_SHIFT_NONE|47,SHIFT_TYPE|T_SHIFT_FIGHTING|682,T_SHIFT_FIGHTING|683,T_SHIFT_NONE|279,SHIFT_TYPE|T_SHIFT_NONE|731,T_SHIFT_NONE|366,T_SHIFT_NONE|613,T_SHIFT_NONE|231,SHIFT_TYPE|T_SHIFT_NONE|489,SHIFT_TYPE|T_SHIFT_NONE|580,SHIFT_TYPE|T_SHIFT_NONE|172,SHIFT_TYPE|T_SHIFT_NONE|572,T_SHIFT_NONE|35,SHIFT_TYPE|T_SHIFT_NONE|173,SHIFT_TYPE|T_SHIFT_NONE|25,T_SHIFT_NONE|127,T_SHIFT_NONE|452,SHIFT_TYPE|T_SHIFT_NONE|451,T_SHIFT_NONE|36,T_SHIFT_NONE|441,T_SHIFT_NONE|393,SHIFT_TYPE|T_SHIFT_FLYING|394,T_SHIFT_FLYING|311,SHIFT_TYPE|T_SHIFT_FLYING|77,SHIFT_TYPE|T_SHIFT_NONE|83,T_SHIFT_NONE|137,T_SHIFT_NONE|474,SHIFT_TYPE|T_SHIFT_NONE|233,T_SHIFT_NONE|213,T_SHIFT_FLYING|532,T_SHIFT_FLYING|730,SHIFT_TYPE|T_SHIFT_NONE|196,T_SHIFT_STEEL|677,SHIFT_TYPE|T_SHIFT_NONE|678,SHIFT_TYPE|T_SHIFT_NONE|269,T_SHIFT_NONE|39,T_SHIFT_NONE|711,T_SHIFT_NONE|247,T_SHIFT_GROUND|665,T_SHIFT_GROUND|343,T_SHIFT_NONE|664,T_SHIFT_NONE|605,T_SHIFT_GRASS|668,SHIFT_TYPE|T_SHIFT_GRASS|592,SHIFT_TYPE|T_SHIFT_GRASS|658,T_SHIFT_POISON|62,T_SHIFT_POISON|60,T_SHIFT_POISON|61,T_SHIFT_FAIRY|766,SHIFT_TYPE|T_SHIFT_FAIRY|186,T_SHIFT_NONE|220,SHIFT_TYPE|T_SHIFT_NONE|324,T_SHIFT_NONE|236,SHIFT_TYPE|T_SHIFT_DARK|553,T_SHIFT_DARK|26,SHIFT_TYPE|T_SHIFT_DARK|243,SHIFT_TYPE|T_SHIFT_NONE|409,SHIFT_TYPE|T_SHIFT_NONE|637,T_SHIFT_NONE|57,T_SHIFT_ROCK|19,T_SHIFT_ROCK|20,SHIFT_TYPE|T_SHIFT_FIGHTING|10,T_SHIFT_FIGHTING|384,SHIFT_TYPE|T_SHIFT_FLYING|378,T_SHIFT_NONE|486,SHIFT_TYPE|T_SHIFT_NONE|377,SHIFT_TYPE|T_SHIFT_ROCK|379,SHIFT_TYPE|T_SHIFT_ROCK|767,T_SHIFT_FLYING|143,T_SHIFT_FLYING|369,T_SHIFT_NONE|223,SHIFT_TYPE|T_SHIFT_NONE|253,T_SHIFT_NONE|643,T_SHIFT_NONE|701,T_SHIFT_NONE|23,SHIFT_TYPE|T_SHIFT_NONE|460,T_SHIFT_NONE|111,T_SHIFT_NONE|464,T_SHIFT_NONE|447,T_SHIFT_NONE|112,T_SHIFT_NONE|728,T_SHIFT_NONE|703,T_SHIFT_FLYING|552,T_SHIFT_FLYING|544,T_SHIFT_NONE|315,SHIFT_TYPE|T_SHIFT_NONE|407,T_SHIFT_NONE|124,T_SHIFT_GRASS|479,T_SHIFT_GRASS|529,T_SHIFT_FLYING|654,T_SHIFT_NONE|685,T_SHIFT_STEEL|11,SHIFT_TYPE|T_SHIFT_POISON|368,T_SHIFT_POISON|273,T_SHIFT_GHOST|28,T_SHIFT_GHOST|27,T_SHIFT_NONE|769,T_SHIFT_ELECTRIC|71,T_SHIFT_ELECTRIC|692,SHIFT_TYPE|T_SHIFT_STEEL|795,T_SHIFT_STEEL|422,T_SHIFT_NONE|535,SHIFT_TYPE|T_SHIFT_NONE|266,T_SHIFT_NONE|212,T_SHIFT_NONE|7,T_SHIFT_NONE|8,T_SHIFT_NONE|410,T_SHIFT_NONE|428,T_SHIFT_NONE|799,SHIFT_TYPE|T_SHIFT_FIRE|317,T_SHIFT_FIRE|316,T_SHIFT_FIRE|108,SHIFT_TYPE|T_SHIFT_NONE|463,T_SHIFT_NONE|339,T_SHIFT_NONE|218,T_SHIFT_NONE|361,T_SHIFT_NONE|616,T_SHIFT_NONE|276,T_SHIFT_NONE|277,SHIFT_TYPE|T_SHIFT_NONE|659,T_SHIFT_ELECTRIC|525,T_SHIFT_NONE|230,T_SHIFT_NONE|364,SHIFT_TYPE|T_SHIFT_NONE|117,SHIFT_TYPE|T_SHIFT_GHOST|363,SHIFT_TYPE|T_SHIFT_GHOST|116,T_SHIFT_STEEL|480,T_SHIFT_STEEL|780,T_SHIFT_NONE|335,T_SHIFT_FLYING|495,SHIFT_TYPE|T_SHIFT_FLYING|497,T_SHIFT_FLYING|585,T_SHIFT_FLYING|621,SHIFT_TYPE|T_SHIFT_NONE|611,SHIFT_TYPE|T_SHIFT_STEEL|492,SHIFT_TYPE|T_SHIFT_DRAGON|403,T_SHIFT_DRAGON|459,T_SHIFT_DRAGON|432,T_SHIFT_FIRE|353,T_SHIFT_FIRE|614,SHIFT_TYPE|T_SHIFT_FIGHTING|123,T_SHIFT_FIGHTING|724,T_SHIFT_FIGHTING|65,SHIFT_TYPE|T_SHIFT_NONE|629,T_SHIFT_FLYING|214,SHIFT_TYPE|T_SHIFT_FIRE|609,T_SHIFT_ELECTRIC|207,T_SHIFT_FLYING|472,T_SHIFT_ICE|434,T_SHIFT_FIGHTING|435,SHIFT_TYPE|T_SHIFT_PSYCHIC|88,SHIFT_TYPE|T_SHIFT_STEEL|89,T_SHIFT_NONE|12,T_SHIFT_NONE|110,SHIFT_TYPE|T_SHIFT_FIGHTING|109,SHIFT_TYPE|T_SHIFT_NONE|461,SHIFT_TYPE|T_SHIFT_NONE|215,T_SHIFT_PSYCHIC|53,SHIFT_TYPE|T_SHIFT_NONE|209,T_SHIFT_NONE|516,T_SHIFT_DARK|515,SHIFT_TYPE|T_SHIFT_NONE|791,T_SHIFT_GROUND|517,T_SHIFT_FLYING|518,T_SHIFT_FLYING|338,T_SHIFT_FLYING|192,T_SHIFT_NONE|191,T_SHIFT_NONE|325,T_SHIFT_FLYING|208,T_SHIFT_NORMAL|530,T_SHIFT_NORMAL|396,T_SHIFT_NONE|398,T_SHIFT_NONE|397,T_SHIFT_NONE|121,T_SHIFT_NONE|120,T_SHIFT_NONE|306,T_SHIFT_NONE|305,T_SHIFT_DARK|304,T_SHIFT_NONE|540,T_SHIFT_NONE|533,T_SHIFT_NONE|245,T_SHIFT_GHOST|260,T_SHIFT_GHOST|581,T_SHIFT_GHOST|561,T_SHIFT_NONE|691,T_SHIFT_NONE|114,T_SHIFT_NONE|465,T_SHIFT_NONE|374,T_SHIFT_PSYCHIC|204,T_SHIFT_PSYCHIC|590,T_SHIFT_WATER|17,T_SHIFT_WATER|18,T_SHIFT_WATER|16,T_SHIFT_DRAGON|128,T_SHIFT_NONE|768,T_SHIFT_NONE|216,T_SHIFT_NORMAL|275,T_SHIFT_NORMAL|72,T_SHIFT_DRAGON|598,T_SHIFT_DRAGON|73,T_SHIFT_ICE|639,T_SHIFT_ICE|507,T_SHIFT_NONE|689,T_SHIFT_FLYING|482,T_SHIFT_FAIRY|777,T_SHIFT_FAIRY|468,T_SHIFT_NONE|175,T_SHIFT_NONE|176,T_SHIFT_NONE|319,T_SHIFT_FAIRY|157,T_SHIFT_GRASS|776,T_SHIFT_GRASS|543,T_SHIFT_GRASS|454,T_SHIFT_GRASS|104,T_SHIFT_NONE|280,T_SHIFT_NONE|96,T_SHIFT_DRAGON|200,T_SHIFT_DRAGON|429,T_SHIFT_NONE|635,T_SHIFT_FLYING|709,T_SHIFT_GROUND|732,T_SHIFT_FAIRY|357,T_SHIFT_GHOST|733,T_SHIFT_WATER|9,T_SHIFT_FLYING|331,T_SHIFT_FLYING|772,T_SHIFT_GHOST|159,T_SHIFT_NONE|715,T_SHIFT_NONE|70,T_SHIFT_DARK|568,T_SHIFT_NONE|217,T_SHIFT_NONE|512,T_SHIFT_FAIRY|511,T_SHIFT_FLYING|759,T_SHIFT_FLYING|455,T_SHIFT_FLYING|481,T_SHIFT_NONE|329,T_SHIFT_NONE|494,T_SHIFT_NONE|336,T_SHIFT_ELECTRIC|640,T_SHIFT_ELECTRIC|705,T_SHIFT_NONE|706,T_SHIFT_ICE|704,T_SHIFT_FLYING|666,T_SHIFT_FAIRY|313,T_SHIFT_FAIRY|721,T_SHIFT_NONE|310,T_SHIFT_NONE|179,T_SHIFT_NONE|100,T_SHIFT_WATER|642,T_SHIFT_WATER|796,T_SHIFT_NONE|596,T_SHIFT_NONE|476,T_SHIFT_BUG|38,T_SHIFT_BUG|37,T_SHIFT_NONE|180,T_SHIFT_NONE|333,T_SHIFT_FAIRY|415,T_SHIFT_FAIRY|320,T_SHIFT_FIRE|321,T_SHIFT_FIRE|365,T_SHIFT_FIGHTING|628,T_SHIFT_FIGHTING|595,T_SHIFT_NONE|546,T_SHIFT_NONE|265,T_SHIFT_NONE|167,T_SHIFT_NONE|340,T_SHIFT_PSYCHIC|620,T_SHIFT_NONE|346,T_SHIFT_WATER|162,T_SHIFT_WATER|161,T_SHIFT_GROUND|278,T_SHIFT_GROUND|202,T_SHIFT_NONE|745,T_SHIFT_NONE|742,T_SHIFT_NONE|440,T_SHIFT_FLYING|744,T_SHIFT_NONE|693,T_SHIFT_DRAGON|178,T_SHIFT_STEEL|716,T_SHIFT_FAIRY|193,T_SHIFT_PSYCHIC|469,T_SHIFT_DRAGON|506,T_SHIFT_GRASS|717,T_SHIFT_NONE|145,T_SHIFT_FIGHTING|603,T_SHIFT_FIGHTING|604,T_SHIFT_FAIRY|602,T_SHIFT_FAIRY|523,T_SHIFT_FAIRY|644,T_SHIFT_FAIRY|263,T_SHIFT_NONE|402,T_SHIFT_NONE|401,T_SHIFT_STEEL|302,T_SHIFT_GHOST|571,T_SHIFT_POISON|570,T_SHIFT_FIGHTING|41,T_SHIFT_FIGHTING|559,T_SHIFT_NONE|477,T_SHIFT_FLYING|356,T_SHIFT_STEEL|355,T_SHIFT_DRAGON|502,T_SHIFT_NONE|718,T_SHIFT_FAIRY|579,0}
 };
 
-/* Array for the mega evolution type (all editions/saphir or omege/x or y) and the number of the Pokemon (all in one array to save space)
+/* Array for the alola form, mega evolution type (all editions/saphir or omege/x or y) and the number of the Pokemon (all in one array to save space)
 *
-* 16-14 | 13-11 | 10-1
-*       | MEGA  | Number
+* 16-15 | 14    | 13-11 | 10-1
+*       | ALOLA | MEGA  | Number
 */
-static const uint16_t mega_free4_game2_number10[NUM_MEGA] = {
-MEGA_ALL|3,
-MEGA_X|6,
-MEGA_Y|6,
-MEGA_ALL|9,
-MEGA_SR|15,
-MEGA_SR|18,
-MEGA_ALL|65,
-MEGA_SR|80,
-MEGA_ALL|94,
-MEGA_ALL|115,
-MEGA_ALL|127,
-MEGA_ALL|130,
-MEGA_ALL|142,
-MEGA_X|150,
-MEGA_Y|150,
-MEGA_ALL|181,
-MEGA_SR|208,
-MEGA_ALL|212,
-MEGA_ALL|214,
-MEGA_ALL|229,
-MEGA_ALL|248,
-MEGA_SR|254,
-MEGA_ALL|257,
-MEGA_SR|260,
-MEGA_ALL|282,
-MEGA_SR|302,
-MEGA_ALL|303,
-MEGA_ALL|306,
-MEGA_ALL|308,
-MEGA_ALL|310,
-MEGA_SR|319,
-MEGA_SR|323,
-MEGA_SR|334,
-MEGA_ALL|354,
-MEGA_ALL|359,
-MEGA_SR|362,
-MEGA_SR|373,
-MEGA_SR|376,
-MEGA_SR|380,
-MEGA_SR|381,
-MEGA_SR|384,
-MEGA_SR|428,
-MEGA_ALL|445,
-MEGA_ALL|448,
-MEGA_ALL|460,
-MEGA_SR|475,
-MEGA_SR|531,
-MEGA_SR|719,
-};
-
-//Types of the mega evolution Pokemon
-static const uint8_t mega_type[NUM_MEGA*2] = {
-T_GRASS, T_POISON,
-T_FIRE, T_DRAGON,
-T_FIRE, T_FLYING,
-T_WATER, T_NONE,
-T_BUG, T_POISON,
-T_NORMAL, T_FLYING,
-T_PSYCHIC, T_NONE,
-T_WATER, T_PSYCHIC,
-T_GHOST, T_POISON,
-T_NORMAL, T_NONE,
-T_BUG, T_FLYING,
-T_WATER, T_DARK,
-T_ROCK, T_FLYING,
-T_PSYCHIC, T_FIGHTING,
-T_PSYCHIC, T_NONE,
-T_ELECTRIC, T_DRAGON,
-T_STEEL, T_GROUND,
-T_BUG, T_STEEL,
-T_BUG, T_FIGHTING,
-T_DARK, T_FIRE,
-T_ROCK, T_DARK,
-T_GRASS, T_DRAGON,
-T_FIRE, T_FIGHTING,
-T_WATER, T_GROUND,
-T_PSYCHIC, T_FAIRY,
-T_DARK, T_GHOST,
-T_STEEL, T_FAIRY,
-T_STEEL, T_NONE,
-T_FIGHTING, T_PSYCHIC,
-T_ELECTRIC, T_NONE,
-T_WATER, T_DARK,
-T_FIRE, T_GROUND,
-T_DRAGON, T_FAIRY,
-T_GHOST, T_NONE,
-T_DARK, T_NONE,
-T_ICE, T_NONE,
-T_DRAGON, T_FLYING,
-T_STEEL, T_PSYCHIC,
-T_DRAGON, T_PSYCHIC,
-T_DRAGON, T_PSYCHIC,
-T_DRAGON, T_FLYING,
-T_NORMAL, T_FIGHTING,
-T_DRAGON, T_GROUND,
-T_FIGHTING, T_STEEL,
-T_GRASS, T_ICE,
-T_PSYCHIC, T_FIGHTING,
-T_NORMAL, T_FAIRY,
-T_ROCK, T_FAIRY
-};
+//ruby generate.rb mega
+//ruby generate.rb alola
+static const uint16_t free3_alola1_game2_number10[NUM_MEGA+NUM_ALOLA] = {MEGA_ALL|3,MEGA_X|6,MEGA_Y|6,MEGA_ALL|9,MEGA_SR|15,MEGA_SR|18,MEGA_ALL|65,MEGA_SR|80,MEGA_ALL|94,MEGA_ALL|115,MEGA_ALL|127,MEGA_ALL|130,MEGA_ALL|142,MEGA_X|150,MEGA_Y|150,MEGA_ALL|181,MEGA_SR|208,MEGA_ALL|212,MEGA_ALL|214,MEGA_ALL|229,MEGA_ALL|248,MEGA_SR|254,MEGA_ALL|257,MEGA_SR|260,MEGA_ALL|282,MEGA_SR|302,MEGA_ALL|303,MEGA_ALL|306,MEGA_ALL|308,MEGA_ALL|310,MEGA_SR|319,MEGA_SR|323,MEGA_SR|334,MEGA_ALL|354,MEGA_ALL|359,MEGA_SR|362,MEGA_SR|373,MEGA_SR|376,MEGA_SR|380,MEGA_SR|381,MEGA_SR|384,MEGA_SR|428,MEGA_ALL|445,MEGA_ALL|448,MEGA_ALL|460,MEGA_SR|475,MEGA_SR|531,MEGA_SR|719,ALOLA|19,ALOLA|20,ALOLA|26,ALOLA|27,ALOLA|28,ALOLA|37,ALOLA|38,ALOLA|50,ALOLA|51,ALOLA|52,ALOLA|53,ALOLA|74,ALOLA|75,ALOLA|76,ALOLA|88,ALOLA|89,ALOLA|103,ALOLA|105};
 
 //Pokemon images
+//ruby generate.rb ids
 static const uint8_t poke_images[NUM_POKEMON/IMAGES_EACH_ROW+1] = {
 RESOURCE_ID_IMAGE_POKE001,
-RESOURCE_ID_IMAGE_POKE008,
-RESOURCE_ID_IMAGE_POKE015,
-RESOURCE_ID_IMAGE_POKE022,
-RESOURCE_ID_IMAGE_POKE029,
-RESOURCE_ID_IMAGE_POKE036,
-RESOURCE_ID_IMAGE_POKE043,
-RESOURCE_ID_IMAGE_POKE050,
-RESOURCE_ID_IMAGE_POKE057,
+RESOURCE_ID_IMAGE_POKE010,
+RESOURCE_ID_IMAGE_POKE019,
+RESOURCE_ID_IMAGE_POKE028,
+RESOURCE_ID_IMAGE_POKE037,
+RESOURCE_ID_IMAGE_POKE046,
+RESOURCE_ID_IMAGE_POKE055,
 RESOURCE_ID_IMAGE_POKE064,
-RESOURCE_ID_IMAGE_POKE071,
-RESOURCE_ID_IMAGE_POKE078,
-RESOURCE_ID_IMAGE_POKE085,
-RESOURCE_ID_IMAGE_POKE092,
-RESOURCE_ID_IMAGE_POKE099,
-RESOURCE_ID_IMAGE_POKE106,
-RESOURCE_ID_IMAGE_POKE113,
-RESOURCE_ID_IMAGE_POKE120,
+RESOURCE_ID_IMAGE_POKE073,
+RESOURCE_ID_IMAGE_POKE082,
+RESOURCE_ID_IMAGE_POKE091,
+RESOURCE_ID_IMAGE_POKE100,
+RESOURCE_ID_IMAGE_POKE109,
+RESOURCE_ID_IMAGE_POKE118,
 RESOURCE_ID_IMAGE_POKE127,
-RESOURCE_ID_IMAGE_POKE134,
-RESOURCE_ID_IMAGE_POKE141,
-RESOURCE_ID_IMAGE_POKE148,
-RESOURCE_ID_IMAGE_POKE155,
-RESOURCE_ID_IMAGE_POKE162,
-RESOURCE_ID_IMAGE_POKE169,
-RESOURCE_ID_IMAGE_POKE176,
-RESOURCE_ID_IMAGE_POKE183,
+RESOURCE_ID_IMAGE_POKE136,
+RESOURCE_ID_IMAGE_POKE145,
+RESOURCE_ID_IMAGE_POKE154,
+RESOURCE_ID_IMAGE_POKE163,
+RESOURCE_ID_IMAGE_POKE172,
+RESOURCE_ID_IMAGE_POKE181,
 RESOURCE_ID_IMAGE_POKE190,
-RESOURCE_ID_IMAGE_POKE197,
-RESOURCE_ID_IMAGE_POKE204,
-RESOURCE_ID_IMAGE_POKE211,
-RESOURCE_ID_IMAGE_POKE218,
-RESOURCE_ID_IMAGE_POKE225,
-RESOURCE_ID_IMAGE_POKE232,
-RESOURCE_ID_IMAGE_POKE239,
-RESOURCE_ID_IMAGE_POKE246,
+RESOURCE_ID_IMAGE_POKE199,
+RESOURCE_ID_IMAGE_POKE208,
+RESOURCE_ID_IMAGE_POKE217,
+RESOURCE_ID_IMAGE_POKE226,
+RESOURCE_ID_IMAGE_POKE235,
+RESOURCE_ID_IMAGE_POKE244,
 RESOURCE_ID_IMAGE_POKE253,
-RESOURCE_ID_IMAGE_POKE260,
-RESOURCE_ID_IMAGE_POKE267,
-RESOURCE_ID_IMAGE_POKE274,
-RESOURCE_ID_IMAGE_POKE281,
-RESOURCE_ID_IMAGE_POKE288,
-RESOURCE_ID_IMAGE_POKE295,
-RESOURCE_ID_IMAGE_POKE302,
-RESOURCE_ID_IMAGE_POKE309,
+RESOURCE_ID_IMAGE_POKE262,
+RESOURCE_ID_IMAGE_POKE271,
+RESOURCE_ID_IMAGE_POKE280,
+RESOURCE_ID_IMAGE_POKE289,
+RESOURCE_ID_IMAGE_POKE298,
+RESOURCE_ID_IMAGE_POKE307,
 RESOURCE_ID_IMAGE_POKE316,
-RESOURCE_ID_IMAGE_POKE323,
-RESOURCE_ID_IMAGE_POKE330,
-RESOURCE_ID_IMAGE_POKE337,
-RESOURCE_ID_IMAGE_POKE344,
-RESOURCE_ID_IMAGE_POKE351,
-RESOURCE_ID_IMAGE_POKE358,
-RESOURCE_ID_IMAGE_POKE365,
-RESOURCE_ID_IMAGE_POKE372,
+RESOURCE_ID_IMAGE_POKE325,
+RESOURCE_ID_IMAGE_POKE334,
+RESOURCE_ID_IMAGE_POKE343,
+RESOURCE_ID_IMAGE_POKE352,
+RESOURCE_ID_IMAGE_POKE361,
+RESOURCE_ID_IMAGE_POKE370,
 RESOURCE_ID_IMAGE_POKE379,
-RESOURCE_ID_IMAGE_POKE386,
-RESOURCE_ID_IMAGE_POKE393,
-RESOURCE_ID_IMAGE_POKE400,
-RESOURCE_ID_IMAGE_POKE407,
-RESOURCE_ID_IMAGE_POKE414,
-RESOURCE_ID_IMAGE_POKE421,
-RESOURCE_ID_IMAGE_POKE428,
-RESOURCE_ID_IMAGE_POKE435,
+RESOURCE_ID_IMAGE_POKE388,
+RESOURCE_ID_IMAGE_POKE397,
+RESOURCE_ID_IMAGE_POKE406,
+RESOURCE_ID_IMAGE_POKE415,
+RESOURCE_ID_IMAGE_POKE424,
+RESOURCE_ID_IMAGE_POKE433,
 RESOURCE_ID_IMAGE_POKE442,
-RESOURCE_ID_IMAGE_POKE449,
-RESOURCE_ID_IMAGE_POKE456,
-RESOURCE_ID_IMAGE_POKE463,
-RESOURCE_ID_IMAGE_POKE470,
-RESOURCE_ID_IMAGE_POKE477,
-RESOURCE_ID_IMAGE_POKE484,
-RESOURCE_ID_IMAGE_POKE491,
-RESOURCE_ID_IMAGE_POKE498,
+RESOURCE_ID_IMAGE_POKE451,
+RESOURCE_ID_IMAGE_POKE460,
+RESOURCE_ID_IMAGE_POKE469,
+RESOURCE_ID_IMAGE_POKE478,
+RESOURCE_ID_IMAGE_POKE487,
+RESOURCE_ID_IMAGE_POKE496,
 RESOURCE_ID_IMAGE_POKE505,
-RESOURCE_ID_IMAGE_POKE512,
-RESOURCE_ID_IMAGE_POKE519,
-RESOURCE_ID_IMAGE_POKE526,
-RESOURCE_ID_IMAGE_POKE533,
-RESOURCE_ID_IMAGE_POKE540,
-RESOURCE_ID_IMAGE_POKE547,
-RESOURCE_ID_IMAGE_POKE554,
-RESOURCE_ID_IMAGE_POKE561,
+RESOURCE_ID_IMAGE_POKE514,
+RESOURCE_ID_IMAGE_POKE523,
+RESOURCE_ID_IMAGE_POKE532,
+RESOURCE_ID_IMAGE_POKE541,
+RESOURCE_ID_IMAGE_POKE550,
+RESOURCE_ID_IMAGE_POKE559,
 RESOURCE_ID_IMAGE_POKE568,
-RESOURCE_ID_IMAGE_POKE575,
-RESOURCE_ID_IMAGE_POKE582,
-RESOURCE_ID_IMAGE_POKE589,
-RESOURCE_ID_IMAGE_POKE596,
-RESOURCE_ID_IMAGE_POKE603,
-RESOURCE_ID_IMAGE_POKE610,
-RESOURCE_ID_IMAGE_POKE617,
-RESOURCE_ID_IMAGE_POKE624,
+RESOURCE_ID_IMAGE_POKE577,
+RESOURCE_ID_IMAGE_POKE586,
+RESOURCE_ID_IMAGE_POKE595,
+RESOURCE_ID_IMAGE_POKE604,
+RESOURCE_ID_IMAGE_POKE613,
+RESOURCE_ID_IMAGE_POKE622,
 RESOURCE_ID_IMAGE_POKE631,
-RESOURCE_ID_IMAGE_POKE638,
-RESOURCE_ID_IMAGE_POKE645,
-RESOURCE_ID_IMAGE_POKE652,
-RESOURCE_ID_IMAGE_POKE659,
-RESOURCE_ID_IMAGE_POKE666,
-RESOURCE_ID_IMAGE_POKE673,
-RESOURCE_ID_IMAGE_POKE680,
-RESOURCE_ID_IMAGE_POKE687,
+RESOURCE_ID_IMAGE_POKE640,
+RESOURCE_ID_IMAGE_POKE649,
+RESOURCE_ID_IMAGE_POKE658,
+RESOURCE_ID_IMAGE_POKE667,
+RESOURCE_ID_IMAGE_POKE676,
+RESOURCE_ID_IMAGE_POKE685,
 RESOURCE_ID_IMAGE_POKE694,
-RESOURCE_ID_IMAGE_POKE701,
-RESOURCE_ID_IMAGE_POKE708,
-RESOURCE_ID_IMAGE_POKE715
+RESOURCE_ID_IMAGE_POKE703,
+RESOURCE_ID_IMAGE_POKE712,
+RESOURCE_ID_IMAGE_POKE721,
+RESOURCE_ID_IMAGE_POKE730,
+RESOURCE_ID_IMAGE_POKE739,
+RESOURCE_ID_IMAGE_POKE748,
+RESOURCE_ID_IMAGE_POKE757,
+RESOURCE_ID_IMAGE_POKE766,
+RESOURCE_ID_IMAGE_POKE775,
+RESOURCE_ID_IMAGE_POKE784,
+RESOURCE_ID_IMAGE_POKE793
 };
+//To download and generate images run:
+//ruby generate.rb download
+//ruby generate.rb changeSize
+//ruby generate.rb append
+//ruby generate.rb grey
+//ruby generate.rb color
+
+//For appinfo.json run:
+//ruby generate.rb media

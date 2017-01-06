@@ -5,10 +5,11 @@ A Pokédex for the [Pebble Watch](https://getpebble.com/).
 
 ##Features
 
-* all 721 Pokemon (all 6 generations)
-* all Mega Evolutions
+* all 801 Pokemon (all 7 generations)
+* all Mega Evolutions and Alola Forms
 * English and German language
 * numerical and alphabetical order
+* colored images on Pebble Time
 
 
 ##References

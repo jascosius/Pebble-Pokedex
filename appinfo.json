@@ -1,574 +1,1870 @@
 {
+    "name": "Pebble-Pokedex",
+    "author": "Jascosius",
     "companyName": "Jascosius",
-    "longName": "Pebble-Pokedex",
-    "projectType": "native",
-    "appKeys": {
-        "first_lang": 0,
-        "second_lang": 1
-    },
-    "capabilities": [
-        "configurable"
-    ],
-    "sdkVersion": "3",
-    "shortName": "Pokedex",
-    "targetPlatforms": [
-        "aplite"
-    ],
+    "version": "3.2",
+    "versionLabel": "5",
     "uuid": "de728f6b-9afc-480f-9fac-2536c746f344",
-    "versionCode": 4,
-    "versionLabel": "3.1",
-    "watchapp": {
-        "watchface": false
-    },
-    "resources": {
-        "media": [
-            {
-                "file": "images/001.png",
-                "name": "IMAGE_POKE001",
-                "type": "png"
-            },
-            {
-                "file": "images/008.png",
-                "name": "IMAGE_POKE008",
-                "type": "png"
-            },
-            {
-                "file": "images/015.png",
-                "name": "IMAGE_POKE015",
-                "type": "png"
-            },
-            {
-                "file": "images/022.png",
-                "name": "IMAGE_POKE022",
-                "type": "png"
-            },
-            {
-                "file": "images/029.png",
-                "name": "IMAGE_POKE029",
-                "type": "png"
-            },
-            {
-                "file": "images/036.png",
-                "name": "IMAGE_POKE036",
-                "type": "png"
-            },
-            {
-                "file": "images/043.png",
-                "name": "IMAGE_POKE043",
-                "type": "png"
-            },
-            {
-                "file": "images/050.png",
-                "name": "IMAGE_POKE050",
-                "type": "png"
-            },
-            {
-                "file": "images/057.png",
-                "name": "IMAGE_POKE057",
-                "type": "png"
-            },
-            {
-                "file": "images/064.png",
-                "name": "IMAGE_POKE064",
-                "type": "png"
-            },
-            {
-                "file": "images/071.png",
-                "name": "IMAGE_POKE071",
-                "type": "png"
-            },
-            {
-                "file": "images/078.png",
-                "name": "IMAGE_POKE078",
-                "type": "png"
-            },
-            {
-                "file": "images/085.png",
-                "name": "IMAGE_POKE085",
-                "type": "png"
-            },
-            {
-                "file": "images/092.png",
-                "name": "IMAGE_POKE092",
-                "type": "png"
-            },
-            {
-                "file": "images/099.png",
-                "name": "IMAGE_POKE099",
-                "type": "png"
-            },
-            {
-                "file": "images/106.png",
-                "name": "IMAGE_POKE106",
-                "type": "png"
-            },
-            {
-                "file": "images/113.png",
-                "name": "IMAGE_POKE113",
-                "type": "png"
-            },
-            {
-                "file": "images/120.png",
-                "name": "IMAGE_POKE120",
-                "type": "png"
-            },
-            {
-                "file": "images/127.png",
-                "name": "IMAGE_POKE127",
-                "type": "png"
-            },
-            {
-                "file": "images/134.png",
-                "name": "IMAGE_POKE134",
-                "type": "png"
-            },
-            {
-                "file": "images/141.png",
-                "name": "IMAGE_POKE141",
-                "type": "png"
-            },
-            {
-                "file": "images/148.png",
-                "name": "IMAGE_POKE148",
-                "type": "png"
-            },
-            {
-                "file": "images/155.png",
-                "name": "IMAGE_POKE155",
-                "type": "png"
-            },
-            {
-                "file": "images/162.png",
-                "name": "IMAGE_POKE162",
-                "type": "png"
-            },
-            {
-                "file": "images/169.png",
-                "name": "IMAGE_POKE169",
-                "type": "png"
-            },
-            {
-                "file": "images/176.png",
-                "name": "IMAGE_POKE176",
-                "type": "png"
-            },
-            {
-                "file": "images/183.png",
-                "name": "IMAGE_POKE183",
-                "type": "png"
-            },
-            {
-                "file": "images/190.png",
-                "name": "IMAGE_POKE190",
-                "type": "png"
-            },
-            {
-                "file": "images/197.png",
-                "name": "IMAGE_POKE197",
-                "type": "png"
-            },
-            {
-                "file": "images/204.png",
-                "name": "IMAGE_POKE204",
-                "type": "png"
-            },
-            {
-                "file": "images/211.png",
-                "name": "IMAGE_POKE211",
-                "type": "png"
-            },
-            {
-                "file": "images/218.png",
-                "name": "IMAGE_POKE218",
-                "type": "png"
-            },
-            {
-                "file": "images/225.png",
-                "name": "IMAGE_POKE225",
-                "type": "png"
-            },
-            {
-                "file": "images/232.png",
-                "name": "IMAGE_POKE232",
-                "type": "png"
-            },
-            {
-                "file": "images/239.png",
-                "name": "IMAGE_POKE239",
-                "type": "png"
-            },
-            {
-                "file": "images/246.png",
-                "name": "IMAGE_POKE246",
-                "type": "png"
-            },
-            {
-                "file": "images/253.png",
-                "name": "IMAGE_POKE253",
-                "type": "png"
-            },
-            {
-                "file": "images/260.png",
-                "name": "IMAGE_POKE260",
-                "type": "png"
-            },
-            {
-                "file": "images/267.png",
-                "name": "IMAGE_POKE267",
-                "type": "png"
-            },
-            {
-                "file": "images/274.png",
-                "name": "IMAGE_POKE274",
-                "type": "png"
-            },
-            {
-                "file": "images/281.png",
-                "name": "IMAGE_POKE281",
-                "type": "png"
-            },
-            {
-                "file": "images/288.png",
-                "name": "IMAGE_POKE288",
-                "type": "png"
-            },
-            {
-                "file": "images/295.png",
-                "name": "IMAGE_POKE295",
-                "type": "png"
-            },
-            {
-                "file": "images/302.png",
-                "name": "IMAGE_POKE302",
-                "type": "png"
-            },
-            {
-                "file": "images/309.png",
-                "name": "IMAGE_POKE309",
-                "type": "png"
-            },
-            {
-                "file": "images/316.png",
-                "name": "IMAGE_POKE316",
-                "type": "png"
-            },
-            {
-                "file": "images/323.png",
-                "name": "IMAGE_POKE323",
-                "type": "png"
-            },
-            {
-                "file": "images/330.png",
-                "name": "IMAGE_POKE330",
-                "type": "png"
-            },
-            {
-                "file": "images/337.png",
-                "name": "IMAGE_POKE337",
-                "type": "png"
-            },
-            {
-                "file": "images/344.png",
-                "name": "IMAGE_POKE344",
-                "type": "png"
-            },
-            {
-                "file": "images/351.png",
-                "name": "IMAGE_POKE351",
-                "type": "png"
-            },
-            {
-                "file": "images/358.png",
-                "name": "IMAGE_POKE358",
-                "type": "png"
-            },
-            {
-                "file": "images/365.png",
-                "name": "IMAGE_POKE365",
-                "type": "png"
-            },
-            {
-                "file": "images/372.png",
-                "name": "IMAGE_POKE372",
-                "type": "png"
-            },
-            {
-                "file": "images/379.png",
-                "name": "IMAGE_POKE379",
-                "type": "png"
-            },
-            {
-                "file": "images/386.png",
-                "name": "IMAGE_POKE386",
-                "type": "png"
-            },
-            {
-                "file": "images/393.png",
-                "name": "IMAGE_POKE393",
-                "type": "png"
-            },
-            {
-                "file": "images/400.png",
-                "name": "IMAGE_POKE400",
-                "type": "png"
-            },
-            {
-                "file": "images/407.png",
-                "name": "IMAGE_POKE407",
-                "type": "png"
-            },
-            {
-                "file": "images/414.png",
-                "name": "IMAGE_POKE414",
-                "type": "png"
-            },
-            {
-                "file": "images/421.png",
-                "name": "IMAGE_POKE421",
-                "type": "png"
-            },
-            {
-                "file": "images/428.png",
-                "name": "IMAGE_POKE428",
-                "type": "png"
-            },
-            {
-                "file": "images/435.png",
-                "name": "IMAGE_POKE435",
-                "type": "png"
-            },
-            {
-                "file": "images/442.png",
-                "name": "IMAGE_POKE442",
-                "type": "png"
-            },
-            {
-                "file": "images/449.png",
-                "name": "IMAGE_POKE449",
-                "type": "png"
-            },
-            {
-                "file": "images/456.png",
-                "name": "IMAGE_POKE456",
-                "type": "png"
-            },
-            {
-                "file": "images/463.png",
-                "name": "IMAGE_POKE463",
-                "type": "png"
-            },
-            {
-                "file": "images/470.png",
-                "name": "IMAGE_POKE470",
-                "type": "png"
-            },
-            {
-                "file": "images/477.png",
-                "name": "IMAGE_POKE477",
-                "type": "png"
-            },
-            {
-                "file": "images/484.png",
-                "name": "IMAGE_POKE484",
-                "type": "png"
-            },
-            {
-                "file": "images/491.png",
-                "name": "IMAGE_POKE491",
-                "type": "png"
-            },
-            {
-                "file": "images/498.png",
-                "name": "IMAGE_POKE498",
-                "type": "png"
-            },
-            {
-                "file": "images/505.png",
-                "name": "IMAGE_POKE505",
-                "type": "png"
-            },
-            {
-                "file": "images/512.png",
-                "name": "IMAGE_POKE512",
-                "type": "png"
-            },
-            {
-                "file": "images/519.png",
-                "name": "IMAGE_POKE519",
-                "type": "png"
-            },
-            {
-                "file": "images/526.png",
-                "name": "IMAGE_POKE526",
-                "type": "png"
-            },
-            {
-                "file": "images/533.png",
-                "name": "IMAGE_POKE533",
-                "type": "png"
-            },
-            {
-                "file": "images/540.png",
-                "name": "IMAGE_POKE540",
-                "type": "png"
-            },
-            {
-                "file": "images/547.png",
-                "name": "IMAGE_POKE547",
-                "type": "png"
-            },
-            {
-                "file": "images/554.png",
-                "name": "IMAGE_POKE554",
-                "type": "png"
-            },
-            {
-                "file": "images/561.png",
-                "name": "IMAGE_POKE561",
-                "type": "png"
-            },
-            {
-                "file": "images/568.png",
-                "name": "IMAGE_POKE568",
-                "type": "png"
-            },
-            {
-                "file": "images/575.png",
-                "name": "IMAGE_POKE575",
-                "type": "png"
-            },
-            {
-                "file": "images/582.png",
-                "name": "IMAGE_POKE582",
-                "type": "png"
-            },
-            {
-                "file": "images/589.png",
-                "name": "IMAGE_POKE589",
-                "type": "png"
-            },
-            {
-                "file": "images/596.png",
-                "name": "IMAGE_POKE596",
-                "type": "png"
-            },
-            {
-                "file": "images/603.png",
-                "name": "IMAGE_POKE603",
-                "type": "png"
-            },
-            {
-                "file": "images/610.png",
-                "name": "IMAGE_POKE610",
-                "type": "png"
-            },
-            {
-                "file": "images/617.png",
-                "name": "IMAGE_POKE617",
-                "type": "png"
-            },
-            {
-                "file": "images/624.png",
-                "name": "IMAGE_POKE624",
-                "type": "png"
-            },
-            {
-                "file": "images/631.png",
-                "name": "IMAGE_POKE631",
-                "type": "png"
-            },
-            {
-                "file": "images/638.png",
-                "name": "IMAGE_POKE638",
-                "type": "png"
-            },
-            {
-                "file": "images/645.png",
-                "name": "IMAGE_POKE645",
-                "type": "png"
-            },
-            {
-                "file": "images/652.png",
-                "name": "IMAGE_POKE652",
-                "type": "png"
-            },
-            {
-                "file": "images/659.png",
-                "name": "IMAGE_POKE659",
-                "type": "png"
-            },
-            {
-                "file": "images/666.png",
-                "name": "IMAGE_POKE666",
-                "type": "png"
-            },
-            {
-                "file": "images/673.png",
-                "name": "IMAGE_POKE673",
-                "type": "png"
-            },
-            {
-                "file": "images/680.png",
-                "name": "IMAGE_POKE680",
-                "type": "png"
-            },
-            {
-                "file": "images/687.png",
-                "name": "IMAGE_POKE687",
-                "type": "png"
-            },
-            {
-                "file": "images/694.png",
-                "name": "IMAGE_POKE694",
-                "type": "png"
-            },
-            {
-                "file": "images/701.png",
-                "name": "IMAGE_POKE701",
-                "type": "png"
-            },
-            {
-                "file": "images/708.png",
-                "name": "IMAGE_POKE708",
-                "type": "png"
-            },
-            {
-                "file": "images/715.png",
-                "name": "IMAGE_POKE715",
-                "type": "png"
-            },
-            {
-                "file": "images/legendary.png",
-                "name": "IMAGE_LEGENDARY",
-                "type": "png"
-            },
-            {
-                "file": "images/mega.png",
-                "name": "IMAGE_MEGA",
-                "type": "png"
-            },
-            {
-                "file": "images/menu_icon.png",
-                "menuIcon": true,
-                "name": "IMAGE_MENU_ICON",
-                "type": "png"
-            },
-            {
-                "file": "images/ui_top.png",
-                "name": "UI_TOP",
-                "type": "png"
-            },
-            {
-                "file": "images/ui_bottom.png",
-                "name": "UI_BOTTOM",
-                "type": "png"
-            },
-            {
-                "file": "fonts/PokemonGB-Regular.ttf",
-                "name": "FONT_PKMN_14",
-                "trackingAdjust": -1,
-                "type": "font"
-            }
-        ]
+    "shortName": "Pokedex",
+    "longName": "Pebble-Pokedex",
+    "sdkVersion": "3",
+    "pebble": {
+        "uuid": "de728f6b-9afc-480f-9fac-2536c746f344",
+        "displayName": "Pokedex",
+        "sdkVersion": "3",
+        
+        "targetPlatforms": [
+            "aplite",
+            "basalt"
+        ],
+        "watchapp": {
+            "watchface": false
+        },
+        "capabilities": [
+            "configurable"
+        ],
+        "messageKeys": [
+            "first_lang",
+            "second_lang"
+        ],
+        "resources": {
+            "media": [
+                                {
+                    "file": "images/001.png",
+                    "name": "IMAGE_POKE001",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/001.png",
+                    "name": "IMAGE_POKE001",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/010.png",
+                    "name": "IMAGE_POKE010",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/010.png",
+                    "name": "IMAGE_POKE010",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/019.png",
+                    "name": "IMAGE_POKE019",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/019.png",
+                    "name": "IMAGE_POKE019",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/028.png",
+                    "name": "IMAGE_POKE028",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/028.png",
+                    "name": "IMAGE_POKE028",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/037.png",
+                    "name": "IMAGE_POKE037",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/037.png",
+                    "name": "IMAGE_POKE037",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/046.png",
+                    "name": "IMAGE_POKE046",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/046.png",
+                    "name": "IMAGE_POKE046",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/055.png",
+                    "name": "IMAGE_POKE055",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/055.png",
+                    "name": "IMAGE_POKE055",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/064.png",
+                    "name": "IMAGE_POKE064",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/064.png",
+                    "name": "IMAGE_POKE064",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/073.png",
+                    "name": "IMAGE_POKE073",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/073.png",
+                    "name": "IMAGE_POKE073",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/082.png",
+                    "name": "IMAGE_POKE082",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/082.png",
+                    "name": "IMAGE_POKE082",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/091.png",
+                    "name": "IMAGE_POKE091",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/091.png",
+                    "name": "IMAGE_POKE091",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/100.png",
+                    "name": "IMAGE_POKE100",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/100.png",
+                    "name": "IMAGE_POKE100",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/109.png",
+                    "name": "IMAGE_POKE109",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/109.png",
+                    "name": "IMAGE_POKE109",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/118.png",
+                    "name": "IMAGE_POKE118",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/118.png",
+                    "name": "IMAGE_POKE118",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/127.png",
+                    "name": "IMAGE_POKE127",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/127.png",
+                    "name": "IMAGE_POKE127",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/136.png",
+                    "name": "IMAGE_POKE136",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/136.png",
+                    "name": "IMAGE_POKE136",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/145.png",
+                    "name": "IMAGE_POKE145",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/145.png",
+                    "name": "IMAGE_POKE145",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/154.png",
+                    "name": "IMAGE_POKE154",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/154.png",
+                    "name": "IMAGE_POKE154",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/163.png",
+                    "name": "IMAGE_POKE163",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/163.png",
+                    "name": "IMAGE_POKE163",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/172.png",
+                    "name": "IMAGE_POKE172",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/172.png",
+                    "name": "IMAGE_POKE172",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/181.png",
+                    "name": "IMAGE_POKE181",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/181.png",
+                    "name": "IMAGE_POKE181",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/190.png",
+                    "name": "IMAGE_POKE190",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/190.png",
+                    "name": "IMAGE_POKE190",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/199.png",
+                    "name": "IMAGE_POKE199",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/199.png",
+                    "name": "IMAGE_POKE199",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/208.png",
+                    "name": "IMAGE_POKE208",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/208.png",
+                    "name": "IMAGE_POKE208",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/217.png",
+                    "name": "IMAGE_POKE217",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/217.png",
+                    "name": "IMAGE_POKE217",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/226.png",
+                    "name": "IMAGE_POKE226",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/226.png",
+                    "name": "IMAGE_POKE226",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/235.png",
+                    "name": "IMAGE_POKE235",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/235.png",
+                    "name": "IMAGE_POKE235",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/244.png",
+                    "name": "IMAGE_POKE244",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/244.png",
+                    "name": "IMAGE_POKE244",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/253.png",
+                    "name": "IMAGE_POKE253",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/253.png",
+                    "name": "IMAGE_POKE253",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/262.png",
+                    "name": "IMAGE_POKE262",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/262.png",
+                    "name": "IMAGE_POKE262",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/271.png",
+                    "name": "IMAGE_POKE271",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/271.png",
+                    "name": "IMAGE_POKE271",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/280.png",
+                    "name": "IMAGE_POKE280",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/280.png",
+                    "name": "IMAGE_POKE280",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/289.png",
+                    "name": "IMAGE_POKE289",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/289.png",
+                    "name": "IMAGE_POKE289",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/298.png",
+                    "name": "IMAGE_POKE298",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/298.png",
+                    "name": "IMAGE_POKE298",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/307.png",
+                    "name": "IMAGE_POKE307",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/307.png",
+                    "name": "IMAGE_POKE307",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/316.png",
+                    "name": "IMAGE_POKE316",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/316.png",
+                    "name": "IMAGE_POKE316",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/325.png",
+                    "name": "IMAGE_POKE325",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/325.png",
+                    "name": "IMAGE_POKE325",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/334.png",
+                    "name": "IMAGE_POKE334",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/334.png",
+                    "name": "IMAGE_POKE334",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/343.png",
+                    "name": "IMAGE_POKE343",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/343.png",
+                    "name": "IMAGE_POKE343",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/352.png",
+                    "name": "IMAGE_POKE352",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/352.png",
+                    "name": "IMAGE_POKE352",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/361.png",
+                    "name": "IMAGE_POKE361",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/361.png",
+                    "name": "IMAGE_POKE361",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/370.png",
+                    "name": "IMAGE_POKE370",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/370.png",
+                    "name": "IMAGE_POKE370",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/379.png",
+                    "name": "IMAGE_POKE379",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/379.png",
+                    "name": "IMAGE_POKE379",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/388.png",
+                    "name": "IMAGE_POKE388",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/388.png",
+                    "name": "IMAGE_POKE388",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/397.png",
+                    "name": "IMAGE_POKE397",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/397.png",
+                    "name": "IMAGE_POKE397",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/406.png",
+                    "name": "IMAGE_POKE406",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/406.png",
+                    "name": "IMAGE_POKE406",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/415.png",
+                    "name": "IMAGE_POKE415",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/415.png",
+                    "name": "IMAGE_POKE415",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/424.png",
+                    "name": "IMAGE_POKE424",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/424.png",
+                    "name": "IMAGE_POKE424",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/433.png",
+                    "name": "IMAGE_POKE433",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/433.png",
+                    "name": "IMAGE_POKE433",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/442.png",
+                    "name": "IMAGE_POKE442",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/442.png",
+                    "name": "IMAGE_POKE442",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/451.png",
+                    "name": "IMAGE_POKE451",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/451.png",
+                    "name": "IMAGE_POKE451",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/460.png",
+                    "name": "IMAGE_POKE460",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/460.png",
+                    "name": "IMAGE_POKE460",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/469.png",
+                    "name": "IMAGE_POKE469",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/469.png",
+                    "name": "IMAGE_POKE469",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/478.png",
+                    "name": "IMAGE_POKE478",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/478.png",
+                    "name": "IMAGE_POKE478",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/487.png",
+                    "name": "IMAGE_POKE487",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/487.png",
+                    "name": "IMAGE_POKE487",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/496.png",
+                    "name": "IMAGE_POKE496",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/496.png",
+                    "name": "IMAGE_POKE496",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/505.png",
+                    "name": "IMAGE_POKE505",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/505.png",
+                    "name": "IMAGE_POKE505",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/514.png",
+                    "name": "IMAGE_POKE514",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/514.png",
+                    "name": "IMAGE_POKE514",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/523.png",
+                    "name": "IMAGE_POKE523",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/523.png",
+                    "name": "IMAGE_POKE523",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/532.png",
+                    "name": "IMAGE_POKE532",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/532.png",
+                    "name": "IMAGE_POKE532",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/541.png",
+                    "name": "IMAGE_POKE541",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/541.png",
+                    "name": "IMAGE_POKE541",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/550.png",
+                    "name": "IMAGE_POKE550",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/550.png",
+                    "name": "IMAGE_POKE550",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/559.png",
+                    "name": "IMAGE_POKE559",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/559.png",
+                    "name": "IMAGE_POKE559",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/568.png",
+                    "name": "IMAGE_POKE568",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/568.png",
+                    "name": "IMAGE_POKE568",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/577.png",
+                    "name": "IMAGE_POKE577",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/577.png",
+                    "name": "IMAGE_POKE577",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/586.png",
+                    "name": "IMAGE_POKE586",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/586.png",
+                    "name": "IMAGE_POKE586",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/595.png",
+                    "name": "IMAGE_POKE595",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/595.png",
+                    "name": "IMAGE_POKE595",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/604.png",
+                    "name": "IMAGE_POKE604",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/604.png",
+                    "name": "IMAGE_POKE604",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/613.png",
+                    "name": "IMAGE_POKE613",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/613.png",
+                    "name": "IMAGE_POKE613",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/622.png",
+                    "name": "IMAGE_POKE622",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/622.png",
+                    "name": "IMAGE_POKE622",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/631.png",
+                    "name": "IMAGE_POKE631",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/631.png",
+                    "name": "IMAGE_POKE631",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/640.png",
+                    "name": "IMAGE_POKE640",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/640.png",
+                    "name": "IMAGE_POKE640",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/649.png",
+                    "name": "IMAGE_POKE649",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/649.png",
+                    "name": "IMAGE_POKE649",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/658.png",
+                    "name": "IMAGE_POKE658",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/658.png",
+                    "name": "IMAGE_POKE658",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/667.png",
+                    "name": "IMAGE_POKE667",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/667.png",
+                    "name": "IMAGE_POKE667",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/676.png",
+                    "name": "IMAGE_POKE676",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/676.png",
+                    "name": "IMAGE_POKE676",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/685.png",
+                    "name": "IMAGE_POKE685",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/685.png",
+                    "name": "IMAGE_POKE685",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/694.png",
+                    "name": "IMAGE_POKE694",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/694.png",
+                    "name": "IMAGE_POKE694",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/703.png",
+                    "name": "IMAGE_POKE703",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/703.png",
+                    "name": "IMAGE_POKE703",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/712.png",
+                    "name": "IMAGE_POKE712",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/712.png",
+                    "name": "IMAGE_POKE712",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/721.png",
+                    "name": "IMAGE_POKE721",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/721.png",
+                    "name": "IMAGE_POKE721",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/730.png",
+                    "name": "IMAGE_POKE730",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/730.png",
+                    "name": "IMAGE_POKE730",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/739.png",
+                    "name": "IMAGE_POKE739",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/739.png",
+                    "name": "IMAGE_POKE739",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/748.png",
+                    "name": "IMAGE_POKE748",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/748.png",
+                    "name": "IMAGE_POKE748",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/757.png",
+                    "name": "IMAGE_POKE757",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/757.png",
+                    "name": "IMAGE_POKE757",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/766.png",
+                    "name": "IMAGE_POKE766",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/766.png",
+                    "name": "IMAGE_POKE766",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/775.png",
+                    "name": "IMAGE_POKE775",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/775.png",
+                    "name": "IMAGE_POKE775",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/784.png",
+                    "name": "IMAGE_POKE784",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/784.png",
+                    "name": "IMAGE_POKE784",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/793.png",
+                    "name": "IMAGE_POKE793",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/793.png",
+                    "name": "IMAGE_POKE793",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/menu_icon.png",
+                    "menuIcon": true,
+                    "name": "IMAGE_MENU_ICON",
+                    "type": "bitmap",
+                    "memoryFormat": "Smallest",
+                    "spaceOptimization": "storage"
+                },
+                {
+                    "file": "images/ui_top.png",
+                    "name": "UI_TOP",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/ui_top.png",
+                    "name": "UI_TOP",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "file": "images/ui_bottom.png",
+                    "name": "UI_BOTTOM",
+                    "type": "bitmap",
+                    "memoryFormat": "1Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "aplite"
+                    ]
+                },
+                {
+                    "file": "images/ui_bottom.png",
+                    "name": "UI_BOTTOM",
+                    "type": "bitmap",
+                    "memoryFormat": "8Bit",
+                    "spaceOptimization": "storage",
+                    "targetPlatforms": [
+                        "basalt"
+                    ]
+                },
+                {
+                    "characterRegex": "[A-Za-z0-9äüé+<>:'.-]",
+                    "file": "fonts/Pokemon.ttf",
+                    "name": "FONT_PKMN_14",
+                    "trackingAdjust": -1,
+                    "type": "font"
+                }
+            ]
+        }
     }
 }
