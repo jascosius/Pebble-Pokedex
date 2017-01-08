@@ -2,8 +2,8 @@
     "name": "Pebble-Pokedex",
     "author": "Jascosius",
     "companyName": "Jascosius",
-    "version": "3.2",
-    "versionLabel": "5",
+    "version": "3.3",
+    "versionLabel": "6",
     "uuid": "de728f6b-9afc-480f-9fac-2536c746f344",
     "shortName": "Pokedex",
     "longName": "Pebble-Pokedex",
@@ -1814,7 +1814,7 @@
                     "menuIcon": true,
                     "name": "IMAGE_MENU_ICON",
                     "type": "bitmap",
-                    "memoryFormat": "Smallest",
+                    "memoryFormat": "1Bit",
                     "spaceOptimization": "storage"
                 },
                 {
@@ -1858,7 +1858,7 @@
                     ]
                 },
                 {
-                    "characterRegex": "[A-Za-z0-9äüé+<>:'.-]",
+                    "characterRegex": "[A-Za-z0-9äüé/+<>:'.-]",
                     "file": "fonts/Pokemon.ttf",
                     "name": "FONT_PKMN_14",
                     "trackingAdjust": -1,
