@@ -225,7 +225,7 @@ void update_selection() {
   //search and place image for current pokemon (several images in one file, because of the 256 images restriction)
   int offset = ((currentID-1)%IMAGES_EACH_ROW)*IMAGE_WIDTH;
   poke_image       = gbitmap_create_with_resource(poke_images[(currentID-1)/IMAGES_EACH_ROW]);
-  poke_image_layer = bitmap_layer_create( GRect( 95-offset, STATUS_BAR_LAYER_HEIGHT+32, IMAGE_WIDTH+offset, IMAGE_HEIGHT) );
+  poke_image_layer = bitmap_layer_create( GRect( IMAGE_LEFT-offset, STATUS_BAR_LAYER_HEIGHT+32, IMAGE_WIDTH+offset, IMAGE_HEIGHT) );
   bitmap_layer_set_alignment( poke_image_layer, GAlignLeft);
   bitmap_layer_set_bitmap( poke_image_layer, poke_image);
   layer_insert_below_sibling(bitmap_layer_get_layer( poke_image_layer ), blank_rect_layer);
@@ -424,7 +424,7 @@ void handle_init(void) {
   window_set_click_config_provider( window, click_config_provider );
 
   //////// BLANK ////////////
-  blank_rect_layer = layer_create( GRect( 0, STATUS_BAR_LAYER_HEIGHT+32, 95, 30) );
+  blank_rect_layer = layer_create( GRect( 0, STATUS_BAR_LAYER_HEIGHT+32, IMAGE_LEFT, 30) );
   layer_add_child(window_layer, blank_rect_layer);
   layer_set_update_proc(blank_rect_layer, blank_rect_layer_update);
   

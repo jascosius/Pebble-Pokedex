@@ -63,9 +63,9 @@ def getPokedata(string)
   string.each_line{ |line| 
     line=line.split("\t")
     pokemonData = {number: line[number].strip.to_i,
-                   germanName: line[germanName].strip.gsub("♀"," w").gsub("♂"," m").gsub("’","'"),
-                   englishName: line[englishName].strip.gsub("♀"," f").gsub("♂"," m").gsub("’","'"),
-                   frenchName: line[frenchName].strip.gsub("♀"," f").gsub("♂"," m").gsub("’","'"),
+                   germanName: line[germanName].strip.gsub("♀","{").gsub("♂","}").gsub("’","'"),
+                   englishName: line[englishName].strip.gsub("♀","{").gsub("♂","}").gsub("’","'"),
+                   frenchName: line[frenchName].strip.gsub("♀","{").gsub("♂","}").gsub("’","'"),
                    firstType: getTypes(line[types],1),
                    secondType: getTypes(line[types],2),
                    generation: getGeneration(line[number].strip.to_i),
@@ -109,7 +109,7 @@ def getMegaPokemon(string)
     elsif line[0].start_with?("Mega-")
       counter+=1
       name = line[0].strip.split(" ")
-      data[:name] = name[0][5..-1].gsub("♀"," w").gsub("♂"," m").gsub("’","'")
+      data[:name] = name[0][5..-1].gsub("♀","{").gsub("♂","}").gsub("’","'")
       data[:firstType] = getTypes(line[1],1)
       data[:secondType] = getTypes(line[1],2)
       data[:edition] = line[8].strip.tr("αΩ","")
@@ -130,7 +130,7 @@ def getAlolaPokemon(string)
     if line.length == 1 and line[0].include?(".png")
       counter = 0;
     elsif counter == 0
-      currentPokemonName = line[0].strip.gsub("♀"," w").gsub("♂"," m").gsub("’","'")
+      currentPokemonName = line[0].strip.gsub("♀","{").gsub("♂","}").gsub("’","'")
       counter+=1
     elsif line[0].include? currentPokemonName
       data[:name] = currentPokemonName

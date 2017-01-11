@@ -1858,7 +1858,7 @@
                     ]
                 },
                 {
-                    "characterRegex": "[A-Za-z0-9äüé/+<>:'.-]",
+                    "characterRegex": "[A-Za-z0-9äüßé/+<>{}:'.-]",
                     "file": "fonts/Pokemon.ttf",
                     "name": "FONT_PKMN_14",
                     "trackingAdjust": -1,
